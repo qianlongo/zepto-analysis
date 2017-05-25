@@ -63,15 +63,36 @@ var Zepto = (function () {
     return match
   }
 
+  // 数据类型检测，依赖class2type中的数据，本质还是Object.prototype.toString.call(obj)进行的判断
+  // null 和 undefined各自返回对应值
+  // 其他的数据类型call之后从class2type中查找，没有找到则默认为object类型
+
   function type(obj) {
     return obj == null ? String(obj) :
       class2type[toString.call(obj)] || "object"
   }
 
+  // 使用type函数判断value是否是函数类型
+
   function isFunction(value) { return type(value) == "function" }
+
+  // 判断是不是window对象
+
   function isWindow(obj) { return obj != null && obj == obj.window }
+
+  // 通过判断dom节点的nodeType是否为9，9即是document节点
+
   function isDocument(obj) { return obj != null && obj.nodeType == obj.DOCUMENT_NODE }
+
+  // 使用type函数判断obj是否是对象类型
+
   function isObject(obj) { return type(obj) == "object" }
+
+  // 判断obj是否为纯粹的对象，必须满足
+  // 首先必须是对象 isObject(obj)
+  // 不是 window 对象 !isWindow(obj)
+  // 并且原型要和 Object 的原型相等
+
   function isPlainObject(obj) {
     return isObject(obj) && !isWindow(obj) && Object.getPrototypeOf(obj) == Object.prototype
   }
@@ -412,6 +433,8 @@ var Zepto = (function () {
   }
 
   if (window.JSON) $.parseJSON = JSON.parse
+
+  // 未后面的$.type数据类型函数做准备，得到 class2type = { "[object Boolean]": "boolean" ...}
 
   // Populate the class2type map
   $.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function (i, name) {
