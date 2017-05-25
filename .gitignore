@@ -1,0 +1,9 @@
+dist
+.sass-cache
+.idea
+.tmp-*
+src/images/gen
+node_modules
+downloads*
+./share
+.DS_Store
