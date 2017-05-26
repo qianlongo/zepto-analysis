@@ -304,14 +304,18 @@ var Zepto = (function () {
     return target
   }
 
+  // 一个经过了优化的类似于document.querySelectorAll的函数
+
   // `$.zepto.qsa` is Zepto's CSS selector implementation which
   // uses `document.querySelectorAll` and optimizes for some special cases, like `#id`.
   // This method can be overridden in plugins.
   zepto.qsa = function (element, selector) {
-    var found,
-      maybeID = selector[0] == '#',
-      maybeClass = !maybeID && selector[0] == '.',
+    var found, // 查找到的元素
+      maybeID = selector[0] == '#', // 判断是不是id选择器
+      maybeClass = !maybeID && selector[0] == '.', // 如果不是id，判断是不是class选择器
+      // 如果是id或者class形式的选择器，就切除.或者#只留后面部分 否直接赋值传进来的选择器
       nameOnly = maybeID || maybeClass ? selector.slice(1) : selector, // Ensure that a 1 char tag name still gets checked
+      // 测试nameOnly是不是单个选择器而不是 'name sex'这种有多个的情况
       isSimple = simpleSelectorRE.test(nameOnly)
     return (element.getElementById && isSimple && maybeID) ? // Safari DocumentFragment doesn't have getElementById
       ((found = element.getElementById(nameOnly)) ? [found] : []) :
