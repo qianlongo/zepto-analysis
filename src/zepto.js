@@ -267,16 +267,22 @@ var Zepto = (function () {
   $ = function (selector, context) {
     return zepto.init(selector, context)
   }
-
+  
   function extend(target, source, deep) {
+    // 对源对象source进行遍历
     for (key in source)
+      // 如果source[key]是纯对象或者数组，并且制定为深复制
       if (deep && (isPlainObject(source[key]) || isArray(source[key]))) {
+        // 如果source[key]为纯对象，但是target[key]不是纯对象，则将目标对象的key设置为空对象
         if (isPlainObject(source[key]) && !isPlainObject(target[key]))
           target[key] = {}
+        // 如果  如果source[key]为数组，但是target[key]不是数组，则将目标对象的key设置为数组
         if (isArray(source[key]) && !isArray(target[key]))
           target[key] = []
+        // 递归调用extend函数  
         extend(target[key], source[key], deep)
       }
+      // 浅复制或者source[key]不为undefined，便进行赋值
       else if (source[key] !== undefined) target[key] = source[key]
   }
 
@@ -420,6 +426,8 @@ var Zepto = (function () {
       }
     return flatten(values)
   }
+
+  // 工具方法
 
   $.each = function (elements, callback) {
     var i, key
