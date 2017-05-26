@@ -427,14 +427,20 @@ var Zepto = (function () {
     return flatten(values)
   }
 
-  // 工具方法
+  // 工具方法,用来遍历数组或者对象，类似原生的forEach但是不同的是，可以中断遍历的执行
 
   $.each = function (elements, callback) {
     var i, key
+    // 如果是类数组就走这个if
     if (likeArray(elements)) {
       for (i = 0; i < elements.length; i++)
+        // 可以看到用.call去执行了callback，并且第一个参数是数组中的item
+        // 如果用来遍历dom，那么内部的this，指的就是当前这个元素本身
+        // 判断callback执行的结果，如果是false，就中断遍历
+        // 中断遍历这就是和原生forEach不同的地方
         if (callback.call(elements[i], i, elements[i]) === false) return elements
     } else {
+      // 否则回去走for in循环，逻辑与上面差不多
       for (key in elements)
         if (callback.call(elements[key], key, elements[key]) === false) return elements
     }
