@@ -280,14 +280,20 @@ var Zepto = (function () {
       else if (source[key] !== undefined) target[key] = source[key]
   }
 
+  // 工具函数、可深复制或浅复制
+
   // Copy all but undefined properties from one or more
   // objects to the `target` object.
   $.extend = function (target) {
+    // 将第一个参数之外的参数变成一个数组
     var deep, args = slice.call(arguments, 1)
+    // 处理第一个参数是boolean值的情况，默认是浅复制，深复制第一个参数传true
     if (typeof target == 'boolean') {
       deep = target
       target = args.shift()
     }
+    // $.extend(true, {}, source1, source2, source3)
+    // 有可能有多个source，遍历调用内部extend方法，实现复制
     args.forEach(function (arg) { extend(target, arg, deep) })
     return target
   }
