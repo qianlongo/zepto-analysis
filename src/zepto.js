@@ -412,18 +412,24 @@ var Zepto = (function () {
   $.expr = {}
   $.noop = function () { }
 
+  // 模仿原生的map函数，根据callback的返回值，映射一个新的数组
+
   $.map = function (elements, callback) {
     var value, values = [], i, key
+    // 如果是类数组，则用for循环
     if (likeArray(elements))
       for (i = 0; i < elements.length; i++) {
         value = callback(elements[i], i)
+        // 如果callback的返回值不为null或者undefined，就push进values
         if (value != null) values.push(value)
       }
     else
+      // 对象走这个逻辑
       for (key in elements) {
         value = callback(elements[key], key)
         if (value != null) values.push(value)
       }
+    // 最后返回的是铺平的一维数组  
     return flatten(values)
   }
 
