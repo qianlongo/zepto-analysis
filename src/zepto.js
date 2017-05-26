@@ -397,11 +397,18 @@ var Zepto = (function () {
       !isNaN(num) && isFinite(num) || false
   }
 
+  // 用了原生的数组indexOf方法，判断elem在数组array中的索引位置
+
   $.inArray = function (elem, array, i) {
     return emptyArray.indexOf.call(array, elem, i)
   }
 
+  // 将字符串转成驼峰的形式
+
   $.camelCase = camelize
+
+  // 去除字符串首尾空格，用了原生的trim
+
   $.trim = function (str) {
     return str == null ? "" : String.prototype.trim.call(str)
   }
@@ -453,6 +460,8 @@ var Zepto = (function () {
 
     return elements
   }
+
+  // 其实就是filter，具体含义看filter实现即可
 
   $.grep = function (elements, callback) {
     return filter.call(elements, callback)
