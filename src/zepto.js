@@ -47,7 +47,7 @@ var Zepto = (function () {
       'contenteditable': 'contentEditable'
     },
     isArray = Array.isArray ||
-      function (object) { return object instanceof Array }
+      function (object) { return object instanceof Array } // 其实我们知道这种判断方式是有缺陷的，为什么不用Object.prototype.toString.call(obj) === '[object Array]'呢
 
   zepto.matches = function (element, selector) {
     if (!selector || !element || element.nodeType !== 1) return false
@@ -417,6 +417,9 @@ var Zepto = (function () {
   $.uuid = 0
   $.support = {}
   $.expr = {}
+
+  // 一个空函数，别小瞧它，非常有用
+
   $.noop = function () { }
 
   // 模仿原生的map函数，根据callback的返回值，映射一个新的数组
@@ -467,9 +470,11 @@ var Zepto = (function () {
     return filter.call(elements, callback)
   }
 
+  // 将字符串转成json的方法，注意哟，浏览器支持的情况下，不会有$.parseJSON方法
+
   if (window.JSON) $.parseJSON = JSON.parse
 
-  // 未后面的$.type数据类型函数做准备，得到 class2type = { "[object Boolean]": "boolean" ...}
+  // 为后面的$.type数据类型函数做准备，得到 class2type = { "[object Boolean]": "boolean" ...}
 
   // Populate the class2type map
   $.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function (i, name) {
