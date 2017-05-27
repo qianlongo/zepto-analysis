@@ -214,6 +214,16 @@ var Zepto = (function () {
     return object instanceof zepto.Z
   }
 
+  // $(selector, [context])   ⇒ collection  // 用法1
+  // $(<Zepto collection>)   ⇒ same collection // 用法2
+  // $(<DOM nodes>)   ⇒ collection // 用法3
+  // $(htmlString)   ⇒ collection // 用法4
+  // $(htmlString, attributes)   ⇒ collection v1.0+ // 用法5
+  // Zepto(function($){ ... })   // 用法6
+
+  // 通过以上几种zepto的使用方式来更好的理解init方法，下面的英文也做了介绍
+  // zepto的init方法如果jQ的$.fn.int，可见其重要性
+
   // `$.zepto.init` is Zepto's counterpart to jQuery's `$.fn.init` and
   // takes a CSS selector and an optional context (and handles various
   // special cases).
