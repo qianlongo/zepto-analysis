@@ -46,8 +46,12 @@ var Zepto = (function () {
       'frameborder': 'frameBorder',
       'contenteditable': 'contentEditable'
     },
+
+    // 其实我们知道这种判断方式是有缺陷的，
+    // 为什么不用Object.prototype.toString.call(obj) === '[object Array]'呢
+
     isArray = Array.isArray ||
-      function (object) { return object instanceof Array } // 其实我们知道这种判断方式是有缺陷的，为什么不用Object.prototype.toString.call(obj) === '[object Array]'呢
+      function (object) { return object instanceof Array }
 
   zepto.matches = function (element, selector) {
     if (!selector || !element || element.nodeType !== 1) return false
@@ -159,6 +163,8 @@ var Zepto = (function () {
       slice.call(element.children) :
       $.map(element.childNodes, function (node) { if (node.nodeType == 1) return node })
   }
+
+  // 将dom数组转化为对象的形式
 
   function Z(dom, selector) {
     var i, len = dom ? dom.length : 0
