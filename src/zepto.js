@@ -220,8 +220,14 @@ var Zepto = (function () {
   // This method can be overridden in plugins.
   zepto.init = function (selector, context) {
     var dom
+
+    // 如果没有传入选择器，则返回一个空的Z对象
+
     // If nothing given, return an empty Zepto collection
     if (!selector) return zepto.Z()
+    
+    // 如果传入的是字符串
+
     // Optimize for string selectors
     else if (typeof selector == 'string') {
       selector = selector.trim()
@@ -236,8 +242,14 @@ var Zepto = (function () {
       // If it's a CSS selector, use it to select nodes.
       else dom = zepto.qsa(document, selector)
     }
+
+    // 如果传入的selector是一个函数，那么就是当dom ready的时候执行这个方法
+
     // If a function is given, call it when the DOM is ready
     else if (isFunction(selector)) return $(document).ready(selector)
+
+    // 如果传进来的是Z的实例，那么直接将其返回即可
+
     // If a Zepto collection is given, just return it
     else if (zepto.isZ(selector)) return selector
     else {
@@ -317,6 +329,7 @@ var Zepto = (function () {
       nameOnly = maybeID || maybeClass ? selector.slice(1) : selector, // Ensure that a 1 char tag name still gets checked
       // 测试nameOnly是不是单个选择器而不是 'name sex'这种有多个的情况
       isSimple = simpleSelectorRE.test(nameOnly)
+      
     return (element.getElementById && isSimple && maybeID) ? // Safari DocumentFragment doesn't have getElementById
       ((found = element.getElementById(nameOnly)) ? [found] : []) :
       (element.nodeType !== 1 && element.nodeType !== 9 && element.nodeType !== 11) ? [] :
