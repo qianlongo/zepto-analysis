@@ -101,6 +101,8 @@ var Zepto = (function () {
     return isObject(obj) && !isWindow(obj) && Object.getPrototypeOf(obj) == Object.prototype
   }
 
+  // 判断obj是否为类数组，可以对比underscore中类数组判断的实现，觉得这里有些过于繁杂了
+
   function likeArray(obj) {
     var length = !!obj && 'length' in obj && obj.length,
       type = $.type(obj)
