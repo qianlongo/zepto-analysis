@@ -5,7 +5,11 @@
 var Zepto = (function () {
   // 初始化了一些变量，注意emptyArray
   // 其方便后面读取数组的concat，filter等方法
-  var undefined, key, $, classList, emptyArray = [], concat = emptyArray.concat, filter = emptyArray.filter, slice = emptyArray.slice,
+  var undefined, key, $, classList, 
+    emptyArray = [], 
+    concat = emptyArray.concat, 
+    filter = emptyArray.filter, 
+    slice = emptyArray.slice,
     document = window.document,
     elementDisplay = {}, classCache = {},
     cssNumber = { 'column-count': 1, 'columns': 1, 'font-weight': 1, 'line-height': 1, 'opacity': 1, 'z-index': 1, 'zoom': 1 },
@@ -114,11 +118,12 @@ var Zepto = (function () {
     )
   }
 
-  // compact 去除数组中null和undefined
+  // compact 去除数组中null和undefined,注意判断是用了 != 而不是 !==
 
   function compact(array) { return filter.call(array, function (item) { return item != null }) }
 
-  // flatten 将数组 [1,[2,3],[4,5],6,[7,[89]] 变成 [1,2,3,4,5,6,7,[8,9]] ,这个方法只能展开一层，多层嵌套也只能展开一层
+  // flatten 将数组 [1,[2,3],[4,5],6,[7,[89]] 变成 [1,2,3,4,5,6,7,[8,9]] 
+  // 这个方法只能展开一层，多层嵌套也只能展开一层, 查看数组的concat的使用方式便可以知道为什么只能平铺一层
 
   function flatten(array) { return array.length > 0 ? $.fn.concat.apply([], array) : array }
 
@@ -167,7 +172,7 @@ var Zepto = (function () {
       $.map(element.childNodes, function (node) { if (node.nodeType == 1) return node })
   }
 
-  // 将dom数组转化为对象的形式
+  // 将dom数组转化为对象的形式,也是真正的zepto构造函数
 
   function Z(dom, selector) {
     var i, len = dom ? dom.length : 0
