@@ -375,12 +375,22 @@ var Zepto = (function () {
     return selector == null ? $(nodes) : $(nodes).filter(selector)
   }
 
+  // 工具方法，用来检查parent节点中是否包含node节点
+  // 首先判断是否原生支持该方法，如果支持则使用原生的
+  // 否则通过循环去判断
+
   $.contains = document.documentElement.contains ?
     function (parent, node) {
+      // 防止parent和node传相同的节点，故先parent !== node
+      // 接着就是调用原生的contains方法判断了
       return parent !== node && parent.contains(node)
     } :
     function (parent, node) {
+      // 当node节点存在，就把node的父节点赋值给node
       while (node && (node = node.parentNode))
+        // 如果node的父节点和parent相等就返回true，否则继续向上查找
+        // 其实有一个疑问，为什么开头不先排查node === parent的情况呢
+        // 不然经过循环最后却得到false，非常的浪费
         if (node === parent) return true
       return false
     }
