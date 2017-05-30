@@ -465,6 +465,7 @@ var Zepto = (function () {
   $.camelCase = camelize
 
   // 去除字符串首尾空格，用了原生的trim
+  // 为什么不直接使用str.trim呢？原因可能是怕你传入的不是一个String那么直接调用就出问题了
 
   $.trim = function (str) {
     return str == null ? "" : String.prototype.trim.call(str)
@@ -527,7 +528,7 @@ var Zepto = (function () {
     return filter.call(elements, callback)
   }
 
-  // 将字符串转成json的方法，注意哟，浏览器支持的情况下，不会有$.parseJSON方法
+  // 将字符串转成json的方法，注意哟，浏览器不支持的情况下，不会有$.parseJSON方法
 
   if (window.JSON) $.parseJSON = JSON.parse
 
