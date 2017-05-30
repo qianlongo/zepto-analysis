@@ -3,7 +3,8 @@
 //     Zepto.js may be freely distributed under the MIT license.
 
 var Zepto = (function () {
-  // 初始化了一些变量，注意emptyArray，其方便后面读取数组的concat，filter等方法
+  // 初始化了一些变量，注意emptyArray
+  // 其方便后面读取数组的concat，filter等方法
   var undefined, key, $, classList, emptyArray = [], concat = emptyArray.concat, filter = emptyArray.filter, slice = emptyArray.slice,
     document = window.document,
     elementDisplay = {}, classCache = {},
@@ -1062,6 +1063,13 @@ var Zepto = (function () {
   return $
 })()
 
+// 将Zepto挂载到window对象上
+// 注意哟，这里没有进行amd，cmd形式的模块化
+
 // If `$` is not yet defined, point it to `Zepto`
 window.Zepto = Zepto
+
+// 防止全局的$冲突
+// 比起jQ，_等库提供noConflict方冲突，这种形式不太灵活
+
 window.$ === undefined && (window.$ = Zepto)
