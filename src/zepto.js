@@ -107,11 +107,17 @@ var Zepto = (function () {
   }
 
   // 判断obj是否为类数组，可以对比underscore中类数组判断的实现，觉得这里有些过于繁杂了
+  // 2017-5-31再次补充，其实function和window都有length属性，所以其实是underscore不够严谨
 
   function likeArray(obj) {
+    // 首先obj必须要存在，!!obj 直接过滤掉了false，null，undefined，''等值
+    // 然后obj必须包含length属性
     var length = !!obj && 'length' in obj && obj.length,
+    // 获取obj的数据类型
       type = $.type(obj)
-
+    // 不能是function类型，不能是window
+    // 如果是array则直接返回true
+    // 或者当length的数据类型是number，并且其取值范围是0到(length - 1)这里是通过判断length - 1 是否为obj的属性
     return 'function' != type && !isWindow(obj) && (
       'array' == type || length === 0 ||
       (typeof length == 'number' && length > 0 && (length - 1) in obj)
