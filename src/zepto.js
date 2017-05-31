@@ -673,6 +673,11 @@ var Zepto = (function () {
       })
       return this
     },
+
+    // 过滤出符合selector规则的元素集合
+    // 如果selector是个函数，就两次调用下not函数，第一次得到的是不符合selector结果的，再次调用not，得到的就是符合的了
+    // 如果不是函数的话就遍历当前元素，使用zepto.matches进行判断
+
     filter: function (selector) {
       if (isFunction(selector)) return this.not(this.not(selector))
       return $(filter.call(this, function (element) {
@@ -687,6 +692,9 @@ var Zepto = (function () {
     add: function (selector, context) {
       return $(uniq(this.concat($(selector, context))))
     },
+
+    // 判断集合中的第一个元素是否符合指定的选择器
+
     is: function (selector) {
       return this.length > 0 && zepto.matches(this[0], selector)
     },
