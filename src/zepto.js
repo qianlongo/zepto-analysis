@@ -629,7 +629,9 @@ var Zepto = (function () {
       return this.length
     },
 
-    // 
+    // 删除当前选中的元素
+    // 原理很简单,找到当前元素的父节点
+    // 使用removeChild原生方法删除子节点
 
     remove: function () {
       return this.each(function () {
@@ -656,6 +658,11 @@ var Zepto = (function () {
         return zepto.matches(element, selector)
       }))
     },
+
+    // 添加元素到当前集合中
+    // selector和context与$(selector, context)中一样的用法
+    // 最后做了去重的操作，比如传个空数组啥的进去，就没有必要添加到当前的集合里了
+
     add: function (selector, context) {
       return $(uniq(this.concat($(selector, context))))
     },
@@ -743,6 +750,10 @@ var Zepto = (function () {
         return filter.call(children(el.parentNode), function (child) { return child !== el })
       }), selector)
     },
+
+    // 将当前的集合元素的innerHTML都设置为空
+    // 使用了$.fn的each方法
+
     empty: function () {
       return this.each(function () { this.innerHTML = '' })
     },
