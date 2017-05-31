@@ -189,6 +189,10 @@ var Zepto = (function () {
     return elementDisplay[nodeName]
   }
 
+  // 得到element元素的子元素(nodeType === 1)集合
+  // 如果element支持children属性则直接返回
+  // 反则遍历子节点中nodeType为1的节点（即元素节点）
+
   function children(element) {
     return 'children' in element ?
       slice.call(element.children) :
@@ -686,16 +690,28 @@ var Zepto = (function () {
     is: function (selector) {
       return this.length > 0 && zepto.matches(this[0], selector)
     },
+
+    // 将集合中不符合条件的元素找出来,可以有以下几种调用方式，传选择器、传函数、传一个集合
+    // not(selector)  ⇒ collection
+    // not(collection)  ⇒ collection
+    // not(function(index){ ... })  ⇒ collection
+
     not: function (selector) {
       var nodes = []
+      // 处理函数的调用方式
       if (isFunction(selector) && selector.call !== undefined)
         this.each(function (idx) {
+          // 将函数调用的结果进行取反，即拿到了不符合的条件的dom
           if (!selector.call(this, idx)) nodes.push(this)
         })
       else {
+        // 如果selector是个字符串，那么调用filter
         var excludes = typeof selector == 'string' ? this.filter(selector) :
+        // 否则如果是个类似数组，并且selector.item是个函数，集合是拥有item方法用来访问集合中的元素的
+        // 非类数组且没有item方法的直接调用$方法，不过最后得到的也还是个数组
           (likeArray(selector) && isFunction(selector.item)) ? slice.call(selector) : $(selector)
         this.forEach(function (el) {
+          // 这里就是排查符合条件的判断了
           if (excludes.indexOf(el) < 0) nodes.push(el)
         })
       }
