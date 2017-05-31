@@ -58,17 +58,34 @@ var Zepto = (function () {
     isArray = Array.isArray ||
       function (object) { return object instanceof Array }
 
+  // 检测指定的element元素是否匹配 选择器selector
+  // (一些现代浏览器本身支持该方法 https://developer.mozilla.org/en-US/docs/Web/API/Element/matches)
+
   zepto.matches = function (element, selector) {
+    // 确保element、selector都有传递，并且element是元素节点
     if (!selector || !element || element.nodeType !== 1) return false
+    // 检测原生是都支持matches方法或者带私有前缀的matches方法
     var matchesSelector = element.matches || element.webkitMatchesSelector ||
       element.mozMatchesSelector || element.oMatchesSelector ||
       element.matchesSelector
+    // 如果支持就直接调用原生的  
     if (matchesSelector) return matchesSelector.call(element, selector)
     // fall back to performing a selector:
+    // 如果原生不支持，就模拟。
+    // 如果element的父节点不存在，temp会得到true
     var match, parent = element.parentNode, temp = !parent
+    // 如果element不存在父节点，就讲tempParent(一个空的div元素)赋值为parent，并且将element变成其子节点
     if (temp) (parent = tempParent).appendChild(element)
+    // 再调用zepto.qsa(element, selector)进行查找，结果只有两种
+    // [dom] => element匹配selector选择器
+    // [] => elements不匹配selector选择器
     match = ~zepto.qsa(parent, selector).indexOf(element)
+    // 最后是将tempParent中临时插进去的子节点清除掉
     temp && tempParent.removeChild(element)
+    // 所以最后返回有两种情况
+    // 匹配 -1
+    // 不匹配 0
+    // 为什么不像原生的matches一样返回true或者false呢
     return match
   }
 
