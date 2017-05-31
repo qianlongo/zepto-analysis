@@ -585,6 +585,10 @@ var Zepto = (function () {
     map: function (fn) {
       return $($.map(this, function (el, i) { return fn.call(el, i, el) }))
     },
+
+    // 提取这个数组array的子集，从start开始，如果给定end，提取从从start开始到end结束的元素，但是不包含end位置的元素
+    // 注意返回的结果还是一个zepto对象
+
     slice: function () {
       return $(slice.apply(this, arguments))
     },
@@ -633,6 +637,13 @@ var Zepto = (function () {
           this.parentNode.removeChild(this)
       })
     },
+
+    // 遍历一个对象集合每个元素。
+    // 在迭代函数中，this关键字指向当前项(作为函数的第二个参数传递)。
+    // 如果迭代函数返回 false，遍历结束
+    // 这里巧妙的使用到了every函数，只要有一个值不满足条件就中断遍历并返回false
+    // 注意判断条件用到了 !== 因为函数执行的时候没有显示的返回值，默认是undefined，这个时候还是不能够中断执行的
+
     each: function (callback) {
       emptyArray.every.call(this, function (el, idx) {
         return callback.call(el, idx, el) !== false
