@@ -559,14 +559,26 @@ var Zepto = (function () {
     sort: emptyArray.sort,
     splice: emptyArray.splice,
     indexOf: emptyArray.indexOf,
+
+    // 添加元素到zepto对象中形成一个新的数组
+    // 为什么不直接将数组的concat方法赋值给$.fn.concat呢
+    // 因为zepto对象毕竟不是一个真正的数组，如果直接赋值会导致zepto对象会变成一个item而成为数组的一员
+
     concat: function () {
       var i, value, args = []
+      // 处理arguments参数，话说这里怎么不缓存一下length呢
       for (i = 0; i < arguments.length; i++) {
         value = arguments[i]
+        // 如果集合中的某个元素师zepto对象，就将其变成一个数组
         args[i] = zepto.isZ(value) ? value.toArray() : value
       }
+      // 对当前的this也进行了同样的判断
       return concat.apply(zepto.isZ(this) ? this.toArray() : this, args)
     },
+
+    // 遍历集合中的所有的元素
+    // 通过fn将数组映射成一个新的数组，fn中内部的this指向当前的元素
+    // 最后得到的还是一个zepto对象，所以可以再次调用其相关方法
 
     // `map` and `slice` in the jQuery API work differently
     // from their array counterparts
@@ -602,10 +614,19 @@ var Zepto = (function () {
     get: function (idx) {
       return idx === undefined ? slice.call(this) : this[idx >= 0 ? idx : idx + this.length]
     },
+
+    // 调用本身的get方法，将dom集合变成一个数组
+
     toArray: function () { return this.get() },
+
+    // 获取对象集合中元素的数量
+
     size: function () {
       return this.length
     },
+
+    // 
+
     remove: function () {
       return this.each(function () {
         if (this.parentNode != null)
