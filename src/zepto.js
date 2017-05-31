@@ -544,8 +544,12 @@ var Zepto = (function () {
   // Define methods that will be available on all
   // Zepto collections
   $.fn = {
+    // 指正构造函数指向
     constructor: zepto.Z,
     length: 0,
+
+    // forEach、reduce、push、sort、splice、indexOf是数组的方法
+    // 但是Z对象是个类数组，所以可以"借以用之"
 
     // Because a collection acts like an array
     // copy over these useful array functions.
@@ -589,6 +593,12 @@ var Zepto = (function () {
       }
       return this
     },
+
+    // 类似jQ中的get，返回的是原生的dom对象
+    // 如果没有传idx，那么返回的是当前元素的整体数组
+    // 传入的是正数则按照索引读取dom节点
+    // 负数则是从后面往前读取
+
     get: function (idx) {
       return idx === undefined ? slice.call(this) : this[idx >= 0 ? idx : idx + this.length]
     },
