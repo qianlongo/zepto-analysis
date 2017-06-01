@@ -933,6 +933,11 @@ var Zepto = (function () {
           this.style.display = defaultDisplay(this.nodeName)
       })
     },
+
+    // 将当前集合中的所有元素替换成新的元素newContent
+    // 原理是先将newContent添加到当前元素集合的前面，再将当前元素移除
+    // 为什么不用原生的parent.replaceChild(dom1. dom2)呢
+
     replaceWith: function (newContent) {
       return this.before(newContent).remove()
     },
@@ -973,12 +978,27 @@ var Zepto = (function () {
       })
       return this
     },
+
+    // 将当前元素赋值一份，注意是用了cloneNode这个原生方法，并且传了true
+    // 意味着事件和当前元素的子节点也会被赋值
+    // 其实true设置为参数动态传递应该会比较好吧
+
     clone: function () {
       return this.map(function () { return this.cloneNode(true) })
     },
+
+    // 使用css方法，将当前元素隐藏
+
     hide: function () {
       return this.css("display", "none")
     },
+
+    // 将元素显示隐藏进行切换
+    // 显示 => 隐藏
+    // 隐藏 => 显示
+    // 如果没有传setting参数，就根据元素本身的显示隐藏状态进行切换
+    // 否则根据setting进行切换
+
     toggle: function (setting) {
       return this.each(function () {
         var el = $(this)
