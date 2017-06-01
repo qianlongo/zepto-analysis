@@ -208,11 +208,17 @@ var Zepto = (function () {
   function defaultDisplay(nodeName) {
     var element, display
     if (!elementDisplay[nodeName]) {
+      // 穿件给定标签名的元素
       element = document.createElement(nodeName)
+      // 将element装进body中，不然无法获取到属性值
       document.body.appendChild(element)
+      // 注意getPropertyValue,拿到diaplay的默认值
       display = getComputedStyle(element, '').getPropertyValue("display")
+      // 把刚才装进body的元素删除掉
       element.parentNode.removeChild(element)
+      // 如果display为none，手动将其设置为block（这是为什么呢？样式覆盖？）
       display == "none" && (display = "block")
+      // 缓存进elementDisplay，方便下次直接读取
       elementDisplay[nodeName] = display
     }
     return elementDisplay[nodeName]
@@ -915,9 +921,14 @@ var Zepto = (function () {
     pluck: function (property) {
       return $.map(this, function (el) { return el[property] })
     },
+
+    // 显示元素（这里的显示不一定是block，而是设置不同元素的默认显示）
+
     show: function () {
       return this.each(function () {
+        // 清除元素的内联样式，设置为''便显示出来了
         this.style.display == "none" && (this.style.display = '')
+        // 当样式表中的display为none时，设置为其默认值
         if (getComputedStyle(this, '').getPropertyValue("display") == "none")
           this.style.display = defaultDisplay(this.nodeName)
       })
