@@ -813,6 +813,12 @@ var Zepto = (function () {
         })
       return filtered(ancestors, selector)
     },
+
+    // 获取对象集合中所有元素的父节点，如果传了selector选择器，则众多父节点中帅选出符合其条件的
+    // 实现原理也很简单，首先调用pluck拿到所有的父节点
+    // 接着进行去重处理，毕竟有些元素有共同的父节点
+    // 最后调用filtered帅选出符合selector条件的父节点
+
     parent: function (selector) {
       return filtered(uniq(this.pluck('parentNode')), selector)
     },
@@ -834,6 +840,10 @@ var Zepto = (function () {
     empty: function () {
       return this.each(function () { this.innerHTML = '' })
     },
+
+    // 获取集合对象中所有元素的指定property属性
+    // 实现原理很简单，就是对当前的元素进行遍历，然后读取元素的property属性
+
     // `pluck` is borrowed from Prototype.js
     pluck: function (property) {
       return $.map(this, function (el) { return el[property] })
