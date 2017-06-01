@@ -837,6 +837,12 @@ var Zepto = (function () {
     contents: function () {
       return this.map(function () { return this.contentDocument || slice.call(this.childNodes) })
     },
+
+    // 获取对象集合中所有元素的兄弟节点
+    // 实现思路就是先获取当前元素的父节点，然后获取该父节点的所有子节点
+    // 再从所有子节点中去掉当前元素
+    // 最后如果传了selector，再将所有的子节点过滤出符合selector条件的
+
     siblings: function (selector) {
       return filtered(this.map(function (i, el) {
         return filter.call(children(el.parentNode), function (child) { return child !== el })
@@ -916,7 +922,15 @@ var Zepto = (function () {
           ; (setting === undefined ? el.css("display") == "none" : setting) ? el.show() : el.hide()
       })
     },
+
+    // 获取当前集合中所有元素的前一个兄弟节点
+    // 实现思路就是先拿到当前集合所有节点的前一个兄弟节点，然后对其进行过滤处理，拿到符合selector条件的元素
+
     prev: function (selector) { return $(this.pluck('previousElementSibling')).filter(selector || '*') },
+
+    // 获取当前集合中所有元素的下一个兄弟节点
+    // 实现思路就是先拿到当前集合所有节点的后一个兄弟节点，然后对其进行过滤处理，拿到符合selector条件的元素
+
     next: function (selector) { return $(this.pluck('nextElementSibling')).filter(selector || '*') },
     html: function (html) {
       return 0 in arguments ?
@@ -1041,6 +1055,10 @@ var Zepto = (function () {
 
       return this.each(function () { this.style.cssText += ';' + css })
     },
+
+    // 获取element在当前集合中的索引值
+    // 如果没有给到element，则获取当前集合中的第一个元素在兄弟节点中的索引
+
     index: function (element) {
       return element ? this.indexOf($(element)[0]) : this.parent().children().indexOf(this[0])
     },
