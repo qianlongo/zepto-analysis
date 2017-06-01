@@ -1063,13 +1063,22 @@ var Zepto = (function () {
           else setAttribute(this, name, funcArg(this, value, idx, this.getAttribute(name)))
         })
     },
+
+    // 移除当前元素集合的name属性
+    // name属性可以是多个 'name age sex'
+
     removeAttr: function (name) {
       return this.each(function () {
+      // 通过将name分割，再将需要移除的属性进行遍历删除
       this.nodeType === 1 && name.split(' ').forEach(function (attribute) {
         setAttribute(this, attribute)
       }, this)
       })
     },
+
+    // 获取或者设置元素的属性比如id之类的
+    // 实现逻辑和上面的几个函数基本一致
+
     prop: function (name, value) {
       name = propMap[name] || name
       return (1 in arguments) ?
@@ -1078,10 +1087,17 @@ var Zepto = (function () {
         }) :
         (this[0] && this[0][name])
     },
+
+    // 删除元素的属性
+    // 直接用delete去删除
+
     removeProp: function (name) {
       name = propMap[name] || name
       return this.each(function () { delete this[name] })
     },
+
+    
+
     data: function (name, value) {
       var attrName = 'data-' + name.replace(capitalRE, '-$1').toLowerCase()
 
