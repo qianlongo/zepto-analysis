@@ -1015,6 +1015,12 @@ var Zepto = (function () {
     // 实现思路就是先拿到当前集合所有节点的后一个兄弟节点，然后对其进行过滤处理，拿到符合selector条件的元素
 
     next: function (selector) { return $(this.pluck('nextElementSibling')).filter(selector || '*') },
+
+    // 获取或者设置当前集合的html
+    // 如果html传了，就遍历设置
+    // 没传就是获取（即返回当前集合的第一个元素的innerHTML）
+    // 注意：这里的html参数可以是个函数,接收的参数是当前元素的索引和html
+
     html: function (html) {
       return 0 in arguments ?
         this.each(function (idx) {
@@ -1023,6 +1029,11 @@ var Zepto = (function () {
         }) :
         (0 in this ? this[0].innerHTML : null)
     },
+
+    // text实现方法与html比较类似
+    // 有些不同的是没有传参数的时候，html是获取第一个元素的innerHTML
+    // text则是将当前所有元素的textContent拼接起来并返回
+
     text: function (text) {
       return 0 in arguments ?
         this.each(function (idx) {
