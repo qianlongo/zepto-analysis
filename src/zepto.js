@@ -11,16 +11,31 @@ var Zepto = (function () {
     filter = emptyArray.filter, 
     slice = emptyArray.slice,
     document = window.document,
-    elementDisplay = {}, classCache = {},
+    elementDisplay = {}, 
+    classCache = {},
+
+    // 保存css中可以是数值的属性
+
     cssNumber = { 'column-count': 1, 'columns': 1, 'font-weight': 1, 'line-height': 1, 'opacity': 1, 'z-index': 1, 'zoom': 1 },
+
+    // 匹配文档碎片的正则
+
     fragmentRE = /^\s*<(\w+|!)[^>]*>/,
+
+    // 匹配单标签形式<div></div>
+
     singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
     tagExpanderRE = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig,
     rootNodeRE = /^(?:body|html)$/i,
+
+    // 匹配大写字母
+
     capitalRE = /([A-Z])/g,
 
     // special attributes that should be get/set via method calls
     methodAttributes = ['val', 'css', 'html', 'text', 'data', 'width', 'height', 'offset'],
+
+    // 
 
     adjacencyOperators = ['after', 'prepend', 'before', 'append'],
     table = document.createElement('table'),
@@ -171,14 +186,24 @@ var Zepto = (function () {
 
   uniq = function (array) { return filter.call(array, function (item, idx) { return array.indexOf(item) == idx }) }
 
+  // 用以判断某个类是否在className中的正则表达式
+  // 主要用早hasClass，removeClass
+
   function classRE(name) {
     return name in classCache ?
       classCache[name] : (classCache[name] = new RegExp('(^|\\s)' + name + '(\\s|$)'))
   }
 
+  // 根据传入的name来判断是否需要加'px'单位，这个函数在样式操作中有用
+  // 如果传入的value是个数值而不是(10px)这种.
+  // 再判断name(比如fintSize => font-size)是否在cssNumber中
+  // 不在cssNumber中就加px单位
+
   function maybeAddPx(name, value) {
     return (typeof value == "number" && !cssNumber[dasherize(name)]) ? value + "px" : value
   }
+
+  // 获取某种元素的默认显示方式(这里比较重要，不同的元素默认的显示方式是不一样)
 
   function defaultDisplay(nodeName) {
     var element, display
@@ -252,6 +277,8 @@ var Zepto = (function () {
   zepto.Z = function (dom, selector) {
     return new Z(dom, selector)
   }
+
+  // 判断object是不是zepto对象
 
   // `$.zepto.isZ` should return `true` if the given object is a Zepto
   // collection. This method can be overridden in plugins.
@@ -420,13 +447,25 @@ var Zepto = (function () {
       return false
     }
 
+  // 对arg参数进行处理
+  // 当arg是个函数的时候，返回的是以arg为执行函数且其执行上下文为context，而参数则是idx和payload
+  // 不是函数就直接返回arg
+
   function funcArg(context, arg, idx, payload) {
     return isFunction(arg) ? arg.call(context, idx, payload) : arg
   }
 
+  // 设置或者删除节点的属性
+  // 当没有传value的时候，就讲node的name属性给删除
+  // 传了就设置node的name属性为value
+
   function setAttribute(node, name, value) {
     value == null ? node.removeAttribute(name) : node.setAttribute(name, value)
   }
+
+  // 获取或者设置node的className
+  // 对于svg类型的标签需要特别的注意，其className得到的是一个对象,类似下面这样
+  // SVGAnimatedString {baseVal: "box hallo", animVal: "box hallo"}
 
   // access className property while respecting SVGAnimatedString
   function className(node, value) {
@@ -502,6 +541,9 @@ var Zepto = (function () {
 
   // plugin compatibility
   $.uuid = 0
+
+  // 包含浏览器对默写api的支持情况
+
   $.support = {}
   $.expr = {}
 
@@ -621,6 +663,8 @@ var Zepto = (function () {
     slice: function () {
       return $(slice.apply(this, arguments))
     },
+
+    // DOMContentloaded的时候处罚 callback
 
     ready: function (callback) {
       // don't use "interactive" on IE <= 10 (it can fired premature)
@@ -793,6 +837,9 @@ var Zepto = (function () {
       else result = this.map(function () { return zepto.qsa(this, selector) })
       return result
     },
+
+    // 
+
     closest: function (selector, context) {
       var nodes = [], collection = typeof selector == 'object' && $(selector)
       this.each(function (_, node) {
@@ -802,10 +849,15 @@ var Zepto = (function () {
       })
       return $(nodes)
     },
+
+    // 获取当前集合中每个元素的所有祖先元素
+
     parents: function (selector) {
       var ancestors = [], nodes = this
+      // 通过while循环层层向上查找
       while (nodes.length > 0)
         nodes = $.map(nodes, function (node) {
+          // 将各个元素的parentNode赋值给node，node不能是document节点，并且ancestors还未添加过
           if ((node = node.parentNode) && !isDocument(node) && ancestors.indexOf(node) < 0) {
             ancestors.push(node)
             return node
