@@ -1042,13 +1042,24 @@ var Zepto = (function () {
         }) :
         (0 in this ? this.pluck('textContent').join("") : null)
     },
+
+    // 设置和获取元素的属性
+    // 获取的时候拿的是当前集合的第一个元素的name属性
+    // 设置的时候分 name是object,则对object进行遍历循环设置属性
+    // 或者name为属性的key，value为属性的值，则进行属性设置
+    // 需要注意的是，设置单值的时候，value可以传函数
+
     attr: function (name, value) {
       var result
       return (typeof name == 'string' && !(1 in arguments)) ?
+        // 获取属性
         (0 in this && this[0].nodeType == 1 && (result = this[0].getAttribute(name)) != null ? result : undefined) :
+        // 设置属性
         this.each(function (idx) {
           if (this.nodeType !== 1) return
+          // 设置多个属性值
           if (isObject(name)) for (key in name) setAttribute(this, key, name[key])
+          // 设置一个属性值
           else setAttribute(this, name, funcArg(this, value, idx, this.getAttribute(name)))
         })
     },
