@@ -822,9 +822,18 @@ var Zepto = (function () {
     parent: function (selector) {
       return filtered(uniq(this.pluck('parentNode')), selector)
     },
+
+    // 获取对象集合中所有的直接子节点，如果传了selector选择器，则帅选出符合其条件的
+    // 实现原理是先拿到当前集合的所有子节点
+    // 然后对这些子节点进行过滤，得到符合selector条件的节点
+
     children: function (selector) {
       return filtered(this.map(function () { return children(this) }), selector)
     },
+
+    // 获取当前集合中所有元素的子节点(和children不同的是，contents还会去拿文本节点和注释节点)
+    // 注意contentDocument这个属性，他是拿iframe的内容
+
     contents: function () {
       return this.map(function () { return this.contentDocument || slice.call(this.childNodes) })
     },
