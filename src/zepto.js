@@ -35,7 +35,11 @@ var Zepto = (function () {
     class2type = {},
     toString = class2type.toString,
     zepto = {},
-    camelize, uniq,
+    camelize, 
+    uniq,
+
+    // 一个临时的空节点
+
     tempParent = document.createElement('div'),
     propMap = {
       'tabindex': 'tabIndex',
@@ -462,6 +466,10 @@ var Zepto = (function () {
   $.isArray = isArray
   $.isPlainObject = isPlainObject
 
+  // 判断是否为空对象
+  // 使用for in遍历，只要obj有属性则认为不是空对象
+  // 循环跑完还没结束则认为是空对象
+
   $.isEmptyObject = function (obj) {
     var name
     for (name in obj) return false
@@ -560,7 +568,7 @@ var Zepto = (function () {
     class2type["[object " + name + "]"] = name.toLowerCase()
   })
 
-  // $构造函数的原型上挂许多静态方法
+  // $构造函数的原型上挂许多实用的方法
 
   // Define methods that will be available on all
   // Zepto collections
@@ -725,14 +733,30 @@ var Zepto = (function () {
       }
       return $(nodes)
     },
+
+    // 判断当前集合的子元素中是否有符合选择器selector的元素
+    // 或者包含指定的dom节点
+    // has(selector) => collection
+    // has(node) => collection
+
     has: function (selector) {
+      // 使用filter方法将符合条件的元素过滤出来
       return this.filter(function () {
+        // 如果参数是dom节点，使用$.contains进行判断
         return isObject(selector) ?
           $.contains(this, selector) :
+          // 否则调用find函数进行查找
           $(this).find(selector).size()
       })
     },
+
+    // 与get方法不同，get得到的是原生的dom节点，eq得到的是zepto对象，所以可以直接使用zepto原型上的相关方法
+
     eq: function (idx) {
+      // 参数为-1得到最后一个元素
+      // 否则取出idx到idx + 1，即索引为idx的元素
+      // 为什么-1要单独处理呢？如果idx为负一还使用？后面的表达式则拿不到最后一个元素，为[]空数组
+      // [1, 2, 3].slice(-1, 0) => []
       return idx === -1 ? this.slice(idx) : this.slice(idx, + idx + 1)
     },
     first: function () {
