@@ -767,9 +767,18 @@ var Zepto = (function () {
       var el = this[this.length - 1]
       return el && !isObject(el) ? el : $(el)
     },
+
+    // 在当前集合中查找符合选择器的所有后代元素，调用方式
+    // find(selector)   => collection
+    // find(collection) => collection
+    // find(element)    => collection
+
     find: function (selector) {
       var result, $this = this
+      // 如果没有传入选择器，返回一个空的zepto对象
       if (!selector) result = $()
+      // 传入的是dom元素或者zepto对象，先用$将其包裹一下
+      // 然后对包裹之后的元素进行过滤，过滤出当前集合中符合其条件的
       else if (typeof selector == 'object')
         result = $(selector).filter(function () {
           var node = this
@@ -777,7 +786,10 @@ var Zepto = (function () {
             return $.contains(parent, node)
           })
         })
+      // 当前集合只有一个元素时，通过zepto.qsa查找后代元素
       else if (this.length == 1) result = $(zepto.qsa(this[0], selector))
+      // 其他情况，则是将当前集合中的每个元素都调用zepto.qsa进行查找
+      // 其实应该可以和上面length为1合并在一起吧？或许为了性能？
       else result = this.map(function () { return zepto.qsa(this, selector) })
       return result
     },
