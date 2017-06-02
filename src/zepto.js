@@ -844,11 +844,14 @@ var Zepto = (function () {
       return result
     },
 
-    // 
+    // 从元素本身开始查找，逐级开始向上匹配符合selector的元素
+    // 如果给定了context，那么直匹配context中的节点
 
     closest: function (selector, context) {
+      // 如果selector传入的是dom节点或者zepto对象，先将selector包装成zepto对象
       var nodes = [], collection = typeof selector == 'object' && $(selector)
       this.each(function (_, node) {
+        // 注意这里的判断，只要while条件不满足给定的条件就会终止循环，进而再判断node是否在nodes中，酌情push进nodes
         while (node && !(collection ? collection.indexOf(node) >= 0 : zepto.matches(node, selector)))
           node = node !== context && !isDocument(node) && node.parentNode
         if (node && nodes.indexOf(node) < 0) nodes.push(node)
