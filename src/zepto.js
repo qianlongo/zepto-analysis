@@ -845,7 +845,7 @@ var Zepto = (function () {
     },
 
     // 从元素本身开始查找，逐级开始向上匹配符合selector的元素
-    // 如果给定了context，那么直匹配context中的节点
+    // 如果selector是dom节点或者zepto对象，则只查找selector中的节点
 
     closest: function (selector, context) {
       // 如果selector传入的是dom节点或者zepto对象，先将selector包装成zepto对象

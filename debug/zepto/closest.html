@@ -8,7 +8,7 @@
   <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
 </head>
 <body>
-  <div class="box">
+  <div class="box" id="list">
     <ul class="box">
       <li class="box">1</li>
       <li>2</li>
@@ -26,7 +26,8 @@
     (() => {
       // $('li').parent().css('border', 'solid 1px red')
       // $('li').parents().css('border', 'solid 1px red')
-      $('li').closest('.box').css('border', 'solid 1px red')
+      // $('li').closest('.box').css('border', 'solid 1px red')
+      $('li').closest('.box', $('#list')).css('border', 'solid 1px red')
 
     })()
   </script>
