@@ -256,15 +256,20 @@
     if (callback === false) callback = returnFalse
 
     return $this.each(function (_, element) {
+      // 如果只绑定一次事件，那么先移除事件及其对应的事件处理程序，再执行一次事件处理函数
       if (one) autoRemove = function (e) {
         remove(element, e.type, callback)
         return callback.apply(this, arguments)
       }
-
+      // 如果传了选择器，那么需要进行事件代理操作
       if (selector) delegator = function (e) {
+        // 这里用了closest函数，查找到最先符合selector条件的元素
         var evt, match = $(e.target).closest(selector, element).get(0)
+        // 查找到的最近的符合selector条件的节点不能是element元素
         if (match && match !== element) {
+          // 然后将match节点和element节点，扩展到事件对象上去
           evt = $.extend(createProxy(e), { currentTarget: match, liveFired: element })
+          // 最后便是执行回调函数
           return (autoRemove || callback).apply(match, [evt].concat(slice.call(arguments, 1)))
         }
       }

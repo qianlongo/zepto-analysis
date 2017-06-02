@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+</head>
+<body>
+  <div class="box" id="list">
+    <div class="test">
+      <p href="" >p p p</p>
+      <button>button</button>
+    </div>
+    <button>hahha</button>
+  </div>
+  <script>
+    (() => {
+      $('.box').on('click', '.test', function (e) {
+        console.log(e.currentTarget)
+        console.log($(this).html())
+      })
+    })()
+  </script>
+</body>
+</html>

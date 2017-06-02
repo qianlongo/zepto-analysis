@@ -22,13 +22,19 @@
       <li>4</li>
     </ul>
   </div>
+  <div class="test">
+    <div class="test" id="test">
+      <p class="test">段落</p>
+      <p>段落</p>
+    </div>
+  </div>
   <script>
     (() => {
       // $('li').parent().css('border', 'solid 1px red')
       // $('li').parents().css('border', 'solid 1px red')
       // $('li').closest('.box').css('border', 'solid 1px red')
       $('li').closest('.box', $('#list')).css('border', 'solid 1px red')
-
+      $('p').closest($('#test')).css('border', 'solid 1px red')
     })()
   </script>
 </body>
