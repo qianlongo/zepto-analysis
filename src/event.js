@@ -42,7 +42,13 @@
     handlers = {}, 
     specialEvents = {},
     focusinSupported = 'onfocusin' in window,
+
+    // 用focus和blur来代替focusin和focusout事件()  http://www.runoob.com/jsref/event-onfocusin.html
+
     focus = { focus: 'focusin', blur: 'focusout' },
+
+    // mouseenter和mouseleave分别代替mouseover和mouseout事件
+
     hover = { mouseenter: 'mouseover', mouseleave: 'mouseout' }
 
   specialEvents.click = specialEvents.mousedown = specialEvents.mouseup = specialEvents.mousemove = 'MouseEvents'
@@ -52,20 +58,27 @@
   function zid(element) {
     return element._zid || (element._zid = _zid++)
   }
+
+  // 根据给定的element、event等参数从handlers中查找handler，
+  // 主要用于事件移除(remove)和主动触发事件(triggerHandler)
+
   function findHandlers(element, event, fn, selector) {
+    // 解析event，从而得到事件名称和命名空间
     event = parse(event)
     if (event.ns) var matcher = matcherFor(event.ns)
+    // 读取添加在element身上的handler(数组)，并根据event等参数帅选
     return (handlers[zid(element)] || []).filter(function (handler) {
       return handler
-        && (!event.e || handler.e == event.e)
-        && (!event.ns || matcher.test(handler.ns))
-        && (!fn || zid(handler.fn) === zid(fn))
-        && (!selector || handler.sel == selector)
+        && (!event.e || handler.e == event.e) // 事件名需要相同
+        && (!event.ns || matcher.test(handler.ns)) // 命名空间需要相同
+        && (!fn || zid(handler.fn) === zid(fn)) // 回调函数需要相同（话说为什么通过zid()这个函数来判断呢？）
+        && (!selector || handler.sel == selector) // 事件代理时选择器需要相同
     })
   }
 
   // 解析注册事件时的字符串，将事件名和命名空间分离出来分别赋值给e和ns
   // 并且命名空间做了一下默认排序
+  // 'click.qianlongo' => {e: 'click', ns: 'qianlongo'}
 
   function parse(event) {
     var parts = ('' + event).split('.')
@@ -75,11 +88,15 @@
     return new RegExp('(?:^| )' + ns.replace(' ', ' .* ?') + '(?: |$)')
   }
 
+  // 主要处理focus和blur事件不支持冒泡，在捕获阶段去完成
+
   function eventCapture(handler, captureSetting) {
     return handler.del &&
       (!focusinSupported && (handler.e in focus)) ||
       !!captureSetting
   }
+
+  // 返回真正的绑定的事件名
 
   function realEvent(type) {
     return hover[type] || (focusinSupported && focus[type]) || type
