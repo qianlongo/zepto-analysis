@@ -6,12 +6,40 @@
 // 其实是用来结束之前的语句，反之出错
 
 ; (function ($) {
+  // 生成标志元素和回调函数的唯一id
   var _zid = 1,
     undefined,
     slice = Array.prototype.slice,
     isFunction = $.isFunction,
     isString = function (obj) { return typeof obj == 'string' },
-    handlers = {},
+
+    // 保存着应用程序中所有的handler
+    /*
+    {
+      0: [
+        {
+          e: 'click', // 事件名称
+          fn: function () {}, // 用户传入的回调函数
+          i: 0, // 该对象在该数组中的索引
+          ns: 'qianlongo', // 命名空间
+          proxy: function () {}, // 真正给dom绑定事件时执行的事件处理程序， 为del或者fn
+          sel: '.qianlongo', // 进行事件代理时传入的选择器
+          del: function () {} // 事件代理函数
+        },
+        {
+          e: 'click', // 事件名称
+          fn: function () {}, // 用户传入的回调函数
+          i: 1, // 该对象在该数组中的索引
+          ns: 'qianlongo', // 命名空间
+          proxy: function () {}, // 真正给dom绑定事件时执行的事件处理程序， 为del或者fn
+          sel: '.qianlongo', // 进行事件代理时传入的选择器
+          del: function () {} // 事件代理函数
+        }
+      ]
+    }
+    */
+
+    handlers = {}, 
     specialEvents = {},
     focusinSupported = 'onfocusin' in window,
     focus = { focus: 'focusin', blur: 'focusout' },
@@ -67,6 +95,7 @@
   // capture   =>   事件捕获 or 非事件捕获
 
   function add(element, events, fn, data, selector, delegator, capture) {
+    // 为每个元素的事件分配一个唯一的id
     var id = zid(element), 
         set = (handlers[id] || (handlers[id] = []))
 
