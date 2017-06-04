@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
   <style>
     .list{
       padding: 30px;
@@ -27,16 +28,14 @@
     <li>3</li>
   </ul>
   <script>
-    let eventName = 'mouseover'
-    document.querySelector('.list').addEventListener(eventName, function () {
-      console.log(this.innerHTML)
-    });
+    let eventName = 'mouseleave'
+    // document.querySelector('.list').addEventListener(eventName, function (event) {
+    //   console.log(this.innerHTML)
+    // });
 
-    // [].slice.call(document.querySelectorAll('li')).forEach((ele) => {
-    //   ele.addEventListener('mouseover', function (event) {
-    //     event.stopPropagation()
-    //   })
-    // })
+    $('.list').on(eventName, function (event) {
+      console.log(this.innerHTML)
+    })
   </script>
 </body>
 </html>

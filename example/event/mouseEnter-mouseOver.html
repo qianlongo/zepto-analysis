@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .wrap{
+      width: 50%;
+      box-sizing: border-box;
+      float: left;
+    }
+
+    .wrap, .list{
+      border: solid 1px green;
+      padding: 30px;
+      margin: 30px 0;
+    }
+
+    .list{
+      border: solid 1px red;
+    }
+
+    .list li{
+      border: solid 1px blue;
+      padding: 10px;
+      margin: 10px;
+    }
+
+    .count{
+      color: red;
+    }
+
+  </style>
+</head>
+<body>
+  <p>
+    不论鼠标指针穿过被选元素或其子元素，都会触发 mouseover 事件。
+    <br />
+    只有在鼠标指针穿过被选元素时，才会触发 mouseenter 事件
+  </p>
+  <div class="wrap">
+    wrap, mouseover
+    <ul class="mouseover list">
+      count: <span class="count"></span>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </div>
+  <div class="wrap">
+    wrap, mouseenter
+    <ul class="mouseenter list">
+      count: <span class="count"></span>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </div>
+  <script>
+    let $mouseover = document.querySelector('.mouseover')
+    let $mouseenter = document.querySelector('.mouseenter')
+    let $overCount = document.querySelector('.mouseover .count')
+    let $enterCount = document.querySelector('.mouseenter .count')
+
+    let addCount = (ele, start) => {
+      return () => {
+        ele.innerHTML = ++start
+      }
+    }
+
+    $mouseover.addEventListener('mouseover', addCount($overCount, 0), false)
+    $mouseenter.addEventListener('mouseenter', addCount($enterCount, 0), false)
+  </script>
+</body>
+</html>

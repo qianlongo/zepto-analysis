@@ -6,21 +6,25 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <style>
-    #wrap{
+    #wrap, .list, .box{
       padding: 30px;
     }
 
-    .p1, .p2{
+    .p1, .p2, .list li{
       padding: 30px;
       margin: 0;
     }
 
-    .p1{
+    .p1, .list{
       border: solid 1px green;
     }
 
-    .p2{
+    .p2, .list li{
       border: solid 1px red;
+    }
+
+    .box{
+      border: solid 1px blue;
     }
   </style>
 </head>
@@ -28,6 +32,13 @@
   <div id="wrap">
     <p class="p1">p1</p>
     <p class="p2">p2</p>
+  </div>
+  <div class="box">
+    <ul class="list">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
   </div>
   <script>
     let ps = document.querySelectorAll('#wrap p');
@@ -46,6 +57,14 @@
         console.log('click事件中event无relatedTarget属性')
         console.log(event.relatedTarget)
       })
+    })
+
+    // document.querySelector('.list').addEventListener('mouseover', function (event) {
+    //   console.log(event.relatedTarget.innerHTML)
+    // })
+
+    document.querySelector('.list').addEventListener('mouseout', function (event) {
+      console.log(event.relatedTarget.innerHTML)
     })
   </script>
 </body>
