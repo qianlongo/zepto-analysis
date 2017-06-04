@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .list{
+      padding: 30px;
+      border: solid 1px green;
+    }
+
+    .list li{
+      padding: 10px;
+      border: solid 1px red;
+    }
+  </style>
+</head>
+<body>
+  <p>不论鼠标指针穿过被选元素或其子元素，都会触发 mouseover 事件。
+  </p>
+  <p>只有在鼠标指针穿过被选元素时，才会触发 mouseenter 事件</p>
+  <ul class="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+  </ul>
+  <script>
+    let eventName = 'mouseover'
+    document.querySelector('.list').addEventListener(eventName, function () {
+      console.log(this.innerHTML)
+    });
+
+    // [].slice.call(document.querySelectorAll('li')).forEach((ele) => {
+    //   ele.addEventListener('mouseover', function (event) {
+    //     event.stopPropagation()
+    //   })
+    // })
+  </script>
+</body>
+</html>
