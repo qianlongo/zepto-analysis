@@ -112,14 +112,18 @@
   // capture   =>   事件捕获 or 非事件捕获
 
   function add(element, events, fn, data, selector, delegator, capture) {
-    // 为每个元素的事件分配一个唯一的id
+    // 为每个元素的事件分配一个唯一的id,如果之前已经分配过则直接读取
     var id = zid(element), 
         set = (handlers[id] || (handlers[id] = []))
 
     events.split(/\s/).forEach(function (event) {
+      // 如果是ready事件，就直接调用ready方法(这里的return貌似无法结束forEach循环吧)
       if (event == 'ready') return $(document).ready(fn)
+      // 得到事件和命名空间分离的对象 'click.qianlongo' => {e: 'click', ns: 'qianlongo'}
       var handler = parse(event)
+      // 将用户输入的回调函数挂载到handler上
       handler.fn = fn
+      // 将用户传入的选择器挂载到handler上（事件代理有用）
       handler.sel = selector
       // emulate mouseenter, mouseleave
       if (handler.e in hover) fn = function (e) {
@@ -128,7 +132,11 @@
           return handler.fn.apply(this, arguments)
       }
       handler.del = delegator
+      // 注意需要事件代理函数（经过一层处理过后的）和用户输入的回调函数优先使用事件代理函数
       var callback = delegator || fn
+      // proxy是真正绑定的事件处理程序
+      // 并且改写了事件对象event
+      // 添加了一些方法和属性，最后调用用户传入的回调函数，如果该函数返回false，则认为需要阻止默认行为和阻止冒泡
       handler.proxy = function (e) {
         e = compatible(e)
         if (e.isImmediatePropagationStopped()) return
@@ -137,8 +145,11 @@
         if (result === false) e.preventDefault(), e.stopPropagation()
         return result
       }
+      // 将该次添加的handler在set中的索引赋值给i
       handler.i = set.length
+      // 把handler保存起来,注意因为一个元素的同一个事件是可以添加多个事件处理程序的
       set.push(handler)
+      // 最后当然是绑定事件
       if ('addEventListener' in element)
         element.addEventListener(realEvent(handler.e), handler.proxy, eventCapture(handler, capture))
     })

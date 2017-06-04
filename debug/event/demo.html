@@ -8,20 +8,15 @@
   <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
 </head>
 <body>
-  <div class="wrap">test event modeule</div>
+  <ul class="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+  </ul>
   <script>
 
-    // $('.wrap').on({
-    //   click () {
-    //     console.log($(this).html())
-    //   },
-    //   mouseout () {
-    //     console.log($(this).html())
-    //   }
-    // })
-
-    $('.wrap').on('click', function () {
-      console.log($(this).html())
+    $('.list li').on('click', function (e) {
+      console.log(e)
     })
 
   </script>
