@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #wrap{
+      padding: 30px;
+    }
+
+    .p1, .p2{
+      padding: 30px;
+      margin: 0;
+    }
+
+    .p1{
+      border: solid 1px green;
+    }
+
+    .p2{
+      border: solid 1px red;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <p class="p1">p1</p>
+    <p class="p2">p2</p>
+  </div>
+  <script>
+    let ps = document.querySelectorAll('#wrap p');
+    [].slice.call(ps).forEach((ele) => {
+      // ele.addEventListener('mouseover', function (event) {
+      //   console.log('mouseover: relatedTarget -- 鼠标移入目标节点时，离开的那个节点')
+      //   console.log(event.relatedTarget)
+      // })
+
+      // ele.addEventListener('mouseout', (event) => {
+      //   console.log('mouseout: relatedTarget --  鼠标离开目标节点时，进入的那个节点')
+      //   console.log(event.relatedTarget)
+      // })
+
+      ele.addEventListener('click', (event) => {
+        console.log('click事件中event无relatedTarget属性')
+        console.log(event.relatedTarget)
+      })
+    })
+  </script>
+</body>
+</html>
