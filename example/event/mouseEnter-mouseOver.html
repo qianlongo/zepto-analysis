@@ -58,20 +58,106 @@
       <li>3</li>
     </ul>
   </div>
+
+  <div class="wrap">
+    wrap, mouseout
+    <ul class="mouseout list">
+      count: <span class="count"></span>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </div>
+  <div class="wrap">
+    wrap, mouseleave
+    <ul class="mouseleave list">
+      count: <span class="count"></span>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </div>
+
+  <div class="wrap">
+    wrap, emulate mouseenter,用mouseover模拟实现mouseenter
+    <ul class="emulate-mouseenter list">
+      count: <span class="count"></span>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </div>
+
+  <div class="wrap">
+    wrap, emulate mouseenter,用mouseout模拟实现mouseleave
+    <ul class="emulate-mouseleave list">
+      count: <span class="count"></span>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </div>
   <script>
     let $mouseover = document.querySelector('.mouseover')
     let $mouseenter = document.querySelector('.mouseenter')
+    let $mouseout = document.querySelector('.mouseout')
+    let $mouseleave = document.querySelector('.mouseleave')
+    let $emulateMouseenter = document.querySelector('.emulate-mouseenter')
+    let $emulateMouseleave = document.querySelector('.emulate-mouseleave')
+
     let $overCount = document.querySelector('.mouseover .count')
     let $enterCount = document.querySelector('.mouseenter .count')
+    let $outCount = document.querySelector('.mouseout .count')
+    let $leaveCount = document.querySelector('.mouseleave .count')
+    let $emulateMouseenterCounter = document.querySelector('.emulate-mouseenter .count')
+    let $emulateMouseleaveCount = document.querySelector('.emulate-mouseleave .count')
 
-    let addCount = (ele, start) => {
-      return () => {
+    let addCount = function (ele, start) {
+      return function () {
         ele.innerHTML = ++start
+      }
+    }
+
+    let docEle = document.documentElement
+    let containes = docEle.contains ? function (parent, node) {
+      return parent !== node && parent.contains(node)
+    } : function (parent, node) {
+      let result = parent !== node
+
+      if (!result) {
+        return result
+      }
+
+      if (result) {
+        while (node && (node = node.parentNode)) {
+          if (parent === node) {
+            return true
+          }
+        }
+      }
+
+      return false
+    }
+
+    let emulateMouseenterCallback = addCount($emulateMouseenterCounter, 0)
+    let emulateMouseleaveCallback = addCount($emulateMouseleaveCount, 0)
+
+    let emulateEnterOrLeave = function (callback) {
+      return function (e) {
+        let relatedTarget = e.relatedTarget
+        if (relatedTarget !== this && !containes(this, relatedTarget)) {
+          callback.apply(this, arguments)
+        }
       }
     }
 
     $mouseover.addEventListener('mouseover', addCount($overCount, 0), false)
     $mouseenter.addEventListener('mouseenter', addCount($enterCount, 0), false)
+    $mouseout.addEventListener('mouseout', addCount($outCount, 0), false)
+    $mouseleave.addEventListener('mouseleave', addCount($leaveCount, 0), false)
+
+    $emulateMouseenter.addEventListener('mouseover', emulateEnterOrLeave(emulateMouseenterCallback), false)
+    $emulateMouseleave.addEventListener('mouseout', emulateEnterOrLeave(emulateMouseleaveCallback), false)
   </script>
 </body>
-</html>
+</html>   
