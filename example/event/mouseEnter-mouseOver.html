@@ -119,7 +119,7 @@
     }
 
     let docEle = document.documentElement
-    let containes = docEle.contains ? function (parent, node) {
+    let contains = docEle.contains ? function (parent, node) {
       return parent !== node && parent.contains(node)
     } : function (parent, node) {
       let result = parent !== node
@@ -145,7 +145,7 @@
     let emulateEnterOrLeave = function (callback) {
       return function (e) {
         let relatedTarget = e.relatedTarget
-        if (relatedTarget !== this && !containes(this, relatedTarget)) {
+        if (relatedTarget !== this && !contains(this, relatedTarget)) {
           callback.apply(this, arguments)
         }
       }

@@ -200,18 +200,29 @@
     }
   }
 
+  // 未元素绑定事件，事件都绑定在元素身上，没有使用事件代理（不推荐使用）
+
   $.fn.bind = function (event, data, callback) {
     return this.on(event, data, callback)
   }
+
+  // 移除bind绑定的事件
+
   $.fn.unbind = function (event, callback) {
     return this.off(event, callback)
   }
+
+  // 给元素添加一个事件，并且该事件对应的处理程序只执行一次
+
   $.fn.one = function (event, selector, data, callback) {
     return this.on(event, selector, data, callback, 1)
   }
 
   var returnTrue = function () { return true },
     returnFalse = function () { return false },
+
+    // 匹配大写字母A-Z开头/returnValue/layerX/layerY/webkitMovementX/webkitMovementY 用于createProxy(),过滤event对象的属性
+
     ignoreProperties = /^([A-Z]|returnValue$|layer[XY]$|webkitMovement[XY]$)/,
     eventMethods = {
       preventDefault: 'isDefaultPrevented',
