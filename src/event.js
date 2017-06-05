@@ -47,13 +47,14 @@
 
     focus = { focus: 'focusin', blur: 'focusout' },
 
-    // mouseenter和mouseleave分别代替mouseover和mouseout事件
+    // 用mouseover和mouseout分别模拟mouseenter和mouseleave事件
 
     hover = { mouseenter: 'mouseover', mouseleave: 'mouseout' }
 
   specialEvents.click = specialEvents.mousedown = specialEvents.mouseup = specialEvents.mousemove = 'MouseEvents'
 
   // 取元素的标识符，有就直接读取，没有的话，先设置后读取
+  // 增加注释：不仅仅是给element添加标志，在proxy中还给函数添加标志
 
   function zid(element) {
     return element._zid || (element._zid = _zid++)
@@ -125,6 +126,8 @@
       handler.fn = fn
       // 将用户传入的选择器挂载到handler上（事件代理有用）
       handler.sel = selector
+      // 用mouseover和mouseout分别模拟mouseenter和mouseleave事件
+      // https://qianlongo.github.io/zepto-analysis/example/event/mouseEnter-mouseOver.html(可以看自己模拟的这个例子)
       // emulate mouseenter, mouseleave
       if (handler.e in hover) fn = function (e) {
         var related = e.relatedTarget
@@ -167,17 +170,29 @@
 
   $.event = { add: add, remove: remove }
 
+  // proxy类似于原生的bind函数，绑定fn到context上下文，使用方式有以下几种
+  // 1. $.proxy(fn, context)
+  // 2. $.proxy(fn, context, [additionalArguments...])
+  // 3. $.proxy(context, property)
+  // 4. $.proxy(context, property, [additionalArguments...])
+
   $.proxy = function (fn, context) {
+    // 将第三个参数及其之后的参数封装到数组中
     var args = (2 in arguments) && slice.call(arguments, 2)
-    if (isFunction(fn)) {
+    // 对应用法1、2
+    if (isFunction(fn)) { 
+      // 将调用proxy函数时传入的第三个参数及其之后的参数与调用proxyFn时的参数合并
       var proxyFn = function () { return fn.apply(context, args ? args.concat(slice.call(arguments)) : arguments) }
+      // 添加函数标志
       proxyFn._zid = zid(fn)
       return proxyFn
     } else if (isString(context)) {
+      // 对应用法4
       if (args) {
         args.unshift(fn[context], fn)
         return $.proxy.apply(null, args)
       } else {
+        // 对应用法3
         return $.proxy(fn[context], fn)
       }
     } else {
