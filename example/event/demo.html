@@ -33,9 +33,9 @@
     </ul>  
   </div>
   <script>
-    document.querySelector('.list').addEventListener('mouseover', function (e) {
-      console.log(e.relatedTarget.innerHTML)
-    }, false)
+    ;$('.list li').on('click', function () {
+      console.log($(this).html())
+    })
   </script>
 </body>
 </html>

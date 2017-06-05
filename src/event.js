@@ -230,13 +230,19 @@
       stopPropagation: 'isPropagationStopped'
     }
 
+  // 修正和扩展event对象
+  // 其中event为代理的事件对象，所谓代理，其实是修改了原生的event对象，或添加属性方法
+  // source为原生对象
+
   function compatible(event, source) {
     if (source || !event.isDefaultPrevented) {
       source || (source = event)
-
+      // 重写事件对象上的preventDefault、stopImmediatePropagation、stopPropagation方法
+      // 并往事件对象上扩展isDefaultPrevented、isImmediatePropagationStopped、isPropagationStopped方法
       $.each(eventMethods, function (name, predicate) {
         var sourceMethod = source[name]
         event[name] = function () {
+          // 对应的preventDefault...方法被调用，则isPreventDefault赋值为返回true的函数
           this[predicate] = returnTrue
           return sourceMethod && sourceMethod.apply(source, arguments)
         }
