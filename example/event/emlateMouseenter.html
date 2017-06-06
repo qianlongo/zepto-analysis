@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .wrap {
+      width: 50%;
+      box-sizing: border-box;
+      float: left;
+    }
+
+    .wrap,
+    .list {
+      border: solid 1px green;
+      padding: 30px;
+      margin: 30px 0;
+    }
+
+    .list {
+      border: solid 1px red;
+    }
+
+    .list li {
+      border: solid 1px blue;
+      padding: 10px;
+      margin: 10px;
+    }
+
+    .count {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    wrap, mouseenter
+    <ul class="mouseenter list">
+      count: <span class="count"></span>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </div>
+
+  <div class="wrap">
+    wrap, emulate mouseenter,用mouseover模拟实现mouseenter
+    <ul class="emulate-mouseenter list">
+      count: <span class="count"></span>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </div>
+  <script>
+    let $mouseenter = document.querySelector('.mouseenter')
+    let $emulateMouseenter = document.querySelector('.emulate-mouseenter')
+    let $enterCount = document.querySelector('.mouseenter .count')
+    let $emulateMouseenterCounter = document.querySelector('.emulate-mouseenter .count')
+
+    let addCount = function (ele, start) {
+      return function () {
+        ele.innerHTML = ++start
+      }
+    }
+
+    let docEle = document.documentElement
+    let contains = docEle.contains ? function (parent, node) {
+      return parent !== node && parent.contains(node)
+    } : function (parent, node) {
+      let result = parent !== node
+
+      if (!result) {
+        return result
+      }
+
+      if (result) {
+        while (node && (node = node.parentNode)) {
+          if (parent === node) {
+            return true
+          }
+        }
+      }
+
+      return false
+    }
+
+    let emulateMouseenterCallback = addCount($emulateMouseenterCounter, 0)
+
+    let emulateEnterOrLeave = function (callback) {
+      return function (e) {
+        let relatedTarget = e.relatedTarget
+        if (relatedTarget !== this && !contains(this, relatedTarget)) {
+          callback.apply(this, arguments)
+        }
+      }
+    }
+
+    $mouseenter.addEventListener('mouseenter', addCount($enterCount, 0), false)
+    $emulateMouseenter.addEventListener('mouseover', emulateEnterOrLeave(emulateMouseenterCallback), false)
+  </script>
+</body>
+
+</html>

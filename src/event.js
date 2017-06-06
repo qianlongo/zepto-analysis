@@ -280,6 +280,8 @@
     return this.off(event, selector, callback)
   }
 
+  // 冒泡到document.body绑定事件
+
   $.fn.live = function (event, callback) {
     $(document.body).delegate(this.selector, event, callback)
     return this
