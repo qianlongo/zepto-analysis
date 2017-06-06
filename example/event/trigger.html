@@ -1,47 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>event debug</title>
   <!--<script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>-->
-  <script
-  src="https://code.jquery.com/jquery-3.2.1.js"
-  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
   <style>
-    *{
+    * {
       margin: 0;
       padding: 0;
     }
-    .list{
+
+    .list {
       margin: 30px;
       padding: 30px;
       border: solid 1px green;
     }
 
-    li{
+    li {
       border: solid 1px red;
     }
-
-    
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <ul class="list">
       <li>1</li>
       <li>2</li>
-      <li>3</li>
-    </ul>  
+    </ul>
   </div>
   <script>
-    $('.list').on('click', 'li', function () {
-      console.log($(this).html())
-    })
-    // let event = $.Event('click')
-    $('.list').trigger('click')
+    let $list = $('.list')
+
+    let cb1 = function (e, name) {
+      console.log(1, name)
+    }
+
+    let cb2 = function (e, name) {
+      console.log(2, name)
+    }
+
+    $list.on('click', cb1)
+    $list.on('click', cb2)
+
+    // 移除事件
+
+    // 我们可以指定移除click事件的某个事件处理程序
+    $list.off('click', cb1)
+    // 也可以直接移除click事件
+    $list.off('click')
+
+    // 手动触发事件
+    $list.trigger('click', 'qianlongo')
   </script>
 </body>
+
 </html>

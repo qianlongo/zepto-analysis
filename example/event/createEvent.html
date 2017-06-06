@@ -30,7 +30,7 @@
       console.log(this.innerHTML)
     }, false)
     let event = document.createEvent('Event')
-    event.initEvent('click', true, true)
+    event.initEvent('click', false, true)
     $item1.dispatchEvent(event)
   </script>
 </body>

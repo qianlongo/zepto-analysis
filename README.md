@@ -18,3 +18,5 @@
 ## 文章记录
 
 1. [mouseenter与mouseover为何这般纠缠不清？](https://github.com/qianlongo/zepto-analysis/issues/1)
+
+2. [向zepto.js学习如何手动触发DOM事件](https://github.com/qianlongo/zepto-analysis/issues/2)
