@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .wrap{
+      border: solid 1px green;
+      padding: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <input type="text" class="input">
+  </div>
+  <script>
+    let $wrap = document.querySelector('.wrap')
+    let $input = document.querySelector('input')
+
+    // $wrap.addEventListener('focusin', function (e) {
+    //   console.log('wrap focusin')
+    // }, false)
+    // $wrap.addEventListener('focusout', function (e) {
+    //   console.log('wrap focusout')
+    // }, false)
+    $wrap.addEventListener('focus', function (e) {
+      console.log('wrap focus')
+       console.log(e.target)
+    }, true)
+    // $wrap.addEventListener('blur', function (e) {
+    //   console.log('wrap blur')
+    // }, false)
+
+    // $input.addEventListener('focusin', function () {
+    //   console.log('input focusin')
+    // }, false)
+    // $input.addEventListener('focusout', function () {
+    //   console.log('input focusout')
+    // }, false)
+    // $input.addEventListener('focus', function (e) {
+    //   console.log('input focus')
+    // }, true)
+    // $input.addEventListener('blur', function (e) {
+    //   console.log('input blur')
+    // }, false)
+  </script>
+</body>
+</html>

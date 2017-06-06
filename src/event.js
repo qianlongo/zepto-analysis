@@ -3,7 +3,7 @@
 //     Zepto.js may be freely distributed under the MIT license.
 
 // 注意zepto是不写分号的，但是这个立即执行函数前面为什么要写一个分号呢？
-// 其实是用来结束之前的语句，反之出错
+// 其实是用来结束之前的语句，防止出错
 
 ; (function ($) {
   // 生成标志元素和回调函数的唯一id
@@ -253,6 +253,8 @@
         event.timeStamp || (event.timeStamp = Date.now())
       } catch (ignored) { }
 
+      // defaultPrevented为true表示已经调用了preventDefault(),阻止浏览器默认行为
+      // returnValue(存在于ie中的事件对象中)，设置为false，取消浏览器默认行为
       if (source.defaultPrevented !== undefined ? source.defaultPrevented :
         'returnValue' in source ? source.returnValue === false :
           source.getPreventDefault && source.getPreventDefault())
@@ -387,14 +389,23 @@
     })
   }
 
+  // 在对象集合的元素身上触发指定的事件，比如(click事件)
+  // 参数可以是一个字符串类型，也可以是由$.Event创建的事件对象
+  // 如果给定了args参数，该参数会传递给事件处理程序
+
   $.fn.trigger = function (event, args) {
+    // 对传入的event进行处理，如果是字符串或者纯对象，得到一个自己创建的事件对象
+    // 如果传入的已经是个经过$.Event处理的对象，则放入compatible再次改造(其实就是添加了几个方法，和重写了几个方法)
     event = (isString(event) || $.isPlainObject(event)) ? $.Event(event) : compatible(event)
+    // args传递给事件处理程序的参数
     event._args = args
     return this.each(function () {
       // handle focus(), blur() by calling them directly
       if (event.type in focus && typeof this[event.type] == "function") this[event.type]()
       // items in the collection might not be DOM elements
+      // 触发dom事件
       else if ('dispatchEvent' in this) this.dispatchEvent(event)
+      // 因为zepto对象内部的元素不一定是dom元素，此时直接触发回调函数
       else $(this).triggerHandler(event, args)
     })
   }
@@ -426,11 +437,25 @@
         }
       })
 
+  // 创建并初始化一个指定的dom事件对象
+  // 如果给定了props，则将其扩展到事件对象上
+  // 触发一个dom事件，需要3步
+  // 1 创建一个事件对象 document.createEvent(event)
+  // 2 初始化事件对象 event.initEvent(type, bubbles, true)
+  // 3 分发事件  dom.dispatchEvent(event)
+
   $.Event = function (type, props) {
+    // 当type是个对象时,比如{type: 'click', data: 'qianlongo'}
     if (!isString(type)) props = type, type = props.type
+    // click,mousedown,mouseup mousemove对应MouseEvent
+    // 其他事件对应为Events
+    // 并把bubbles设置为true，表示事件冒泡，为false则不冒泡
     var event = document.createEvent(specialEvents[type] || 'Events'), bubbles = true
+    // 当props存在的时候，对props进行循环处理，将其属性扩展到event对象上
     if (props) for (var name in props) (name == 'bubbles') ? (bubbles = !!props[name]) : (event[name] = props[name])
+    // 初始化事件对象，第一个为事件类型，第二个为冒泡与否，第三个为是否可以通过preventDefault来阻止浏览器默认行为
     event.initEvent(type, bubbles, true)
+    // 再对创造出来的时间对象处理一番并返回
     return compatible(event)
   }
 
