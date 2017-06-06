@@ -410,15 +410,22 @@
     })
   }
 
+  // 类似于trigger，但是又有所不同，triggerHandler直接触发回调函数，所以不会有冒泡一说
+
   // triggers event handlers on current element just as if an event occurred,
   // doesn't trigger an actual event, doesn't bubble
   $.fn.triggerHandler = function (event, args) {
     var e, result
     this.each(function (i, element) {
+      // 处理参数event
       e = createProxy(isString(event) ? $.Event(event) : event)
+      // 传递给事件处理函数的参数
       e._args = args
+      // 将事件对象的target指定为当前元素
       e.target = element
+      // 查找岛当前元素身上注册的事件处理程序，然后逐个遍历
       $.each(findHandlers(element, event.type || event), function (i, handler) {
+        // 执行注册事件时真正添加的事件处理程序
         result = handler.proxy(e)
         if (e.isImmediatePropagationStopped()) return false
       })
