@@ -15,6 +15,8 @@
 
 2. [zepto事件模块event，已完成阅读并注释](https://github.com/qianlongo/zepto-analysis/blob/master/src/event.js)
 
+3. [开始阅读ajax模块(20170607...)](https://github.com/qianlongo/zepto-analysis/blob/master/src/ajax.js)
+
 ## 文章记录
 
 1. [mouseenter与mouseover为何这般纠缠不清？](https://github.com/qianlongo/zepto-analysis/issues/1)
