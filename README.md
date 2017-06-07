@@ -13,7 +13,7 @@
 
 1. [zepto核心代码core全文注释](https://github.com/qianlongo/zepto-analysis/blob/master/src/zepto.js)(大部分已经完成，还缺dom操作部分未完成)
 
-2. [zepto事件模块event，正在阅读中](https://github.com/qianlongo/zepto-analysis/blob/master/src/event.js)
+2. [zepto事件模块event，已完成阅读并注释](https://github.com/qianlongo/zepto-analysis/blob/master/src/event.js)
 
 ## 文章记录
 
