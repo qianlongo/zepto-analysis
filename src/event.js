@@ -284,9 +284,14 @@
     return compatible(proxy, event)
   }
 
+  // 小范围事件绑定
+
   $.fn.delegate = function (selector, event, callback) {
     return this.on(event, selector, callback)
   }
+
+  // 解除事件绑定
+
   $.fn.undelegate = function (selector, event, callback) {
     return this.off(event, selector, callback)
   }
@@ -297,6 +302,9 @@
     $(document.body).delegate(this.selector, event, callback)
     return this
   }
+
+  // 解除绑定在document.body的事件
+
   $.fn.die = function (event, callback) {
     $(document.body).undelegate(this.selector, event, callback)
     return this
@@ -379,20 +387,25 @@
       add(element, event, callback, data, selector, delegator || autoRemove)
     })
   }
+
+  // 移除事件
+
   $.fn.off = function (event, selector, callback) {
     var $this = this
+    // {click: clickFn, mouseover: mouseoverFn}
+    // 传入的是对象，循环遍历调用本身解除事件
     if (event && !isString(event)) {
       $.each(event, function (type, fn) {
         $this.off(type, selector, fn)
       })
       return $this
     }
-
+    // ('click', fn)
     if (!isString(selector) && !isFunction(callback) && callback !== false)
       callback = selector, selector = undefined
 
     if (callback === false) callback = returnFalse
-
+    // 循环遍历删除绑定在元素身上的事件，如何解除，可以看remove
     return $this.each(function () {
       remove(this, event, callback, selector)
     })
@@ -441,6 +454,9 @@
     })
     return result
   }
+  
+    // 绑定以及触发事件的快件方式
+    // 比如 $('li').click(() => {})
 
     // shortcut methods for `.bind(event, fn)` for each event type
     ; ('focusin focusout focus blur load resize scroll unload click dblclick ' +
