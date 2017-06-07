@@ -157,11 +157,20 @@
         element.addEventListener(realEvent(handler.e), handler.proxy, eventCapture(handler, capture))
     })
   }
+
+  // 删除事件，off等方法底层用的该方法
+
   function remove(element, events, fn, selector, capture) {
+    // 得到添加事件的时候给元素添加的标志id
     var id = zid(element)
+    // 循环遍历要移除的事件(所以我们用的时候，可以一次性移除多个事件)
       ; (events || '').split(/\s/).forEach(function (event) {
+        // findHandlers返回的是符合条件的事件响应集合
         findHandlers(element, event, fn, selector).forEach(function (handler) {
+          // [{}, {}, {}]每个元素添加的事件形如该结构
+          // 删除存在handlers上的响应函数
           delete handlers[id][handler.i]
+          // 真正删除绑定在element上的事件及其事件处理函数
           if ('removeEventListener' in element)
             element.removeEventListener(realEvent(handler.e), handler.proxy, eventCapture(handler, capture))
         })
