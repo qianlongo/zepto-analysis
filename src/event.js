@@ -323,40 +323,27 @@
       return $this
     }
 
-    // 总共有三个if分支，产生的可能情况有8种
+    // 常见的使用方式
     /*
-    //1.全部不进入
+    
      $.fn.on('click' , '.class' , {data:'success'} , function(){
        console.log('done')
      }[, true|false] )
 
-    2. selector没有传人
+    
     $.fn.on('click' , {data:'success'} , function(){
         console.log('done')
     } [, true] )
 
-    //3. 结合实际环境  callback === undefined 才会只进入第2个if
-    $.fn.on('click' , '.class' , {data:'success'} , undefined [, true|false] )
-
-    //4.callback 没有传人 one = false
-    $.fn.on('click' , '.class' , {data:'success'} , false)
-
-    //5.selector 和 data 都没有传人
     $.fn.on('click' , function(){
         console.log('done')
     })
 
-    //6. selector没有传人 callback = false
-    $.fn.on('click' , {data:'success'} , false)
-
-    //7. 这个就好比没有添加 return false
-    $.fn.on('click' , '.class' , false)
-
-    //8.就传了event
-    $.fn.on('click')
+    $.fn.on('click' , '.class', function(){
+        console.log('done')
+    })
 
     */
-    // 一般常见的使用方式是上面的1 2 5
 
     if (!isString(selector) && !isFunction(callback) && callback !== false)
       callback = data, data = selector, selector = undefined
