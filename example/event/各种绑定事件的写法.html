@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>event debug</title>
+  <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .list{
+      margin: 30px;
+      padding: 30px;
+      border: solid 1px green;
+    }
+
+    li{
+      border: solid 1px red;
+    }
+
+    
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <ul class="list">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>  
+  </div>
+  <script>
+    // $('.list li').bind('click', function () {
+    //   console.log($(this).html())
+    // })
+
+    // $('.list').delegate('li', 'click', function () {
+    //   console.log($(this).html())
+    // })
+
+    // $('.list li').live('click', function () {
+    //   console.log($(this).html())
+    // })
+
+    // $('.list li').click(function () {
+    //   console.log($(this).html())
+    // })
+
+    // $('.list li').on({
+    //   click: function () {
+    //     console.log($(this).html())
+    //   },
+    //   mouseover: function () {
+    //     $(this).css('backgroundColor', 'red')
+    //   },
+    //   mouseout: function () {
+    //     $(this).css('backgroundColor', 'green')
+    //   }
+    // })
+    // $('.list').on('click', function () {
+    //   console.log($(this).html())
+    // })
+    // $('.list').on('click', {name: 'qianlongo'},  function (e) {
+    //   console.log(e.data.name)
+    // })
+    // $('.list').on('click', 'li',  function (e) {
+    //      console.log($(this).html())
+    // })
+    // $('.list').on('click', 'li', {name: 'qianlongo'},  function (e) {
+    //      console.log(e.data)
+    // })
+
+    $('.list').on('click', 'li', '', function (e) {
+      console.log(e)
+    }, true)
+  </script>
+</body>
+</html>
