@@ -18,8 +18,8 @@
     $list.addEventListener('click', function (e) {
       e = e || window.event
       let target = e.target || e.srcElement
-      if (target.tagName === 'LI') {
-        console.log(target.innerHTML)
+      if (target.tagName.toLowerCase() === 'li') {
+        target.style.background = 'red'
       }
     }, false)
   </script>

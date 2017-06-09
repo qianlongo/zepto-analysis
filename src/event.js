@@ -16,7 +16,7 @@
     // 保存着应用程序中所有的handler
     /*
     {
-      0: [
+      1: [
         {
           e: 'click', // 事件名称
           fn: function () {}, // 用户传入的回调函数
@@ -127,7 +127,7 @@
       // 将用户传入的选择器挂载到handler上（事件代理有用）
       handler.sel = selector
       // 用mouseover和mouseout分别模拟mouseenter和mouseleave事件
-      // https://qianlongo.github.io/zepto-analysis/example/event/mouseEnter-mouseOver.html(可以看自己模拟的这个例子)
+      // https://github.com/qianlongo/zepto-analysis/issues/1
       // emulate mouseenter, mouseleave
       if (handler.e in hover) fn = function (e) {
         var related = e.relatedTarget
