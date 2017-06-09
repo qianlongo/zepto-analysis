@@ -326,22 +326,21 @@
     // 常见的使用方式
     /*
     
-     $.fn.on('click' , '.class' , {data:'success'} , function(){
-       console.log('done')
-     }[, true|false] )
+     // 这种我们使用的也许最多了
+     on(type, function(e){ ... })
 
-    
-    $.fn.on('click' , {data:'success'} , function(){
-        console.log('done')
-    } [, true] )
+    // 可以预先添加数据data，然后在回调函数中使用e.data来使用添加的数据
+    on(type, data, function(e){ ... })
 
-    $.fn.on('click' , function(){
-        console.log('done')
-    })
+    // 事件代理形式
+    on(type, [selector], function(e){ ... })
 
-    $.fn.on('click' , '.class', function(){
-        console.log('done')
-    })
+    // 当然事件代理的形式也可以预先添加data
+    on(type, [selector], data, function(e){ ... })
+
+    // 当然也可以只让事件只有一次起效
+
+    on(type, [selector], data, function (e) { ... }, true)
 
     */
 
