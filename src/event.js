@@ -119,6 +119,7 @@
 
     events.split(/\s/).forEach(function (event) {
       // 如果是ready事件，就直接调用ready方法(这里的return貌似无法结束forEach循环吧)
+      // 还有没有办法直接去trigger('ready')
       if (event == 'ready') return $(document).ready(fn)
       // 得到事件和命名空间分离的对象 'click.qianlongo' => {e: 'click', ns: 'qianlongo'}
       var handler = parse(event)

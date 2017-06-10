@@ -27,15 +27,22 @@
 <body>
   <div class="wrap">
     <ul class="list">
-      <li>1</li>
+      <li class="box">1</li>
       <li>2</li>
       <li>3</li>
     </ul>  
   </div>
   <script>
-    ;$('.list').on('click', 'li', function () {
+    ;$('li').on('click', function () {
       console.log($(this).html())
     })
+
+    // $('li').on('ready', function () {
+    //   console.log(1)
+    // })
+    // $(document).ready(function () {
+    //   console.log(2)
+    // })
   </script>
 </body>
 </html>
