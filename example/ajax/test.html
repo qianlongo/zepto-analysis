@@ -10,9 +10,26 @@
 <body>
   <script>
     // ajaxStart
-    $(document).on('ajaxStart', function (e) {
+    // $(document).on('ajaxStart', function (e) {
+    //   console.log('ajaxStart')
+    //   console.log(e)
+    // })
+
+    // $(document).on('ajaxSuccess', function (e) {
+    //   console.log('ajaxSuccess')
+    //   console.log(e)
+    // })
+
+     $(document).on('ajaxComplete', function (e) {
+      console.log('ajaxComplete')
       console.log(e)
     })
+
+    // $(document).on('ajaxBeforeSend', function (e) {
+    //   console.log('ajaxBeforeSend')
+    //   console.log(e)
+    //   return false
+    // })
 
 
     let url = 'https://pass.hujiang.com/Handler/UCenter?action=LoginCodeCaptcha'
@@ -20,10 +37,21 @@
       type: 'get',
       url: url,
       dataType: "jsonp",
+      // jsonpCallback: 'jsonpCallbackMe',
       success: function (data) {
+        console.log('success')
         console.log(data)
-      }
+      },
+      error: function (xhr, type, error) {
+        console.log(xhr, type, error)
+      },
+      timeout: 1
     })
+
+    function jsonpCallbackMe (data) {
+      console.log('global')
+      console.log(data)
+    }
   </script>
 </body>
-</html>
+</html> 
