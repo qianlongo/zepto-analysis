@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>event debug</title>
+  <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+</head>
+
+<body>
+  <button class="btn1">动态添加li</button>
+  <button class="btn2">手动触发存在于内存中而未塞入网页的元素事件</button>
+
+  <ul class="list">
+    <li>1</li>
+  </ul>
+</body>
+  <script>
+    let zid = 1
+    let $list = $('.list')
+    let $nonExistent = $('<div class="non-existent">')
+
+    let insertLi = () => {
+      $('.btn1').on('click', () => {
+        $list.append($('<li>').text(++zid))
+      })
+    }
+
+    let triggerNonExistent = () => {
+      $('.btn2').on('click', () => {
+        $nonExistent.trigger('click')
+      })
+    }
+
+    // 利用事件代理给动态添加的li元素挂上事件
+    let bindEvent = () => {
+      $list.on('click', 'li', function () {
+        $(this).text('事件委托')
+      })
+    }
+    // 创建元素并加上事件，但不塞入网页中
+    let genElement = () => {
+      $nonExistent.on('click', () => {
+        alert('nonExistent')
+      })
+    }
+
+    insertLi()
+    genElement()
+    triggerNonExistent()
+    bindEvent()
+  </script>
+</html>
