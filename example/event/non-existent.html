@@ -12,6 +12,7 @@
 <body>
   <button class="btn1">动态添加li</button>
   <button class="btn2">手动触发存在于内存中而未塞入网页的元素事件</button>
+  <button class="btn3">手动触发存在自定义事件，没有元素存在</button>
 
   <ul class="list">
     <li>1</li>
@@ -21,6 +22,7 @@
     let zid = 1
     let $list = $('.list')
     let $nonExistent = $('<div class="non-existent">')
+    let $noElement = $({}) // 这里是一个空的zepto对象，没有创建元素，和上面不一样
 
     let insertLi = () => {
       $('.btn1').on('click', () => {
@@ -47,8 +49,25 @@
       })
     }
 
+    let addNoElementEvent = () => {
+      $noElement.on('myEvent click', (e) => {
+        console.log(`hello ${e.type}`)
+      })
+    }
+
+    let triggerNoElement = () => {
+      $('.btn3').on('click', () => {
+        let eventArr = ['myEvent', 'click']
+        let len = eventArr.length
+        let randomEventName = eventArr[Math.floor(Math.random() * len)]
+        $noElement.trigger(randomEventName)
+      })
+    }
+
     insertLi()
     genElement()
+    addNoElementEvent()
+    triggerNoElement()
     triggerNonExistent()
     bindEvent()
   </script>
