@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+</head>
+<body>
+  <script>
+    $.ajax({
+      url: 'https://pass.hujiang.com/Handler/UCenter',
+      type: 'get', // 当然参数可以省略
+      data: {
+        name: 'qianlongo',
+        sex: 'boy',
+        action: 'LoginCodeCaptcha'
+      },
+      dataType: 'jsonp',
+      // jsonpCallback: 'globalCallback',
+      timeout: 10,
+      success: function (data) {
+        console.log('successCallback')
+        console.log(data)
+      },
+      error: function (err) {
+        console.log('errorCallback')
+        console.log(err)
+      },
+      complete: function (data) {
+        console.log('compelete')
+        console.log(data)
+      }
+    })
+
+    function globalCallback (data) {
+      console.log('globalCallback')
+      console.log(data)
+    }    
+  </script>
+</body>
+</html> 

@@ -24,3 +24,5 @@
 2. [向zepto.js学习如何手动触发DOM事件](https://github.com/qianlongo/zepto-analysis/issues/2)
 
 3. [谁说你只是"会用"jQuery?](https://github.com/qianlongo/zepto-analysis/issues/3)
+
+4. [原来你是这样的jsonp(原理与具体实现细节)](https://github.com/qianlongo/zepto-analysis/issues/4)
