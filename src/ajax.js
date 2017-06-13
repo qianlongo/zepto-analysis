@@ -383,26 +383,27 @@
         }
       }
     }
-
+    // 一个请求的钩子函数，在发送请求前可以终止进行
     if (ajaxBeforeSend(xhr, settings) === false) {
       xhr.abort()
       ajaxError(null, 'abort', xhr, settings, deferred)
       return xhr
     }
-
+    // 默认async为true，若用户自己设置读取用户的
     var async = 'async' in settings ? settings.async : true
+    // 开始准备请求
     xhr.open(settings.type, settings.url, async, settings.username, settings.password)
 
     if (settings.xhrFields) for (name in settings.xhrFields) xhr[name] = settings.xhrFields[name]
 
     for (name in headers) nativeSetHeader.apply(xhr, headers[name])
-
+    // 超时处理
     if (settings.timeout > 0) abortTimeout = setTimeout(function () {
       xhr.onreadystatechange = empty
       xhr.abort()
       ajaxError(null, 'timeout', xhr, settings, deferred)
     }, settings.timeout)
-
+    // 发送请求
     // avoid sending empty string (#319)
     xhr.send(settings.data ? settings.data : null)
     return xhr
