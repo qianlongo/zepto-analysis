@@ -185,7 +185,8 @@
     xhr: function () {
       return new window.XMLHttpRequest()
     },
-    // 请求接受的数据类型
+    // 请求接受的数据类型(看下面的链接了解相关知识点)
+    // https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_Types
     // MIME types mapping
     // IIS returns Javascript as "application/x-javascript"
     accepts: {
@@ -271,7 +272,7 @@
     // 2 去除url上的hash值
     if (!settings.url) settings.url = window.location.toString()
     if ((hashIndex = settings.url.indexOf('#')) > -1) settings.url = settings.url.slice(0, hashIndex)
-    // 参数序列化，所谓序列化也是讲settings中的data字段从对象变成字符串的形式
+    // 参数序列化，所谓序列化也是将settings中的data字段从对象变成字符串的形式
     // {name: 'qianlongo', sex: 'boy'} => name=qianlongo&sex=boy
     serializeData(settings)
     // 遇到请求地址类似 abc.com?a=xxx&b=xxx的时候手动设置预期返回数据类型为jsonp
@@ -294,23 +295,43 @@
           settings.jsonp ? (settings.jsonp + '=?') : settings.jsonp === false ? '' : 'callback=?')
       return $.ajaxJSONP(settings, deferred)
     }
-
+    // 媒体类型(查看一下链接了解相关知识)
+    // https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_Types
     var mime = settings.accepts[dataType],
       headers = {},
+      // 往headers {} 中添加属性{name: [name, value]}
       setHeader = function (name, value) { headers[name.toLowerCase()] = [name, value] },
+      // 如何url中没有设置协议部分，便读取本地协议（比如file:）协议
       protocol = /^([\w-]+:)\/\//.test(settings.url) ? RegExp.$1 : window.location.protocol,
+      // 获取原生的xml对象，注意这里并没有对低版本的ie做兼容
       xhr = settings.xhr(),
+      // 获取原生的setRequestHeader函数
       nativeSetHeader = xhr.setRequestHeader,
       abortTimeout
 
     if (deferred) deferred.promise(xhr)
-
+    // 请求同步与异步设置
+    // x-requested-with  XMLHttpRequest 异步
+    // x-requested-with  null 同步
     if (!settings.crossDomain) setHeader('X-Requested-With', 'XMLHttpRequest')
+    // 设置接受相应数据的类型
     setHeader('Accept', mime || '*/*')
+    // 注意这里，是先进行后面的|| 运算，再进行赋值操作？
     if (mime = settings.mimeType || mime) {
+      // 'text/javascript, application/javascript, application/x-javascript'
+      // 取第三个值
       if (mime.indexOf(',') > -1) mime = mime.split(',', 2)[0]
       xhr.overrideMimeType && xhr.overrideMimeType(mime)
     }
+    // Content-Type指定后端想赢的文件类型，方便浏览器处理对应的文件
+    // 如果不是get类型请求，并且指定了数据data，则默认类型为application/x-www-form-urlencoded
+    /*
+      application/x-www-form-urlencoded：是一种编码格式，窗体数据被编码为名称/值对，是标准的编码格式。
+      当action为get时候，浏览器用x-www-form-urlencoded的编码方式把form数据转换成一个字串（name1=value1&name2=value2...）
+      然后把这个字串append到url后面，用?分割，加载这个新的url。 
+      当action为post时候，浏览器把form数据封装到http body中，然后发送到server
+
+    */
     if (settings.contentType || (settings.contentType !== false && settings.data && settings.type.toUpperCase() != 'GET'))
       setHeader('Content-Type', settings.contentType || 'application/x-www-form-urlencoded')
 
