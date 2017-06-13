@@ -334,21 +334,34 @@
     */
     if (settings.contentType || (settings.contentType !== false && settings.data && settings.type.toUpperCase() != 'GET'))
       setHeader('Content-Type', settings.contentType || 'application/x-www-form-urlencoded')
-
+    // 设置请求头  
     if (settings.headers) for (name in settings.headers) setHeader(name, settings.headers[name])
+    // 将原生的设置请求头的函数重写为自己定义的
     xhr.setRequestHeader = setHeader
-
+    // 监听请求状态
+    // 0：请求未初始化（还没有调用 open()）。
+    // 1：请求已经建立，但是还没有发送（还没有调用 send()）。
+    // 2：请求已发送，正在处理中（通常现在可以从响应中获取内容头）。
+    // 3：请求在处理中；通常响应中已有部分数据可用了，但是服务器还没有完成响应的生成。
+    // 4：响应已完成；您可以获取并使用服务器的响应了。
+       
     xhr.onreadystatechange = function () {
       if (xhr.readyState == 4) {
+        // 将监听的回调置空
         xhr.onreadystatechange = empty
+        // 清除定时器
         clearTimeout(abortTimeout)
         var result, error = false
+        // 200 <= xhr.status < 300 表示请求已经成功
+        // 304 便是没有被修改
+        // 或者是本地的文件
         if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304 || (xhr.status == 0 && protocol == 'file:')) {
           dataType = dataType || mimeToDataType(settings.mimeType || xhr.getResponseHeader('content-type'))
 
           if (xhr.responseType == 'arraybuffer' || xhr.responseType == 'blob')
             result = xhr.response
           else {
+            // 返回的内容
             result = xhr.responseText
 
             try {
@@ -359,12 +372,13 @@
               else if (dataType == 'xml') result = xhr.responseXML
               else if (dataType == 'json') result = blankRE.test(result) ? null : $.parseJSON(result)
             } catch (e) { error = e }
-
+            // 如果解析出错，调用parsererror
             if (error) return ajaxError(error, 'parsererror', xhr, settings, deferred)
           }
-
+          // 请求成功
           ajaxSuccess(result, xhr, settings, deferred)
         } else {
+          // 请求失败
           ajaxError(xhr.statusText || null, xhr.status ? 'error' : 'abort', xhr, settings, deferred)
         }
       }
