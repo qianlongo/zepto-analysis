@@ -47,34 +47,54 @@
     // settings.global默认为true， $.active为0(即当前没有其他的请求被触发)该事件才触发
     if (settings.global && $.active++ === 0) triggerGlobal(settings, null, 'ajaxStart')
   }
+
+  // 触发全局的ajaxStop事件
+
   function ajaxStop(settings) {
     if (settings.global && !(--$.active)) triggerGlobal(settings, null, 'ajaxStop')
   }
 
+  // 发送请求前执行的函数，如果返回false那么取消该次请求
+
   // triggers an extra global event "ajaxBeforeSend" that's like "ajaxSend" but cancelable
   function ajaxBeforeSend(xhr, settings) {
+    // context决定回调函数的内部this指向
     var context = settings.context
     if (settings.beforeSend.call(context, xhr, settings) === false ||
       triggerGlobal(settings, context, 'ajaxBeforeSend', [xhr, settings]) === false)
       return false
-
+    // 如果两天回调函数都没有返回false,那么触发全局的钩子ajaxSend 
     triggerGlobal(settings, context, 'ajaxSend', [xhr, settings])
   }
+
+  // 请求成功的回调
+
   function ajaxSuccess(data, xhr, settings, deferred) {
     var context = settings.context, status = 'success'
+    // 执行成功的回调
     settings.success.call(context, data, status, xhr)
     if (deferred) deferred.resolveWith(context, [data, status, xhr])
+    // 触发全局钩子ajaxSuccess
     triggerGlobal(settings, context, 'ajaxSuccess', [xhr, settings, data])
+    // 触发全局钩子ajaxComplete
     ajaxComplete(status, xhr, settings)
   }
+
+  // 请求失败的回调函数
+
   // type: "timeout", "error", "abort", "parsererror"
   function ajaxError(error, type, xhr, settings, deferred) {
     var context = settings.context
+    // 执行失败的回调
     settings.error.call(context, xhr, type, error)
     if (deferred) deferred.rejectWith(context, [xhr, type, error])
+    // 触发全局的钩子ajaxError
     triggerGlobal(settings, context, 'ajaxError', [xhr, settings, error || type])
     ajaxComplete(type, xhr, settings)
-  }
+  } 
+
+  // 请求完成的回调函数成功或者失败都会执行该函数
+
   // status: "success", "notmodified", "error", "timeout", "abort", "parsererror"
   function ajaxComplete(status, xhr, settings) {
     var context = settings.context
