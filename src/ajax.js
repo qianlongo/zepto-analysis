@@ -216,7 +216,7 @@
     //The sanitized response should be returned
     dataFilter: empty
   }
-
+  // application/json; charset=utf-8
   function mimeToDataType(mime) {
     if (mime) mime = mime.split(';', 2)[0]
     return mime && (mime == htmlType ? 'html' :
@@ -361,6 +361,7 @@
         // 304 便是没有被修改
         // 或者是本地的文件
         if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304 || (xhr.status == 0 && protocol == 'file:')) {
+          // mimeToDataType对后端返回的数据进行数据转化(一般后端返回的是字符串，如果没有指定dataType，会读取后端返回的content-type进行酌情转化)
           dataType = dataType || mimeToDataType(settings.mimeType || xhr.getResponseHeader('content-type'))
 
           if (xhr.responseType == 'arraybuffer' || xhr.responseType == 'blob')
