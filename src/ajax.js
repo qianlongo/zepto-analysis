@@ -1,6 +1,7 @@
 //     Zepto.js
 //     (c) 2010-2016 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
+// https://juejin.im/post/587f8dbd570c3522011c0f59(回顾一下ajax请求的好文章)
 
 ; (function ($) {
   var jsonpID = +new Date(),
@@ -185,6 +186,7 @@
     xhr: function () {
       return new window.XMLHttpRequest()
     },
+    // 新补充 在请求时会被写入请求中，以告知服务器期望的文件类型
     // 请求接受的数据类型(看下面的链接了解相关知识点)
     // https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_Types
     // MIME types mapping
@@ -222,7 +224,8 @@
         scriptTypeRE.test(mime) ? 'script' :
           xmlTypeRE.test(mime) && 'xml') || 'text'
   }
-
+  // 给url后添加查询字符串
+  // appendQuery('abc.com', 'a=b') => abc.com?a=b
   function appendQuery(url, query) {
     if (query == '') return url
     return (url + '&' + query).replace(/[&?]{1,2}/, '?')
@@ -301,7 +304,7 @@
       headers = {},
       // 往headers {} 中添加属性{name: [name, value]}
       setHeader = function (name, value) { headers[name.toLowerCase()] = [name, value] },
-      // 如何url中没有设置协议部分，便读取本地协议（比如file:）协议
+      // 如何url中没有设置协议部分，便读取本地协议（比如file:）协议(/^([\w-]+:)\/\//.test(settings.url) ? RegExp.$1 拿到一个url的协议部分正则可以了解一下)
       protocol = /^([\w-]+:)\/\//.test(settings.url) ? RegExp.$1 : window.location.protocol,
       // 获取原生的xml对象，注意这里并没有对低版本的ie做兼容
       xhr = settings.xhr(),
@@ -316,7 +319,9 @@
     if (!settings.crossDomain) setHeader('X-Requested-With', 'XMLHttpRequest')
     // 设置接受相应数据的类型
     setHeader('Accept', mime || '*/*')
-    // 注意这里，是先进行后面的|| 运算，再进行赋值操作？
+    // 注意这里，是先进行后面的|| 运算，再进行赋值操作？(运算符优先级问题，|| 运算优先级高于=赋值运算)
+    // 可以看这篇文章(http://www.cnblogs.com/ygm125/archive/2011/11/09/2242427.html)
+    // 更新注释：mime = (settings.mimeType || mime)类似进行了该操作
     if (mime = settings.mimeType || mime) {
       // 'text/javascript, application/javascript, application/x-javascript'
       // 取第三个值
