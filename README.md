@@ -15,7 +15,9 @@
 
 2. [zepto事件模块event，已完成阅读并注释](https://github.com/qianlongo/zepto-analysis/blob/master/src/event.js)
 
-3. [开始阅读ajax模块(20170607...)](https://github.com/qianlongo/zepto-analysis/blob/master/src/ajax.js)
+3. [ajax模块，已完成阅读并注释](https://github.com/qianlongo/zepto-analysis/blob/master/src/ajax.js)
+
+4. [开始阅读defer模块 ...2017-6-16](https://github.com/qianlongo/zepto-analysis/blob/master/src/defer.js)
 
 ## 文章记录
 
