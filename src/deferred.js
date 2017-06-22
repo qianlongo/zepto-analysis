@@ -20,10 +20,12 @@
         state: function () {
           return state
         },
+        // 成功和失败都将调用的函数
         always: function () {
           deferred.done(arguments).fail(arguments)
           return this
         },
+        // 成功执行的回调
         then: function (/* fnDone [, fnFailed [, fnProgress]] */) {
           var fns = arguments
           return Deferred(function (defer) {
