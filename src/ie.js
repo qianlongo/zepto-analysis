@@ -5,6 +5,7 @@
 ;(function(){
   // getComputedStyle shouldn't freak out when called
   // without a valid element as argument
+  // 重写getComputedStyle
   try {
     getComputedStyle(undefined)
   } catch(e) {
