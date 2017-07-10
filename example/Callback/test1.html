@@ -9,6 +9,27 @@
   <script src="../../src/callbacks.js"></script>
 </head>
 <body>
-  
+  <script>
+    ((pause) => {
+      if (pause) return
+
+      let foo = (val) => {
+        console.log(`foo: ${val}`)
+      }
+
+      let bar = (val) => {
+        console.log(`bar: ${val}`)
+      }
+
+      let callbacks = $.Callbacks({memory: true})
+      callbacks.add(foo)
+      callbacks.fire('first, hhahah')
+      callbacks.add(bar)
+      callbacks.add(bar)
+      callbacks.fire('first, hhahah-hhahah')
+      callbacks.add(foo)
+      callbacks.fire('second,hell')
+    })()
+  </script>
 </body>
 </html>

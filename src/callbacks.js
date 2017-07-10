@@ -5,14 +5,14 @@
 ;(function($){
   // Create a collection of callbacks to be fired in a sequence, with configurable behaviour
   // Option flags:
-  //   - once: Callbacks fired at most one time.
-  //   - memory: Remember the most recent context and arguments
-  //   - stopOnFalse: Cease iterating over callback list
-  //   - unique: Permit adding at most one instance of the same callback
+  //   - once: Callbacks fired at most one time. // 回调函数只能触发一次
+  //   - memory: Remember the most recent context and arguments // 记录上一次触发回调函数列表时的参数，后面添加的函数都用这些参数立即执行
+  //   - stopOnFalse: Cease iterating over callback list // 回调函数返回false时，中断执行
+  //   - unique: Permit adding at most one instance of the same callback // 一个回调函数只能添加一次
   $.Callbacks = function(options) {
     options = $.extend({}, options)
 
-    var memory, // Last fire value (for non-forgettable lists)
+    var memory, // Last fire value (for non-forgettable lists) 
         fired,  // Flag to know if list was already fired //是否回调过
         firing, // Flag to know if list is currently firing // 回调函数列表是否正在执行中
         firingStart, // First callback to fire (used internally by add and fireWith) // 第一回调用回调函数的下标
@@ -52,15 +52,21 @@
                   add = function(args) {
                     $.each(args, function(_, arg){
                       if (typeof arg === "function") {
+                        // 未指定unique为true，可以添加相同的函数多次
+                        // 指定unique为true，相同的函数只添加一次
                         if (!options.unique || !Callbacks.has(arg)) list.push(arg)
                       }
+                      // 伪数组，数组递归调用
                       else if (arg && arg.length && typeof arg !== 'string') add(arg)
                     })
                   }
               add(arguments)
+              // 如果列表还在执行中，重新修正firingLength，这样后面添加的函数也可以执行
               if (firing) firingLength = list.length
               else if (memory) {
+                // 修正开始执行回调的下标
                 firingStart = start
+                // 立刻执行,这里的参数拿的是上一次fire传进去的值
                 fire(memory)
               }
             }
