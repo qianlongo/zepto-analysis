@@ -21,9 +21,11 @@
         list = [], // Actual callback list // 回调函数列表
         stack = !options.once && [], // Stack of fire calls for repeatable lists
         fire = function(data) {
-          // 记忆模式，处罚多回调函数之后，再添加新回调，也立即触发
+          // 记忆模式，触发回调函数之后，再添加新回调，也立即触发
           memory = options.memory && data
+          // 只要调用过一次fire，则将fired状态设置为true，表示已经回调过
           fired = true
+          // 触发回调函数的初始索引
           firingIndex = firingStart || 0
           firingStart = 0
           firingLength = list.length
@@ -46,14 +48,17 @@
         },
 
         Callbacks = {
-          add: function() { // 添加函数
+          // 添加回调
+          add: function() {
             if (list) {
+              // 该变量控制memory模式时，只立即调用后面添加的函数
               var start = list.length,
                   add = function(args) {
                     $.each(args, function(_, arg){
                       if (typeof arg === "function") {
                         // 未指定unique为true，可以添加相同的函数多次
                         // 指定unique为true，相同的函数只添加一次
+                        // 短路的妙用
                         if (!options.unique || !Callbacks.has(arg)) list.push(arg)
                       }
                       // 伪数组，数组递归调用
@@ -61,21 +66,25 @@
                     })
                   }
               add(arguments)
+              // 什么场景下会出现这种情况？
               // 如果列表还在执行中，重新修正firingLength，这样后面添加的函数也可以执行
               if (firing) firingLength = list.length
               else if (memory) {
                 // 修正开始执行回调的下标
                 firingStart = start
-                // 立刻执行,这里的参数拿的是上一次fire传进去的值
+                // 立刻执行,这里的参数拿的是上一次fire传进去的值[context, args]
                 fire(memory)
               }
             }
             return this
           },
+          // 移除回调
           remove: function() {
             if (list) {
               $.each(arguments, function(_, arg){
                 var index
+                // 不太理解这里为什么要用while来做？直接用if判断不就是可以？
+                // 明白了，对于没有指定once的情况下，有可能对于同一个函数会添加多次，可以通过循环，逐个删除
                 while ((index = $.inArray(arg, list, index)) > -1) {
                   list.splice(index, 1)
                   // Handle firing indexes
