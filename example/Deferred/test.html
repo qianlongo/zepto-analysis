@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../../src/zepto.js"></script>
+  <script src="../../src/event.js"></script>
+  <script src="../../src/callbacks.js"></script>
+  <script src="../../src/deferred.js"></script>
+</head>
+
+<body>
+  <button>Go</button>
+  <p>Ready...</p>
+  <script>
+    ((pause) => {
+      if (pause) return
+
+      function fn1() {
+        $("p").append(" 1 ");
+      }
+      function fn2() {
+        $("p").append(" 2 ");
+      }
+      function fn3(n) {
+        $("p").append(n + " 3 " + n);
+      }
+
+      let dfd = $.Deferred()
+      console.log(dfd)
+      dfd.done([fn1, fn2], fn3, [fn2, fn1])
+        .done((n) => {
+          $("p").append(n + " we're done.");
+        })
+
+      $("button").bind("click", function () {
+        dfd.resolve("and");
+      });
+    })()
+  </script>
+</body>
+
+</html>
