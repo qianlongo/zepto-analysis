@@ -90,6 +90,7 @@
                   // Handle firing indexes
                   if (firing) {
                     if (index <= firingLength) --firingLength
+                    // 当前删除的函数的索引在当前正在执行的函数前，递减索引下标
                     if (index <= firingIndex) --firingIndex
                   }
                 }
@@ -111,19 +112,22 @@
             list = stack = memory = undefined
             return this
           },
-          // 判断是否禁用了回调函数
+          // 判断是否禁用了回调函数，如果禁用，list变成了undefined
           disabled: function() {
             return !list
           },
+          // 锁定
           lock: function() {
             stack = undefined
             if (!memory) Callbacks.disable()
             return this
           },
+          // 回调列表是否被锁定
           locked: function() {
             return !stack
           },
           fireWith: function(context, args) {
+            // 未回调过，没有锁定，没有禁用
             if (list && (!fired || stack)) {
               args = args || []
               args = [context, args.slice ? args.slice() : args]
@@ -132,9 +136,11 @@
             }
             return this
           },
+          // 执行回调
           fire: function() {
             return Callbacks.fireWith(this, arguments)
           },
+          // 回调函数列表是否被回调过
           fired: function() {
             return !!fired
           }

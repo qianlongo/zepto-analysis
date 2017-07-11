@@ -28,6 +28,27 @@
       // callbacks.fire('first, hhahah-hhahah')
       // callbacks.add(foo)
       // callbacks.fire('second,hell')
+    })(1)
+
+    ;((pause) => {
+      if (pause) return
+
+      let foo = (val) => {
+        console.log(`foo: ${val}`)
+      }
+
+      let bar = (val) => {
+        console.log(`bar: ${val}`)
+      }
+
+      let callbacks = $.Callbacks({ memory: true })
+      callbacks.add(foo)
+      callbacks.fire('hello')
+      callbacks.lock()
+      callbacks.fire('hello-two')
+      callbacks.add(bar)
+      callbacks.add(bar)
+      callbacks.fire('hello-three')
     })()
   </script>
 </body>
