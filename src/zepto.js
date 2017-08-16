@@ -368,6 +368,8 @@ var Zepto = (function () {
   $ = function (selector, context) {
     return zepto.init(selector, context)
   }
+
+  // 内部的递归函数
   
   function extend(target, source, deep) {
     // 对源对象source进行遍历
@@ -590,6 +592,8 @@ var Zepto = (function () {
         // 如果用来遍历dom，那么内部的this，指的就是当前这个元素本身
         // 判断callback执行的结果，如果是false，就中断遍历
         // 中断遍历这就是和原生forEach不同的地方
+        // 2017-8-16添加，原生的forEach内部的this指向的是数组本身，但是这里指向的是数组的项
+        // 2017-8-16添加，原生的forEach回调函数的参数是val, i...,这里反过来
         if (callback.call(elements[i], i, elements[i]) === false) return elements
     } else {
       // 否则回去走for in循环，逻辑与上面差不多
