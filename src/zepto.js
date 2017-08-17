@@ -524,6 +524,12 @@ var Zepto = (function () {
     return true
   }
 
+  // 判断是否为数字
+  // 1. 不为null和undefined
+  // 2. 不能是boolean值
+  // 3. 不为NaN
+  // 4. 是有限范围内的数字isFinite
+
   $.isNumeric = function (val) {
     var num = Number(val), type = typeof val
     return val != null && type != 'boolean' &&
