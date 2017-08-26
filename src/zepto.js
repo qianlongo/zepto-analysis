@@ -278,6 +278,8 @@ var Zepto = (function () {
     return dom
   }
 
+  // 对Z构造函数的一层包装
+
   // `$.zepto.Z` swaps out the prototype of the given `dom` array
   // of nodes with `$.fn` and thus supplying all the Zepto functions
   // to the array. This method can be overridden in plugins.
