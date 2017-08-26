@@ -152,6 +152,8 @@ var Zepto = (function () {
     var length = !!obj && 'length' in obj && obj.length,
     // 获取obj的数据类型
     // 这里为什么要覆盖前面定义的type函数？
+    // (2017-8-25补充)注意看上面的逗号，这是在函数内部声明了一个新的变量不是覆盖
+    
       type = $.type(obj)
     // 不能是function类型，不能是window
     // 如果是array则直接返回true
