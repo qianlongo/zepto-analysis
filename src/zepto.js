@@ -165,7 +165,6 @@ var Zepto = (function () {
   }
 
   // compact 去除数组中null和undefined,注意判断是用了 != 而不是 !==
-
   function compact(array) { return filter.call(array, function (item) { return item != null }) }
 
   // flatten 将数组 [1,[2,3],[4,5],6,[7,[89]] 变成 [1,2,3,4,5,6,7,[8,9]] 
