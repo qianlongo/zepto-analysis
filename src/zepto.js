@@ -133,6 +133,7 @@ var Zepto = (function () {
 
   function isObject(obj) { return type(obj) == "object" }
 
+  // http://www.cnblogs.com/lunalord/archive/2012/03/19/2389695.html
   // 判断obj是否为纯粹的对象，必须满足
   // 首先必须是对象 isObject(obj)
   // 不是 window 对象 !isWindow(obj)
