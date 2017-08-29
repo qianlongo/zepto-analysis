@@ -91,7 +91,9 @@
                 while ((index = $.inArray(arg, list, index)) > -1) {
                   list.splice(index, 1)
                   // Handle firing indexes
+                  // 如果回调函数正在执行中，因为上面删除了部分函数，索引需要修正相应的索引
                   if (firing) {
+                    // 回调函数在当前的回调任务中，回调任务减一
                     if (index <= firingLength) --firingLength
                     // 当前删除的函数的索引在当前正在执行的函数前，递减索引下标
                     if (index <= firingIndex) --firingIndex
