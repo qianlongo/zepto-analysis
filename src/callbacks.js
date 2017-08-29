@@ -25,6 +25,7 @@
           // 记忆模式，触发回调函数之后，再添加新回调，也立即触发
           memory = options.memory && data
           // 只要调用过一次fire，则将fired状态设置为true，表示已经回调过
+          // 表示当前有回调正在执行？
           fired = true
           // 触发回调函数的初始索引
           firingIndex = firingStart || 0
@@ -40,6 +41,7 @@
             }
           }
           // 所有的回调执行完毕
+          // 表示当前没有回调在执行
           firing = false
           if (list) {
             if (stack) stack.length && fire(stack.shift())
