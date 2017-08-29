@@ -20,6 +20,7 @@
         firingIndex, // Index of currently firing callback (modified by remove if needed) // 
         list = [], // Actual callback list // 回调函数列表
         stack = !options.once && [], // Stack of fire calls for repeatable lists
+        // callback模块的核心
         fire = function(data) {
           // 记忆模式，触发回调函数之后，再添加新回调，也立即触发
           memory = options.memory && data
