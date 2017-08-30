@@ -30,6 +30,8 @@
 
 5. [这些Zepto中实用的方法集](https://github.com/qianlongo/zepto-analysis/issues/5)
 
+6. [Zepto核心模块之工具方法拾遗 ](https://github.com/qianlongo/zepto-analysis/issues/6)
+
  
 
  
