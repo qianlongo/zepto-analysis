@@ -20,13 +20,20 @@
 4. [开始阅读defer模块 ...2017-6-16](https://github.com/qianlongo/zepto-analysis/blob/master/src/defer.js)
 
 ## 文章记录
+1. [mouseenter与mouseover为何这般纠缠不清？](https://github.com/qianlongo/zepto-analysis/issues/1)
 
- [这些Zepto中实用的方法集](https://github.com/qianlongo/zepto-analysis/issues/5)
+2. [向zepto.js学习如何手动触发DOM事件](https://github.com/qianlongo/zepto-analysis/issues/2)
 
- [原来你是这样的jsonp(原理与具体实现细节)](https://github.com/qianlongo/zepto-analysis/issues/4)
+3. [谁说你只是"会用"jQuery?](https://github.com/qianlongo/zepto-analysis/issues/3)
 
- [谁说你只是"会用"jQuery?](https://github.com/qianlongo/zepto-analysis/issues/3)
+4. [原来你是这样的jsonp(原理与具体实现细节)](https://github.com/qianlongo/zepto-analysis/issues/4)
 
- [向zepto.js学习如何手动触发DOM事件](https://github.com/qianlongo/zepto-analysis/issues/2)
+5. [这些Zepto中实用的方法集](https://github.com/qianlongo/zepto-analysis/issues/5)
 
- [mouseenter与mouseover为何这般纠缠不清？](https://github.com/qianlongo/zepto-analysis/issues/1)
+ 
+
+ 
+
+ 
+
+ 
