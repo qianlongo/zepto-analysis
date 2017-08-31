@@ -36,10 +36,15 @@
   }
 
   $.fn.submit = function(callback) {
+    // 如果传了回调函数，则在选中的元素上添加submit事件
+    // 为什么不用on呢？
     if (0 in arguments) this.bind('submit', callback)
+    // 否则在没有传递回调函数的情况下，并且选中的表单元素  
     else if (this.length) {
       var event = $.Event('submit')
+      // 触发选中的第一个表单的是submit事件，注意这里只是手动触发绑定的submit事件，并不会提交表单
       this.eq(0).trigger(event)
+      // 如果没有阻止默认事件，便调用form.submit()提交表单
       if (!event.isDefaultPrevented()) this.get(0).submit()
     }
     return this

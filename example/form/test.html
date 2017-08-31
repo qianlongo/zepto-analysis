@@ -20,7 +20,12 @@
   </form>
   <button>添加</button>
   <script>
+    $('form').on('submit', (e) => {
+      e.preventDefault()
+      console.log(1111)
+    })
     $('button').on('click', () => {
+      // $('form').submit()
       console.log($('form').serialize())
       console.log($('form').serializeArray())
     })
