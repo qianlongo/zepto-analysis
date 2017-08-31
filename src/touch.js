@@ -8,10 +8,14 @@
     longTapDelay = 750,
     gesture
 
+  // 判断移动的方向,结果是Left, Right, Up, Down中的一个
+
   function swipeDirection(x1, x2, y1, y2) {
     return Math.abs(x1 - x2) >=
       Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
   }
+
+  // 长按
 
   function longTap() {
     longTapTimeout = null
@@ -20,6 +24,8 @@
       touch = {}
     }
   }
+
+  // 取消长按
 
   function cancelLongTap() {
     if (longTapTimeout) clearTimeout(longTapTimeout)
