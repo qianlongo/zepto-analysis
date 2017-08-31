@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>form-test</title>
+  <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+</head>
+
+<body>
+  <form action="">
+    <input type="text" value="hahha" name="name">
+    <input type="text" value="pass" name="pwd">
+  </form>
+  <form action="">
+    <input type="text" value="hahha" name="name">
+    <input type="text" value="pass" name="pwd">
+  </form>
+  <button>添加</button>
+  <script>
+    $('button').on('click', () => {
+      console.log($('form').serialize())
+      console.log($('form').serializeArray())
+    })
+  </script>
+</body>
+
+</html>
