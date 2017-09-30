@@ -1379,7 +1379,9 @@ var Zepto = (function () {
     }
   })
 
-  // 非常关键的代码，设置对应的原型，从而可以保证$实例正确访问到对应的方法
+  // https://segmentfault.com/q/1010000005782663
+  // 1. 非常关键的代码，设置对应的原型，从而可以保证$实例正确访问到对应的方法
+  // 2. 为方法zepto.isZ做准备
 
   zepto.Z.prototype = Z.prototype = $.fn
 
