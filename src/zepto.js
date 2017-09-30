@@ -3,8 +3,11 @@
 //     Zepto.js may be freely distributed under the MIT license.
 
 var Zepto = (function () {
+
   // 初始化了一些变量，注意emptyArray
   // 其方便后面读取数组的concat，filter等方法
+  // 但是为什么不直接从数组的原型上读取呢？不是更快？
+
   var undefined, key, $, classList, 
     emptyArray = [], 
     concat = emptyArray.concat, 
@@ -186,6 +189,7 @@ var Zepto = (function () {
   }
 
   // 数组去重，原理是根据元素在数组中第一次出现的位置是否和item所处的位置相等，相等则是第一次出现，否则将其过滤掉
+  // 之前写过一篇关于数组去重的文章https://segmentfault.com/a/1190000003899049
 
   uniq = function (array) { return filter.call(array, function (item, idx) { return array.indexOf(item) == idx }) }
 
