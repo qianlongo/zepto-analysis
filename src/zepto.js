@@ -1357,18 +1357,31 @@ var Zepto = (function () {
         return argType == "object" || arg == null ?
           arg : zepto.fragment(arg)
       }),
+        // parent变量保存着需要插入的内容的父节点
+        // copyByClone
         parent, copyByClone = this.length > 1
+        // 当需要插入的节点数组长度为0时，不再进行后续的处理
       if (nodes.length < 1) return this
 
       return this.each(function (_, target) {
+        // append和prepend将要插入的内容插入到自己的内部，所以parent便设置为元素本身
+        // after和before将要插入的内容插入到外部，所以parent设置为该元素的父元素
         parent = inside ? target : target.parentNode
 
         // convert all methods to a "before" operation
+        // 下面的一系列处理主要为使用insertBefore完成四个函数的功能做准备
+        // insertBefore方法介绍 https://developer.mozilla.org/zh-CN/docs/Web/API/Node/insertBefore
+
+        // 如果operatorIndex为0，即after方法，node节点应该是插入到目标元素target的后面，也就是target的下一个兄弟节点的前面
+        // 如果operatorIndex为1，即prepend方法,node应该插入到目标元素target的第一个子元素的前面
+        // 如果operatorIndex为2，即before方法,node节点应该插入到target节点的前面
+        // 否则operatorIndex为4了，即append方法，node节点应该插入到target最后一个子节点的默认，insertBefore传入null，正好与其功能相对应
+
         target = operatorIndex == 0 ? target.nextSibling :
           operatorIndex == 1 ? target.firstChild :
             operatorIndex == 2 ? target :
               null
-
+        // 判断父节点是否在文档树中
         var parentInDocument = $.contains(document.documentElement, parent)
 
         nodes.forEach(function (node) {
