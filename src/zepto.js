@@ -1358,7 +1358,7 @@ var Zepto = (function () {
           arg : zepto.fragment(arg)
       }),
         // parent变量保存着需要插入的内容的父节点
-        // copyByClone
+        // copyByClone 是否需要克隆节点
         parent, copyByClone = this.length > 1
         // 当需要插入的节点数组长度为0时，不再进行后续的处理
       if (nodes.length < 1) return this

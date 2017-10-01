@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>insertBefore测试</title>
+</head>
+<body>
+  <ul class="list">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+  </ul>
+  <script>
+    let $list = document.querySelector('.list')
+    let $listLi = document.querySelectorAll('.list li')
+    let createEle = (tagName, text) => {
+      let ele = document.createElement(tagName)
+      ele.innerHTML = text
+      return ele
+    }
+    let $span1 = createEle('span', 'span1')
+    let $span2 = createEle('span', 'span2')
+
+    Array.from($listLi).forEach((target) => {
+      [$span1, $span2].forEach((node) => {
+        node = node.cloneNode(true)
+        $list.insertBefore(node, target)
+      })
+    })
+
+  </script>
+</body>
+</html>
