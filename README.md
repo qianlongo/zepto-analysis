@@ -21,22 +21,23 @@
 
 ## 文章记录
 
-1. [mouseenter与mouseover为何这般纠缠不清？](https://github.com/qianlongo/zepto-analysis/issues/1)
 
-2. [向zepto.js学习如何手动触发DOM事件](https://github.com/qianlongo/zepto-analysis/issues/2)
+## zepto模块
 
-3. [谁说你只是"会用"jQuery?](https://github.com/qianlongo/zepto-analysis/issues/3)
+  1. [这些Zepto中实用的方法集](https://github.com/qianlongo/zepto-analysis/issues/5)
+  2. [Zepto核心模块之工具方法拾遗 ](https://github.com/qianlongo/zepto-analysis/issues/6)
 
-4. [原来你是这样的jsonp(原理与具体实现细节)](https://github.com/qianlongo/zepto-analysis/issues/4)
+## event模块
 
-5. [这些Zepto中实用的方法集](https://github.com/qianlongo/zepto-analysis/issues/5)
+  1. [mouseenter与mouseover为何这般纠缠不清？](https://github.com/qianlongo/zepto-analysis/issues/1)
+  2. [向zepto.js学习如何手动触发DOM事件](https://github.com/qianlongo/zepto-analysis/issues/2)
+  3. [谁说你只是"会用"jQuery?](https://github.com/qianlongo/zepto-analysis/issues/3)
 
-6. [Zepto核心模块之工具方法拾遗 ](https://github.com/qianlongo/zepto-analysis/issues/6)
+## ajax模块
 
- 
+  1. [原来你是这样的jsonp(原理与具体实现细节)](https://github.com/qianlongo/zepto-analysis/issues/4)
 
- 
 
- 
+## form模块
 
- 
+
