@@ -1004,6 +1004,7 @@ var Zepto = (function () {
     // 将当前元素赋值一份，注意是用了cloneNode这个原生方法，并且传了true
     // 意味着事件和当前元素的子节点也会被赋值
     // 其实true设置为参数动态传递应该会比较好吧
+    // 另外不会赋值js属性和事件处理程序（重要）
 
     clone: function () {
       return this.map(function () { return this.cloneNode(true) })
