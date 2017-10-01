@@ -1326,21 +1326,34 @@ var Zepto = (function () {
   // Generate the `after`, `prepend`, `before`, `append`,
   // `insertAfter`, `insertBefore`, `appendTo`, and `prependTo` methods.
   adjacencyOperators.forEach(function (operator, operatorIndex) {
-    var inside = operatorIndex % 2 //=> prepend, append
-
+    // adjacencyOperators ['after', 'prepend', 'before', 'append']
+    // 当operatorIndex索引为1(prepend)和3(append)的时候，余数为1，即为真
+    var inside = operatorIndex % 2
+    // 在原型上分别添加'after', 'prepend', 'before', 'append'几个方法
     $.fn[operator] = function () {
       // arguments can be nodes, arrays of nodes, Zepto objects and HTML strings
+
+      // 上述四个方法的入参可以是，元素节点，数组节点，Zepto对象或者html字符串
+      // argType => 保存入参类型
+      // nodes => 根据入参转化后的节点数组
+      
       var argType, nodes = $.map(arguments, function (arg) {
         var arr = []
+        // 判断类数组某一项数据类型
         argType = type(arg)
+        // 处理数组情况
         if (argType == "array") {
           arg.forEach(function (el) {
+            // 如果是数组内的项是元素类型，将元素添加到arr中
             if (el.nodeType !== undefined) return arr.push(el)
+            // 如果是Zepto对象，则用arr与get()方法返回的元素数组相合并
             else if ($.zepto.isZ(el)) return arr = arr.concat(el.get())
+            // 否则便通过zepto.fragment处理并将返回结果与arr合并
             arr = arr.concat(zepto.fragment(el))
           })
           return arr
         }
+        // 如果是Zepto对象或者为null则直接返回，否则还是通过zepto.fragment处理后再返回
         return argType == "object" || arg == null ?
           arg : zepto.fragment(arg)
       }),
