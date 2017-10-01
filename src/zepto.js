@@ -963,15 +963,23 @@ var Zepto = (function () {
     replaceWith: function (newContent) {
       return this.before(newContent).remove()
     },
+    
+    // 为集合中每个元素都包裹上指定的结构 structure
+
     wrap: function (structure) {
       var func = isFunction(structure)
+      // 当前选中的元素不为空，并且structure不是一个函数
       if (this[0] && !func)
+        // 就将structure转化后的第一个元素赋值给dom元素
         var dom = $(structure).get(0),
+          // 如果dom元素的parentNode存在或者当前选中的元素个人大于1那么clone为true
           clone = dom.parentNode || this.length > 1
-
+      // 对当前选中元素进行遍历并且调用wrapAll方法
       return this.each(function (index) {
         $(this).wrapAll(
+          // 如果structure为函数，则将当前的元素和对应的索引传入函数
           func ? structure.call(this, index) :
+            // 如果clone为true，则使用拷贝的副本
             clone ? dom.cloneNode(true) : dom
         )
       })
