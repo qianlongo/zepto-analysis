@@ -976,12 +976,19 @@ var Zepto = (function () {
         )
       })
     },
+
+    // 将集合中所有的元素都包裹进指定的结构structure中
+
     wrapAll: function (structure) {
+      // 如果选中的元素存在
       if (this[0]) {
+        // 则将制定structure结构通过before方法，插入到选中的第一个元素的前面
         $(this[0]).before(structure = $(structure))
         var children
         // drill down to the inmost element
+        // 获取structure的最深层次的第一个子元素
         while ((children = structure.children()).length) structure = children.first()
+        // 将当前的元素集合通过append方法添加到structure末尾
         $(structure).append(this)
       }
       return this
@@ -1040,7 +1047,7 @@ var Zepto = (function () {
     next: function (selector) { return $(this.pluck('nextElementSibling')).filter(selector || '*') },
 
     // 获取或者设置当前集合的html
-    // 如果html传了，就遍历设置
+    // 如果html传了，就遍历通过append函数设置html
     // 没传就是获取（即返回当前集合的第一个元素的innerHTML）
     // 注意：这里的html参数可以是个函数,接收的参数是当前元素的索引和html
 
