@@ -1417,6 +1417,8 @@ var Zepto = (function () {
     // prepend  => prependTo
     // before   => insertBefore
     // append   => appendTo
+    // 上述方法功能类似，使用方式正好相反，所以只需要方向调用对应的方法即可。
+
     $.fn[inside ? operator + 'To' : 'insert' + (operatorIndex ? 'Before' : 'After')] = function (html) {
       $(html)[operator](this)
       return this
