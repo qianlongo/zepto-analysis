@@ -1383,16 +1383,29 @@ var Zepto = (function () {
               null
         // 判断父节点是否在文档树中
         var parentInDocument = $.contains(document.documentElement, parent)
-
+        // 接下来开始讲节点插入到指定位置
         nodes.forEach(function (node) {
+          // 为什么需要clone节点呢？因为insertBefore插入的是节点的引用，对元素集合进行遍历，每个元素插入的节点都是一样的
+          // 这样导致只有最后一个元素插入有效，所以需要clone一份，这样每个元素插入的都是不一样的元素引用
+          
           if (copyByClone) node = node.cloneNode(true)
+          // 如果没有parent元素节点，就将node节点删除
           else if (!parent) return $(node).remove()
-
+          // 插入节点
           parent.insertBefore(node, target)
+          // 处理插入的是script标签，如果script标签中有内容，通过insertBefore是不会触发执行的，所以需要手动eval一下
           if (parentInDocument) traverseNode(node, function (el) {
+            // 1 是否为script标签
+            // 2 没有type属性或者type为text/javascript
+            // 3 没有引用外部资源链接
             if (el.nodeName != null && el.nodeName.toUpperCase() === 'SCRIPT' &&
               (!el.type || el.type === 'text/javascript') && !el.src) {
+              // ownerDocument https://developer.mozilla.org/zh-CN/docs/Web/API/Node/ownerDocument  
+              // ownerDocument => 返回元素的根节点
+              // defaultView => document所关联的window对象
+              // 这里主要是处理iframe的情况
               var target = el.ownerDocument ? el.ownerDocument.defaultView : window
+              // 最后通过eval执行script标签中的代码
               target['eval'].call(target, el.innerHTML)
             }
           })
