@@ -1017,8 +1017,14 @@ var Zepto = (function () {
         contents.length ? contents.wrapAll(dom) : self.append(dom)
       })
     },
+
+    // 移除集合中每个元素的直接父节点，并把他们的子元素保留在原来的位置
+
     unwrap: function () {
+      // 通过parent()获取当前元素集合的所有直接父节点
+      // 将获取到的父节点集合进行遍历
       this.parent().each(function () {
+        // 将该父节点替换为该父节点的所有子节点
         $(this).replaceWith($(this).children())
       })
       return this
