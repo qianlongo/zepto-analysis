@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+</head>
+<body>
+  <ul class="box">
+    <li>1</li>
+  </ul>
+  <script>
+    let $box = $('.box')
+    let insertDom = '<li>i am child</li>'
+
+    // append appendTo
+    // $box.append(insertDom)
+    // $(insertDom).appendTo($box)
+
+    /*
+      <ul class="box">
+        <li>1</li>
+        <li>i am child</li>
+      </ul>
+    */
+
+    // prepend prependTo
+
+    // $box.prepend(insertDom)
+    // $(insertDom).prependTo($box)
+
+    /*
+      <ul class="box">
+        <li>i am child</li>
+        <li>1</li>
+      </ul>
+    */
+
+    // before insertBefore
+    // $box.before(insertDom)
+    // $(insertDom).insertBefore($box)
+
+    /*
+      <li>i am child</li>
+      <ul class="box">
+        <li>1</li>
+      </ul>
+    */
+
+    // after insertAfter
+    // $box.after(insertDom)
+    // $(insertDom).insertAfter($box)
+    
+    /*
+      <ul class="box">
+        <li>1</li>
+      </ul>
+      <li>i am child</li>
+    */
+</script>
+</body>
+</html>
