@@ -1001,11 +1001,19 @@ var Zepto = (function () {
       }
       return this
     },
+
+    // 将每个元素中的内容包裹在一个单独的结构中
+
     wrapInner: function (structure) {
+      // 判断structure是否为函数
       var func = isFunction(structure)
+      // 对当前元素集合进行遍历处理
       return this.each(function (index) {
+        // contents => 获取当前元素的所有子节点(包括元素节点和文本节点)
         var self = $(this), contents = self.contents(),
+          // structure为函数则将其执行结果赋值为dom，否则直接将其赋值
           dom = func ? structure.call(this, index) : structure
+          // 当前元素的子节点不为空，则调用wrapAll，否则直接将dom插入self当前元素即可
         contents.length ? contents.wrapAll(dom) : self.append(dom)
       })
     },
