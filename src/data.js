@@ -118,11 +118,25 @@
     return store ? !$.isEmptyObject(store) : false
   }
 
+  // 在元素上移除指定的数据,使用方式有多种
+  /**
+   * $(ele).removeData('name')
+   * $(ele).removeData('name sex boy')
+   * $(ele).removeData('name \n sex boy')
+   * $(ele).removeData(['name', 'sex'])
+   * $(ele).removeData()
+   */
+
   $.fn.removeData = function(names) {
+    // 将names转化为数组
     if (typeof names == 'string') names = names.split(/\s+/)
+    // 遍历元素集合
     return this.each(function(){
+      // 获取当前元素的store
       var id = this[exp], store = id && data[id]
+      // 当store存在的时候，遍历前面转化为数组的names，或者names未传入，则遍历store
       if (store) $.each(names || store, function(key){
+        // 如果是删除传入的names，则将其驼峰化后再删除，否则直接删除store的key
         delete store[names ? camelize(this) : key]
       })
     })
