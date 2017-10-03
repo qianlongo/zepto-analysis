@@ -157,7 +157,7 @@
       if (methodName === 'remove') elements = elements.add(this)
       // 调用removeData删除与dom关联的data中的数据
       elements.removeData()
-      // 最后还是调用对应的方法删除dom，或者清楚dom的内容
+      // 最后还是调用对应的方法删除dom，或者清除dom的内容
       return origFn.call(this)
     }
   })

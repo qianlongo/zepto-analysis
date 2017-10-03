@@ -20,9 +20,15 @@
     $box.data({ baz: [ 1, 2, 3 ] })
     
     // getData
-    $box.data("foo") // 52
-    $box.data("name") // qianlongo
-    $box.data() // { name: "qianlongo", sex: "boy", foo: 52, bar: { myType: "test", count: 40 }, baz: [ 1, 2, 3 ] }
+    // $box.data("foo") // 52
+    // $box.data("name") // qianlongo
+    // $box.data() // { name: "qianlongo", sex: "boy", foo: 52, bar: { myType: "test", count: 40 }, baz: [ 1, 2, 3 ] }
+
+    // removeData
+    $box.removeData('foo')
+    $box.removeData('foo bar baz')
+    $box.removeData(['foo', 'bar', 'baz'])
+    $box.removeData()
   </script>
 </body>
 </html>
