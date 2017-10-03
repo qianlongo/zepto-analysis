@@ -44,6 +44,8 @@
     return store
   }
 
+  // 在匹配元素上
+
   $.fn.data = function(name, value) {
     return value === undefined ?
       // set multiple values via object

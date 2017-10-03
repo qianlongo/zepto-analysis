@@ -17,7 +17,9 @@
 
 3. [ajax模块，已完成阅读并注释](https://github.com/qianlongo/zepto-analysis/blob/master/src/ajax.js)
 
-4. [开始阅读defer模块 ...2017-6-16](https://github.com/qianlongo/zepto-analysis/blob/master/src/defer.js)
+4. [defer模块正在阅读中 ...2017-6-16](https://github.com/qianlongo/zepto-analysis/blob/master/src/defer.js)
+
+5. [data模块正在阅读中...2017-10-03](https://github.com/qianlongo/zepto-analysis/blob/master/src/data.js)
 
 **文章记录**
 
