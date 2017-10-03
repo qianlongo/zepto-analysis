@@ -5,6 +5,22 @@
 // The following code is heavily inspired by jQuery's $.fn.data()
 
 ;(function($){
+  /**
+   * data 存储于dom相映射的数据数据结构如同下
+   * {
+   *   1： {
+   *      name: 'qianlongo',
+   *      sex: 'boy'
+   *    },
+   *   2: {
+   *      age: 100
+   *    }
+   * }
+   * 
+   * dataAttr $原型上的data方法
+   * camelize 中划线转小驼峰函数
+   * exp => Zepto1507004986420 设置在dom上的属性，value是data中的key
+   */
   var data = {}, dataAttr = $.fn.data, camelize = $.camelCase,
     exp = $.expando = 'Zepto' + (+new Date()), emptyArray = []
 
@@ -12,15 +28,26 @@
   // 1. first try key as given,
   // 2. then try camelized key,
   // 3. fall back to reading "data-*" attribute.
+
+  // 根据设置元素data的时候的exp标志，获取name对应的value
+
   function getData(node, name) {
+    // 首先获取node节点的exp属性，然后根据id获取对应的store对象
     var id = node[exp], store = id && data[id]
+    // 当没有传入指定的name时，直接返回整个store，否则返回node所有自定义属性
     if (name === undefined) return store || setData(node)
     else {
+      // else 处理传入了name属性场景
+      // 如果store存在
       if (store) {
+        // 并且name属性在store中存在，则将其值返回
         if (name in store) return store[name]
+        // 如果指定的name不在store中，则将name属性小驼峰化
+        // 再判断驼峰化后的属性camelName是否在store中，在就将其对应的值返回
         var camelName = camelize(name)
         if (camelName in store) return store[camelName]
       }
+      // 如果store中不存在name属性，就调用原型上的data方法获取
       return dataAttr.call($(node), name)
     }
   }
