@@ -61,13 +61,20 @@
   }
 
   // Read all "data-*" attributes from a node
+  // 获取node节点中所有以data-为开头的自定义属性
+
   function attributeData(node) {
     var store = {}
+    // attributes 是node节点的属性集合 https://developer.mozilla.org/zh-CN/docs/Web/API/Element/attributes
     $.each(node.attributes || emptyArray, function(i, attr){
+      // 当属性是以data-开头
       if (attr.name.indexOf('data-') == 0)
+        // 将属性的key去除data-后驼峰化作为store的key
+        // 并将属性的value序列化后作为store的value
         store[camelize(attr.name.replace('data-', ''))] =
           $.zepto.deserializeValue(attr.value)
     })
+    // 将node节点中所有以data-为开头的自定义属性返回
     return store
   }
 
