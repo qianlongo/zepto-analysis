@@ -107,6 +107,9 @@
     return $(elem).data(name, value)
   }
 
+  // 确定ele元素是否有与之相关的Zepto数据
+  // 本质上还是通过ele元素上的exp属性去data中查找store，如果有并且不是一个空对象则返回true，反之返回false
+
   $.hasData = function(elem) {
     var id = elem[exp], store = id && data[id]
     return store ? !$.isEmptyObject(store) : false
