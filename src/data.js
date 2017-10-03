@@ -32,7 +32,7 @@
   // 根据设置元素data的时候的exp标志，获取name对应的value
 
   function getData(node, name) {
-    // 首先获取node节点的exp属性，然后根据id获取对应的store对象
+    // 首先获取node节点的exp属性（即id），然后根据id获取对应的store对象
     var id = node[exp], store = id && data[id]
     // 当没有传入指定的name时，直接返回整个store，否则返回node所有自定义属性
     if (name === undefined) return store || setData(node)
@@ -53,9 +53,14 @@
   }
 
   // Store value under camelized key on node
+  // 往node节点在data中对应的store设置键值
+
   function setData(node, name, value) {
+    // 获取node节点的exp属性（即id），id不存在则创建一个
     var id = node[exp] || (node[exp] = ++$.uuid),
+    // 获取id对应的data中的store，如果没有对应的store，就先调用attributeData获取自定义属性的集合，并在data对象中设置
       store = data[id] || (data[id] = attributeData(node))
+      // name不为undefined的时候，将name属性驼峰化之后再设置到store中
     if (name !== undefined) store[camelize(name)] = value
     return store
   }
