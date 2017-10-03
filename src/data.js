@@ -103,6 +103,9 @@
       this.each(function(){ setData(this, name, value) })
   }
 
+  // 静态方法，储任意数据到指定的元素,返回设置的值
+  // 底层调用的还是$原型上的data方法
+
   $.data = function(elem, name, value) {
     return $(elem).data(name, value)
   }
