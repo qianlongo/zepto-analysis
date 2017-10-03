@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>attributes</title>
+  <script src="../../src/zepto.js"></script>
+  <script src="../../src/data.js"></script>
+</head>
+<body>
+    <div class="box" data-name="qianlongo" data-sex="boy" foo="foo" title="标题" data-list="{&quot;name&quot;:&quot;qianlongo&quot;}" data-age="100"></div>
+  <script>
+    let $box = document.querySelector('.box')
+    $box.dataset.age = 100
+    console.log($box.attributes)
+  </script>
+</body>
+</html>

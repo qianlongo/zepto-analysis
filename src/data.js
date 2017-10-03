@@ -6,7 +6,7 @@
 
 ;(function($){
   /**
-   * data 存储于dom相映射的数据数据结构如同下
+   * data 存储与dom相映射的数据结构如同下
    * {
    *   1： {
    *      name: 'qianlongo',
