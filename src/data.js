@@ -44,11 +44,15 @@
     return store
   }
 
-  // 在匹配元素上
+  // 在匹配元素上存储任意相关数据
+  // 或返回匹配元素集合中第一个元素的给定名称的数据存储的值。
 
   $.fn.data = function(name, value) {
+    // value为undefined并且name不是纯object表示获取key为name的数据
+    // value不为undefined或者name为纯对象表示设置数据
     return value === undefined ?
       // set multiple values via object
+      // 当value是undefined并且name是个纯object的时候，遍历当前匹配的元素集合，并使用each方法遍历对象name，给素有元素设置数据
       $.isPlainObject(name) ?
         this.each(function(i, node){
           $.each(name, function(key, value){ setData(node, key, value) })
@@ -56,6 +60,7 @@
         // get value from first element
         (0 in this ? getData(this[0], name) : undefined) :
       // set value on all elements
+      // 遍历当前匹配的元素集合，通过调用setData方法，给素有元素设置数据
       this.each(function(){ setData(this, name, value) })
   }
 
