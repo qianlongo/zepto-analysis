@@ -10,15 +10,19 @@
   <!-- <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script> -->
 </head>
 <body>
-  <ul class="box" data-name="qianlongo" data-sex="boy">
-    <li>1</li>
-    <li>2</li>
-  </ul>
+  <div class="box" data-name="qianlongo" data-sex="boy"></div>
   <script>
     let $box = $('.box')
     
     // setData
-    $box.data('age', '100')
+    $box.data("foo", 52)
+    $box.data("bar", { myType: "test", count: 40 })
+    $box.data({ baz: [ 1, 2, 3 ] })
+    
+    // getData
+    $box.data("foo") // 52
+    $box.data("name") // qianlongo
+    $box.data() // { name: "qianlongo", sex: "boy", foo: 52, bar: { myType: "test", count: 40 }, baz: [ 1, 2, 3 ] }
   </script>
 </body>
 </html>
