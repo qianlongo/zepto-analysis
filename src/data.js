@@ -17,7 +17,7 @@
    *    }
    * }
    * 
-   * dataAttr $原型上的data方法
+   * dataAttr $原型上的data方法,通过getAttribute和setAttribute设置元素属性
    * camelize 中划线转小驼峰函数
    * exp => Zepto1507004986420 设置在dom上的属性，value是data中的key
    */
@@ -47,7 +47,7 @@
         var camelName = camelize(name)
         if (camelName in store) return store[camelName]
       }
-      // 如果store中不存在name属性，就调用原型上的data方法获取
+      // 如果store中不存在name属性，就调用原型上的data方法(注意这里的data方法和该模块中的data方法不是一个)获取元素
       return dataAttr.call($(node), name)
     }
   }
