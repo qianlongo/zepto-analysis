@@ -142,13 +142,22 @@
     })
   }
 
+  // 生成扩展的remove和empty方法
+  // 未扩展之前的remove和empty功能依旧还在，增添了删除选中的元素缓存的数据功能
+
   // Generate extended `remove` and `empty` functions
   ;['remove', 'empty'].forEach(function(methodName){
+    // 缓存原型上之前对应的remove和empty方法
     var origFn = $.fn[methodName]
+    // 重写两个方法
     $.fn[methodName] = function() {
+      // 获取当前选中元素的所有内部包含元素
       var elements = this.find('*')
+      // 如果是remove方法，则在获取的elements元素基础上把本身也添加进去
       if (methodName === 'remove') elements = elements.add(this)
+      // 调用removeData删除与dom关联的data中的数据
       elements.removeData()
+      // 最后还是调用对应的方法删除dom，或者清楚dom的内容
       return origFn.call(this)
     }
   })
