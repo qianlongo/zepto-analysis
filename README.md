@@ -23,6 +23,7 @@
 
 6. [data模块 2017-10-03 ~ 2017-10-03 已完成阅读](https://github.com/qianlongo/zepto-analysis/blob/master/src/data.js)
 
+7. [touch模块 2017-10-04 ~ ](https://github.com/qianlongo/zepto-analysis/blob/master/src/touch.js)
 
 **文章记录**
 
