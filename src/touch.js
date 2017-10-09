@@ -64,15 +64,28 @@
   }
 
   $(document).ready(function(){
+    /**
+     * now 当前触摸时间
+     * delta 两次触摸的时间差
+     * deltaX 两次触摸x轴位移
+     * deltaY 两次触摸Y轴位移
+     * firstTouch 触摸点相关信息
+     * _isPointerType 是否是pointerType
+     */
     var now, delta, deltaX = 0, deltaY = 0, firstTouch, _isPointerType
-
+    // 处理ie中的手势场景
     if ('MSGesture' in window) {
+      // 创建手势对象
       gesture = new MSGesture()
+      // 指定目标元素
       gesture.target = document.body
     }
 
     $(document)
       .bind('MSGestureEnd', function(e){
+        /**
+         * velocityX, velocityY分别是横轴和纵轴的速率
+         */
         var swipeDirectionFromVelocity =
           e.velocityX > 1 ? 'Right' : e.velocityX < -1 ? 'Left' : e.velocityY > 1 ? 'Down' : e.velocityY < -1 ? 'Up' : null
         if (swipeDirectionFromVelocity) {
