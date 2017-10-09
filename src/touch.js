@@ -8,9 +8,20 @@
     longTapDelay = 750,
     gesture
 
-  // 判断移动的方向,结果是Left, Right, Up, Down中的一个
-
+  /**
+   * 判断移动的方向,结果是Left, Right, Up, Down中的一个
+   * @param  {} x1 起点的横坐标
+   * @param  {} x2 终点的横坐标
+   * @param  {} y1 起点的纵坐标
+   * @param  {} y2 终点的纵坐标
+   */
   function swipeDirection(x1, x2, y1, y2) {
+    /**
+     * 1. 第一个三元运算符得到如果x轴滑动的距离比y轴大，那么是左右滑动，否则是上下滑动
+     * 2. 如果是左右滑动，起点比终点大那么往左滑动
+     * 3. 如果是上下滑动，起点比终点大那么往上滑动
+     * 需要注意的是这里的坐标和数学中的有些不一定 纵坐标有点反过来的意思
+     */
     return Math.abs(x1 - x2) >=
       Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
   }
