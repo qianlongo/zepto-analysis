@@ -166,7 +166,17 @@
     // to scroll, not tap or swipe, so cancel all ongoing events
     $(window).on('scroll', cancelAll)
   })
-
+  /**
+   * swipe 滑动事件
+   * swipLeft 向左滑动
+   * swipRight 向右滑动
+   * swipUp 向上滑动
+   * swipDown 向下滑动
+   * doubleTap 双击
+   * tap 屏幕点击事件
+   * singleTap 屏幕单击
+   * longTap 长按事件
+   */
   ;['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown',
     'doubleTap', 'tap', 'singleTap', 'longTap'].forEach(function(eventName){
     $.fn[eventName] = function(callback){ return this.on(eventName, callback) }
