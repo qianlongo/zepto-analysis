@@ -26,7 +26,7 @@
       Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
   }
 
-  // 长按
+  // 长按事件
 
   function longTap() {
     longTapTimeout = null
@@ -42,6 +42,8 @@
     if (longTapTimeout) clearTimeout(longTapTimeout)
     longTapTimeout = null
   }
+
+  // 取消所有事件
 
   function cancelAll() {
     if (touchTimeout) clearTimeout(touchTimeout)
