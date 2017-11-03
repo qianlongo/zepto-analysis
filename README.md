@@ -25,9 +25,16 @@
 
 7. [touch模块 2017-10-04 ~ ](https://github.com/qianlongo/zepto-analysis/blob/master/src/touch.js)
 
+8. [ie模块 2017-11-03 ~ 2017-11-03 已完成阅读](https://github.com/qianlongo/zepto-analysis/blob/master/src/ie.js)
+
 **文章记录**
 
+**ie模块**
+
+  1. [Zepto源码分析之ie模块](https://github.com/qianlongo/zepto-analysis/issues/10)(2017-11-03)
+
 **data模块**
+
   1. [Zepto中数据缓存原理与实现](https://github.com/qianlongo/zepto-analysis/issues/9)(2017-10-03)
 
 **form模块**
@@ -48,6 +55,3 @@
 **ajax模块**
 
   1. [原来你是这样的jsonp(原理与具体实现细节)](https://github.com/qianlongo/zepto-analysis/issues/4)(2017-06-11)
-  
-
-

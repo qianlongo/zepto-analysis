@@ -20,7 +20,8 @@
     let $elem = document.querySelector('#elem')
     let cssProps = getComputedStyle($elem, null)
 
-    console.log(cssProps)
+    let { width, height } = cssProps
+    console.log(width, height)
   </script>
 </body>
 </html>
