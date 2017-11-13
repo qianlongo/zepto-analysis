@@ -1160,13 +1160,25 @@ var Zepto = (function () {
 
       return data !== null ? deserializeValue(data) : undefined
     },
+
+    /**
+     * 设置或者获取表单元素的value
+     */
+
     val: function (value) {
+      // value存在表示是设置值
       if (0 in arguments) {
+        // 传递了null或者undefined则映射为要设置的值要空字符串
         if (value == null) value = ""
         return this.each(function (idx) {
+          // 需要注意的是，value其实可以是一个函数
           this.value = funcArg(this, value, idx, this.value)
         })
       } else {
+        // 否则是获取值
+        // multiple判断是都是下拉列表
+        // 如果是下拉列表则返回选中的option的value值
+        // 不是下拉列表则直接返回其value值
         return this[0] && (this[0].multiple ?
           $(this[0]).find('option').filter(function () { return this.selected }).pluck('value') :
           this[0].value)
