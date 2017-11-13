@@ -59,6 +59,7 @@ var Zepto = (function () {
     // 一个临时的空节点
 
     tempParent = document.createElement('div'),
+    // 元素自有属性映射
     propMap = {
       'tabindex': 'tabIndex',
       'readonly': 'readOnly',
@@ -1148,7 +1149,7 @@ var Zepto = (function () {
       return this.each(function () { delete this[name] })
     },
 
-    
+    // 设置或者获取元素的自定义属性以data-开头
 
     data: function (name, value) {
       var attrName = 'data-' + name.replace(capitalRE, '-$1').toLowerCase()
