@@ -1315,12 +1315,22 @@ var Zepto = (function () {
         })
       })
     },
+    /**
+     * 
+     * 获取或者设置元素在Y轴上的滚动距离
+     * 
+     */
     scrollTop: function (value) {
       if (!this.length) return
+      // 当前元素是否有scrollTop属性
       var hasScrollTop = 'scrollTop' in this[0]
+      // 如果没有传入value值，则是获取操作，hasScrollTop为真则返回元素的scrollTop属性值，否则返回元素的pageYOffset属性值
       if (value === undefined) return hasScrollTop ? this[0].scrollTop : this[0].pageYOffset
+      // 以下是设置操作
       return this.each(hasScrollTop ?
+        // 如果有scrollTop属性则直接设置该属性对应的value值
         function () { this.scrollTop = value } :
+        // 否则调用元素的scrollTo方法，并传入scrollX和value
         function () { this.scrollTo(this.scrollX, value) })
     },
     scrollLeft: function (value) {
@@ -1331,6 +1341,11 @@ var Zepto = (function () {
         function () { this.scrollLeft = value } :
         function () { this.scrollTo(value, this.scrollY) })
     },
+    /**
+     * 
+     * 获取对象集合中第一个元素的位置，相对于offsetParent元素
+     * ???有意思，值得搞一搞
+     */
     position: function () {
       if (!this.length) return
 
