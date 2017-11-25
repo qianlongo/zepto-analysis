@@ -502,6 +502,17 @@ var Zepto = (function () {
   // "08"    => "08"
   // JSON    => parse if valid
   // String  => self
+  /**
+   * 
+   * 这个函数用的三元表达式比较复杂，一步步解析如下
+   * 1. 如果value存在，则进行第2步，否则直接返回value
+   * 2. 当value为字符串”true“时，返回true，否则进行第3步
+   * 3. 当value为字符串“false”时，返回false，否则进行第4步
+   * 4. 当value为字符串“null”时，返回null，否则进行第5步
+   * 5. 当value为类似“12”这种类型字符串时，返回12（注意：+'12' => 12, +'01' => 1），否则进行第6步
+   * 6. 当value以{或者[为开头时，使用parseJSON解析（但是有点不严格，因为以{[开头不一定就是对象字符串），否则直接将value返回
+   * 
+   */
   function deserializeValue(value) {
     try {
       return value ?
