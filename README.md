@@ -11,21 +11,21 @@
 
 ## 阅读记录
 
-1. [zepto模块 ...正在阅读中](https://github.com/qianlongo/zepto-analysis/blob/master/src/zepto.js)
+1. [zepto模块 ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/zepto.js)
 
-2. [zepto事件模块event，已完成阅读](https://github.com/qianlongo/zepto-analysis/blob/master/src/event.js)
+2. [event事件模块☑️](https://github.com/qianlongo/zepto-analysis/blob/master/src/event.js)
 
-3. [ajax模块，已完成阅读并注释](https://github.com/qianlongo/zepto-analysis/blob/master/src/ajax.js)
+3. [ajax模块☑️](https://github.com/qianlongo/zepto-analysis/blob/master/src/ajax.js)
 
-4. [defer模块正在阅读中 ...2017-6-16 ~](https://github.com/qianlongo/zepto-analysis/blob/master/src/defer.js)
+4. [defer模块正在阅读中 ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/defer.js)
 
-5. [form模块 2017-10-01 ~ 2017-10-01 已完成阅读](https://github.com/qianlongo/zepto-analysis/blob/master/src/form.js)
+5. [form模块☑️](https://github.com/qianlongo/zepto-analysis/blob/master/src/form.js)
 
-6. [data模块 2017-10-03 ~ 2017-10-03 已完成阅读](https://github.com/qianlongo/zepto-analysis/blob/master/src/data.js)
+6. [data模块☑️](https://github.com/qianlongo/zepto-analysis/blob/master/src/data.js)
 
-7. [touch模块 2017-10-04 ~ ](https://github.com/qianlongo/zepto-analysis/blob/master/src/touch.js)
+7. [touch模块 ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/touch.js)
 
-8. [ie模块 2017-11-03 ~ 2017-11-03 已完成阅读](https://github.com/qianlongo/zepto-analysis/blob/master/src/ie.js)
+8. [ie模块☑️](https://github.com/qianlongo/zepto-analysis/blob/master/src/ie.js)
 
 **文章记录**
 
