@@ -1354,9 +1354,17 @@ var Zepto = (function () {
         left: offset.left - parentOffset.left
       }
     },
+    /**
+     * 
+     * 找到第一个定位过的祖先元素，意味着它的css属性中position的值为relative，absolute或者fixed
+     * 
+     */
     offsetParent: function () {
       return this.map(function () {
+        // 获取集合中当前元素的有定位元素的最近的祖先元素，没有获取到则用body元素赋值
         var parent = this.offsetParent || document.body
+        // 祖先元素存在，并且不是根元素，html或者body元素，并且parent的position属性为static则再次进入循环
+        // 以上条件都不满足则直接返回parent元素
         while (parent && !rootNodeRE.test(parent.nodeName) && $(parent).css("position") == "static")
           parent = parent.offsetParent
         return parent
