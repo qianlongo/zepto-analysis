@@ -476,6 +476,7 @@ var Zepto = (function () {
   // 设置或者删除节点的属性
   // 当没有传value的时候，就讲node的name属性给删除
   // 传了就设置node的name属性为value
+  // https://developer.mozilla.org/zh-CN/docs/Web/API/Element/getAttribute
 
   function setAttribute(node, name, value) {
     value == null ? node.removeAttribute(name) : node.setAttribute(name, value)
@@ -510,7 +511,7 @@ var Zepto = (function () {
    * 3. 当value为字符串“false”时，返回false，否则进行第4步
    * 4. 当value为字符串“null”时，返回null，否则进行第5步
    * 5. 当value为类似“12”这种类型字符串时，返回12（注意：+'12' => 12, +'01' => 1），否则进行第6步
-   * 6. 当value以{或者[为开头时，使用parseJSON解析（但是有点不严格，因为以{[开头不一定就是对象字符串），否则直接将value返回
+   * 6. 当value以{或者[为开头时，使用parseJSON解析（但是有点不严格，因为以{[开头不一定就是对象字符串）,否则直接返回value
    * 
    */
   function deserializeValue(value) {
@@ -1097,6 +1098,7 @@ var Zepto = (function () {
     // text实现方法与html比较类似
     // 有些不同的是没有传参数的时候，html是获取第一个元素的innerHTML
     // text则是将当前所有元素的textContent拼接起来并返回
+    // https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent
 
     text: function (text) {
       return 0 in arguments ?
@@ -1140,7 +1142,7 @@ var Zepto = (function () {
       })
     },
 
-    // 获取或者设置元素的属性比如id之类的
+    // 获取或者设置元素的属性比如id之类的固有属性，attr和removeAttr既可以设置元素自身属性也可以是自定义属性
     // 实现逻辑和上面的几个函数基本一致
 
     prop: function (name, value) {
@@ -1152,7 +1154,7 @@ var Zepto = (function () {
         (this[0] && this[0][name])
     },
 
-    // 删除元素的属性
+    // 删除元素的自身固有属性
     // 直接用delete去删除
 
     removeProp: function (name) {
