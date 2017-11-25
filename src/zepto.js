@@ -1333,6 +1333,11 @@ var Zepto = (function () {
         // 否则调用元素的scrollTo方法，并传入scrollX和value
         function () { this.scrollTo(this.scrollX, value) })
     },
+    /**
+     * 
+     * 获取或者设置元素在X轴上的滚动距离，原理与scrollTop类似
+     * 
+     */
     scrollLeft: function (value) {
       if (!this.length) return
       var hasScrollLeft = 'scrollLeft' in this[0]
