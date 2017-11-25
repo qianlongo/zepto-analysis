@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+  <style>
+    body{
+      width: 3000px;
+    }
+    .wrap{
+      width: 400px;
+      height: 400px;
+      border: solid 1px red;
+    }
+
+    .child1{
+      width: 300px;
+      height: 300px;
+      border: solid 1px green;
+      position: relative;
+      padding: 10px;
+    }
+
+    .child2{
+      width: 200px;
+      height: 200px;
+      border: solid 1px bisque;
+    }
+
+    .child3{
+      width: 100px;
+      height: 100px;
+      border: solid 1px goldenrod;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="child1">
+      <div class="child2">
+        <div class="child3"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    
+  </script>
+</body>
+</html>

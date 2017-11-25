@@ -1200,18 +1200,21 @@ var Zepto = (function () {
     /**
      * 
      * 获取当前元素相对于document的位置，{ left, top, width, height }
-     * 
+     * 设置当前元素相对于document的位置
      */
     offset: function (coordinates) {
       if (coordinates) return this.each(function (index) {
         var $this = $(this),
+        // coordinates可以是函数或者对象
           coords = funcArg(this, coordinates, index, $this.offset()),
+          // 获取具有定位元素的祖先元素的offset()信息
           parentOffset = $this.offsetParent().offset(),
+          // 将需要设置的值减去最近的定位元素的offset的值
           props = {
             top: coords.top - parentOffset.top,
             left: coords.left - parentOffset.left
           }
-
+          // 如果当前元素的定位属性是static，则是相对于自身进行定位，所以需要将position属性设置为relative
         if ($this.css('position') == 'static') props['position'] = 'relative'
         $this.css(props)
       })
