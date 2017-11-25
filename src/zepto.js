@@ -1197,6 +1197,11 @@ var Zepto = (function () {
           this[0].value)
       }
     },
+    /**
+     * 
+     * 获取当前元素相对于document的位置，{ left, top, width, height }
+     * 
+     */
     offset: function (coordinates) {
       if (coordinates) return this.each(function (index) {
         var $this = $(this),
@@ -1210,10 +1215,17 @@ var Zepto = (function () {
         if ($this.css('position') == 'static') props['position'] = 'relative'
         $this.css(props)
       })
+
+      // 以下是获取值的逻辑
+      // 如果集合元素不存在，直接返回null
       if (!this.length) return null
+      // 当前集合中的第一个元素不是html元素本身，或者不是html元素的子元素直接返回{ top: 0, left: 0 }
       if (document.documentElement !== this[0] && !$.contains(document.documentElement, this[0]))
         return { top: 0, left: 0 }
+      // getBoundingClientRect MDN解释  https://developer.mozilla.org/zh-CN/docs/Web/API/Element/getBoundingClientRect  
       var obj = this[0].getBoundingClientRect()
+      // pageXOffset 和 pageYOffset 属性返回文档在窗口左上角水平和垂直方向滚动的像素
+      // 因为offset方法获取的是当前元素相对于document的位置，所以需要将getBoundingClientRect与后者相加所得。
       return {
         left: obj.left + window.pageXOffset,
         top: obj.top + window.pageYOffset,
