@@ -1397,7 +1397,9 @@ var Zepto = (function () {
 
   // for now
   $.fn.detach = $.fn.remove
-
+    /**
+     *  生成读写width和height的方法
+     */
     // Generate the `width` and `height` functions
     ;['width', 'height'].forEach(function (dimension) {
       var dimensionProperty =
@@ -1405,9 +1407,16 @@ var Zepto = (function () {
 
       $.fn[dimension] = function (value) {
         var offset, el = this[0]
+        /*
+          如果是window对象，则使用innerWidth和innerHeight读取(https://developer.mozilla.org/en-US/docs/Web/API/Window/innerHeight)
+          如果是document对象，则使用scrollHeight和scrollWidth读取
+          否则调用offset方法，再读取width和height值即可
+          这里需要弄清楚innerHeight，clientHeight，scrollHeight，offsetHeight的区别，看这篇文章(http://www.cnblogs.com/kongxianghai/p/4192032.html)
+        */
         if (value === undefined) return isWindow(el) ? el['inner' + dimensionProperty] :
           isDocument(el) ? el.documentElement['scroll' + dimensionProperty] :
             (offset = this.offset()) && offset[dimension]
+          // 以下是设置逻辑，调用css方法遍历设置即可  
         else return this.each(function (idx) {
           el = $(this)
           el.css(dimension, funcArg(this, value, idx, el[dimension]()))
