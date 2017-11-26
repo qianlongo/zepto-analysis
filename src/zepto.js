@@ -1350,28 +1350,35 @@ var Zepto = (function () {
      * 
      * 获取对象集合中第一个元素的位置，相对于offsetParent元素
      * ???有意思，值得搞一搞
+     * 但是为什么不用getComputedStyle的形式获取呢
      */
     position: function () {
       if (!this.length) return
 
       var elem = this[0],
         // Get *real* offsetParent
+        // 获取当前元素的具有定位属性的祖先元素
         offsetParent = this.offsetParent(),
         // Get correct offsets
+        // 获取当前元素相对于document的位置
         offset = this.offset(),
+        // 获取父元素相对于document的位置，如果是根元素（html或者body）则为0， 0
         parentOffset = rootNodeRE.test(offsetParent[0].nodeName) ? { top: 0, left: 0 } : offsetParent.offset()
 
       // Subtract element margins
       // note: when an element has margin: auto the offsetLeft and marginLeft
       // are the same in Safari causing offset.left to incorrectly be 0
+      // 相对于第一个定位祖先元素的位置关系不应该包括margin的举例，所以减去
       offset.top -= parseFloat($(elem).css('margin-top')) || 0
       offset.left -= parseFloat($(elem).css('margin-left')) || 0
 
       // Add offsetParent borders
+      // 祖先定位元素加上border的宽度
       parentOffset.top += parseFloat($(offsetParent[0]).css('border-top-width')) || 0
       parentOffset.left += parseFloat($(offsetParent[0]).css('border-left-width')) || 0
 
       // Subtract the two offsets
+      // 相减即结果
       return {
         top: offset.top - parentOffset.top,
         left: offset.left - parentOffset.left
