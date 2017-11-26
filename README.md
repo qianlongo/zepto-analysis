@@ -17,7 +17,7 @@
 
 3. [ajax模块☑️](https://github.com/qianlongo/zepto-analysis/blob/master/src/ajax.js)
 
-4. [defer模块正在阅读中 ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/defer.js)
+4. [defer模块 ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/defer.js)
 
 5. [form模块☑️](https://github.com/qianlongo/zepto-analysis/blob/master/src/form.js)
 
@@ -45,6 +45,7 @@
   1. [这些Zepto中实用的方法集](https://github.com/qianlongo/zepto-analysis/issues/5)(2017-08-26)
   2. [Zepto核心模块之工具方法拾遗 ](https://github.com/qianlongo/zepto-analysis/issues/6)(2017-08-30)
   3. [看zepto如何实现增删改查DOM ](https://github.com/qianlongo/zepto-analysis/issues/8)(2017-10-2)
+  4. [Zepto这样操作元素属性](https://github.com/qianlongo/zepto-analysis/issues/11)(2017-11-13)
 
 **event模块**
 

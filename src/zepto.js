@@ -195,7 +195,7 @@ var Zepto = (function () {
   uniq = function (array) { return filter.call(array, function (item, idx) { return array.indexOf(item) == idx }) }
 
   // 用以判断某个类是否在className中的正则表达式
-  // 主要用早hasClass，removeClass
+  // 主要用于hasClass，removeClass
 
   function classRE(name) {
     return name in classCache ?
@@ -1236,9 +1236,18 @@ var Zepto = (function () {
         height: Math.round(obj.height)
       }
     },
+    /**
+     * 1. 读取或者设置DOM元素的css属性当value参数不存在的时候，返回对象集合中第一个元素的css属性。
+     * 2. 当value参数存在时，设置对象集合中每一个元素的对应css属性。
+     * 3. 多个属性可以通过传递一个属性名组成的数组一次性获取。多个属性可以利用对象键值对的方式进行设置。
+     * 4. 当value为空(空字符串，null 或 undefined)，那个css属性将会被移出。
+     * 5. 当value参数为一个无单位的数字，如果该css属性需要单位，“px”将会自动添加到该属性上。
+     */
     css: function (property, value) {
+      // 获取操作
       if (arguments.length < 2) {
         var element = this[0]
+        // 回去单个属性
         if (typeof property == 'string') {
           if (!element) return
           return element.style[camelize(property)] || getComputedStyle(element, '').getPropertyValue(property)
