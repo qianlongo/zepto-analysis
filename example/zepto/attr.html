@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>attr</title>
+  <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+</head>
+<body>
+  <div class="attr"></div>
+  <script>
+    let attrs = {
+      name: 'qianlongo',
+      sex: 'boy',
+      age: 100
+    }
+    let $attr = $('.attr')
+    // set
+    $attr.attr(attrs)
+    // remove
+    // $attr.attr('name', null)
+    // remove
+    $attr.removeAttr('name')
+  </script>
+</body>
+</html>
