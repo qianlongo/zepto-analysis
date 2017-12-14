@@ -1321,14 +1321,20 @@ var Zepto = (function () {
         classList.length && className(this, cls + (cls ? " " : "") + classList.join(" "))
       })
     },
+
+    // 删除当前选中的元素的指定的name类，当name没有指定的时候，全部删除
+
     removeClass: function (name) {
       return this.each(function (idx) {
         if (!('className' in this)) return
         if (name === undefined) return className(this, '')
+        // 获取当前元素的className
         classList = className(this)
         funcArg(this, name, idx, classList).split(/\s+/g).forEach(function (klass) {
+          // 将匹配中的klass替换成' '，从而起到删除的作用
           classList = classList.replace(classRE(klass), " ")
         })
+        // 重新设置
         className(this, classList.trim())
       })
     },
