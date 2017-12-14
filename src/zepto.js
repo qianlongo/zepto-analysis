@@ -1338,11 +1338,20 @@ var Zepto = (function () {
         className(this, classList.trim())
       })
     },
+
+    // 切换当前选中元素集合指定的name类
+
     toggleClass: function (name, when) {
+      // 没有指定name，直接返回this作为链式调用
       if (!name) return this
+      // 否则进行遍历设置
       return this.each(function (idx) {
+        // name 可以是字符串也可以是函数
         var $this = $(this), names = funcArg(this, name, idx, className(this))
+        // 因为有可能是切换多个class，所以切割之后遍历处理
         names.split(/\s+/g).forEach(function (klass) {
+          // 当when没有传入的时候，进行的逻辑是元素有kClass，就移除，否则添加
+          // 当指定了when转换后为真便是添加，否则移除kClass
           (when === undefined ? !$this.hasClass(klass) : when) ?
             $this.addClass(klass) : $this.removeClass(klass)
         })
