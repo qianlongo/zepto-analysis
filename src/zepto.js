@@ -1210,6 +1210,7 @@ var Zepto = (function () {
           // 获取具有定位元素的祖先元素的offset()信息
           parentOffset = $this.offsetParent().offset(),
           // 将需要设置的值减去最近的定位元素的offset的值
+          // 其实用加法的思维会比较好理解 parentOffset.left + left(需要设置的值) = coords.left
           props = {
             top: coords.top - parentOffset.top,
             left: coords.left - parentOffset.left
