@@ -1299,15 +1299,25 @@ var Zepto = (function () {
         return this.test(className(el))
       }, classRE(name))
     },
+
+    // 给当前选中的元素集合设置name类
+
     addClass: function (name) {
+      // 没有传入name直接返回this zepto对象，提供链式调用
       if (!name) return this
+      // 遍历设置
       return this.each(function (idx) {
+        // 如果当前元素不存在className属性，就退出循环
         if (!('className' in this)) return
         classList = []
+        // 获取当前元素的className，以及通过funcArg包装参数，这样name既可以是字符串也可以是回调函数
         var cls = className(this), newName = funcArg(this, name, idx, cls)
+        // 对要设置的class newName进行分割后遍历处理
         newName.split(/\s+/g).forEach(function (klass) {
+          // 当前元素不存在要添加的class的时候才往classList中push
           if (!$(this).hasClass(klass)) classList.push(klass)
         }, this)
+        // 首先检查classList的长度，如果长度为0就没有必要设置了，然后调用className函数进行class设置
         classList.length && className(this, cls + (cls ? " " : "") + classList.join(" "))
       })
     },
