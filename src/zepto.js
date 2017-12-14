@@ -1286,9 +1286,16 @@ var Zepto = (function () {
     index: function (element) {
       return element ? this.indexOf($(element)[0]) : this.parent().children().indexOf(this[0])
     },
+    
+    // 判断选中的集合元素中是否存在指定的name的class类
+    
     hasClass: function (name) {
+      // 当没有传入name的时候，返回false（不过也不严谨 0 false '' 取反都可以为真，只是class肯定是字符串，所以这些也就可以忽略了）
       if (!name) return false
+      // 注意这里[1, 2].some(function () {}, { name: 'qianlongo' }),第二个参数决定回调函数的this指向
       return emptyArray.some.call(this, function (el) {
+        // 内部的this就是通过classRE函数执行之后返回的正则表达式
+        // className函数是获取当前元素class
         return this.test(className(el))
       }, classRE(name))
     },
