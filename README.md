@@ -27,7 +27,7 @@
 
 8. [ie模块☑️](https://github.com/qianlongo/zepto-analysis/blob/master/src/ie.js)
 
-**文章记录**
+## 文章记录
 
 **ie模块**
 
@@ -46,6 +46,7 @@
   2. [Zepto核心模块之工具方法拾遗 ](https://github.com/qianlongo/zepto-analysis/issues/6)(2017-08-30)
   3. [看zepto如何实现增删改查DOM ](https://github.com/qianlongo/zepto-analysis/issues/8)(2017-10-2)
   4. [Zepto这样操作元素属性](https://github.com/qianlongo/zepto-analysis/issues/11)(2017-11-13)
+  4. [向Zepto学习关于"偏移"的那些事](https://github.com/qianlongo/zepto-analysis/issues/12)(2017-12-10)
 
 **event模块**
 
