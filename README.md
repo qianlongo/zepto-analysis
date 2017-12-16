@@ -17,7 +17,7 @@
 
 3. [ajax模块☑️](https://github.com/qianlongo/zepto-analysis/blob/master/src/ajax.js)
 
-4. [defer模块 ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/defer.js)
+4. [deferred模块 ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/deferred.js)
 
 5. [form模块☑️](https://github.com/qianlongo/zepto-analysis/blob/master/src/form.js)
 
