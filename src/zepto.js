@@ -1393,6 +1393,7 @@ var Zepto = (function () {
      * 获取对象集合中第一个元素的位置，相对于offsetParent元素
      * ???有意思，值得搞一搞
      * 但是为什么不用getComputedStyle的形式获取呢
+     * 2017/12/16更新，确实不能用getComputedStyle获取，因为如果该元素不是定位元素，使用getComputedStyle得到的将是auto，而不是具体的值
      */
     position: function () {
       if (!this.length) return
