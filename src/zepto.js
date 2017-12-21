@@ -49,6 +49,7 @@ var Zepto = (function () {
       'td': tableRow, 'th': tableRow,
       '*': document.createElement('div')
     },
+    // 匹配 a-z A-Z 0-9 连字符 下划线
     simpleSelectorRE = /^[\w-]*$/,
     class2type = {},
     toString = class2type.toString,
@@ -429,7 +430,7 @@ var Zepto = (function () {
       nameOnly = maybeID || maybeClass ? selector.slice(1) : selector, // Ensure that a 1 char tag name still gets checked
       // 测试nameOnly是不是单个选择器而不是 'name sex'这种有多个的情况
       isSimple = simpleSelectorRE.test(nameOnly)
-      
+      // 如果元素本身有getElementById方法，单选择器，并且是ID选择器，使用getElementById获取元素
     return (element.getElementById && isSimple && maybeID) ? // Safari DocumentFragment doesn't have getElementById
       ((found = element.getElementById(nameOnly)) ? [found] : []) :
       (element.nodeType !== 1 && element.nodeType !== 9 && element.nodeType !== 11) ? [] :
