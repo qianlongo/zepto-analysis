@@ -432,12 +432,21 @@ var Zepto = (function () {
       isSimple = simpleSelectorRE.test(nameOnly)
       // 如果元素本身有getElementById方法，单选择器，并且是ID选择器，使用getElementById获取元素
     return (element.getElementById && isSimple && maybeID) ? // Safari DocumentFragment doesn't have getElementById
+      // 找到了选择器对应的元素，则以数组的形式返回，否则返回空数组
       ((found = element.getElementById(nameOnly)) ? [found] : []) :
+      // nodeType为1是元素节点 
+      // nodeType为9是document对象 
+      // nodeType为11是文档碎片节点即通过,document.document.createDocumentFragment生成的节点
+      // 不是这些类型的节点直接返回空数组
       (element.nodeType !== 1 && element.nodeType !== 9 && element.nodeType !== 11) ? [] :
         slice.call(
+          // 单选择器，不是ID选择器，元素含有getElementsByClassName方法
           isSimple && !maybeID && element.getElementsByClassName ? // DocumentFragment doesn't have getElementsByClassName/TagName
+            // 是类选择器，通过getElementsByClassName获取
             maybeClass ? element.getElementsByClassName(nameOnly) : // If it's simple, it could be a class
+              // 通过tagName获取
               element.getElementsByTagName(selector) : // Or a tag
+              // 这些情况都是不是才用querySelectorAll去获取元素
             element.querySelectorAll(selector) // Or it's not simple, and we need to query all
         )
   }
