@@ -9,6 +9,7 @@
 
   // For iOS 3.x
   // from https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/reduce
+  // reduce 兼容
   if (Array.prototype.reduce === undefined)
     Array.prototype.reduce = function(fun){
       if(this === void 0 || this === null) throw new TypeError()
