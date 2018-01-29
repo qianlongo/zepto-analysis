@@ -11,49 +11,49 @@
 
 ## 阅读记录
 
-1. [zepto模块 ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/zepto.js)
+1. [zepto.js ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/zepto.js)
 
-2. [event事件模块 √](https://github.com/qianlongo/zepto-analysis/blob/master/src/event.js)
+2. [event.js √](https://github.com/qianlongo/zepto-analysis/blob/master/src/event.js)
 
-3. [ajax模块 √](https://github.com/qianlongo/zepto-analysis/blob/master/src/ajax.js)
+3. [ajax.js √](https://github.com/qianlongo/zepto-analysis/blob/master/src/ajax.js)
 
-4. [deferred模块 ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/deferred.js)
+4. [deferred.js ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/deferred.js)
 
-5. [form模块 √](https://github.com/qianlongo/zepto-analysis/blob/master/src/form.js)
+5. [form.js √](https://github.com/qianlongo/zepto-analysis/blob/master/src/form.js)
 
-6. [data模块 √](https://github.com/qianlongo/zepto-analysis/blob/master/src/data.js)
+6. [data.js √](https://github.com/qianlongo/zepto-analysis/blob/master/src/data.js)
 
-7. [touch模块 ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/touch.js)
+7. [touch.js ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/touch.js)
 
 8. [ie模块 √](https://github.com/qianlongo/zepto-analysis/blob/master/src/ie.js)
 
-## 文章记录
+## 文章目录
 
-**ie模块**
+* ie.js
 
-  1. [Zepto源码分析之ie模块](https://github.com/qianlongo/zepto-analysis/issues/10)(2017-11-03)
+  * [Zepto源码分析之ie模块](https://github.com/qianlongo/zepto-analysis/issues/10)(2017-11-03)
 
-**data模块**
+* data.js
 
-  1. [Zepto中数据缓存原理与实现](https://github.com/qianlongo/zepto-analysis/issues/9)(2017-10-03)
+  * [Zepto中数据缓存原理与实现](https://github.com/qianlongo/zepto-analysis/issues/9)(2017-10-03)
 
-**form模块**
-  1. [zepto源码分析之form模块](https://github.com/qianlongo/zepto-analysis/issues/7)(2017-10-01)
+* form.js
+  * [zepto源码分析之form模块](https://github.com/qianlongo/zepto-analysis/issues/7)(2017-10-01)
 
-**zepto模块**
+* zepto.js
 
-  1. [这些Zepto中实用的方法集](https://github.com/qianlongo/zepto-analysis/issues/5)(2017-08-26)
-  2. [Zepto核心模块之工具方法拾遗 ](https://github.com/qianlongo/zepto-analysis/issues/6)(2017-08-30)
-  3. [看zepto如何实现增删改查DOM ](https://github.com/qianlongo/zepto-analysis/issues/8)(2017-10-2)
-  4. [Zepto这样操作元素属性](https://github.com/qianlongo/zepto-analysis/issues/11)(2017-11-13)
-  4. [向Zepto学习关于"偏移"的那些事](https://github.com/qianlongo/zepto-analysis/issues/12)(2017-12-10)
+  * [这些Zepto中实用的方法集](https://github.com/qianlongo/zepto-analysis/issues/5)(2017-08-26)
+  * [Zepto核心模块之工具方法拾遗 ](https://github.com/qianlongo/zepto-analysis/issues/6)(2017-08-30)
+  * [看zepto如何实现增删改查DOM ](https://github.com/qianlongo/zepto-analysis/issues/8)(2017-10-2)
+  * [Zepto这样操作元素属性](https://github.com/qianlongo/zepto-analysis/issues/11)(2017-11-13)
+  * [向Zepto学习关于"偏移"的那些事](https://github.com/qianlongo/zepto-analysis/issues/12)(2017-12-10)
 
-**event模块**
+* event.js
 
-  1. [mouseenter与mouseover为何这般纠缠不清？](https://github.com/qianlongo/zepto-analysis/issues/1)(2017-06-05)
-  2. [向zepto.js学习如何手动触发DOM事件](https://github.com/qianlongo/zepto-analysis/issues/2)(2017-06-07)
-  3. [谁说你只是"会用"jQuery?](https://github.com/qianlongo/zepto-analysis/issues/3)(2017-06-08)
+  * [mouseenter与mouseover为何这般纠缠不清？](https://github.com/qianlongo/zepto-analysis/issues/1)(2017-06-05)
+  * [向zepto.js学习如何手动触发DOM事件](https://github.com/qianlongo/zepto-analysis/issues/2)(2017-06-07)
+  * [谁说你只是"会用"jQuery?](https://github.com/qianlongo/zepto-analysis/issues/3)(2017-06-08)
 
-**ajax模块**
+* ajax.js
 
-  1. [原来你是这样的jsonp(原理与具体实现细节)](https://github.com/qianlongo/zepto-analysis/issues/4)(2017-06-11)
+  * [原来你是这样的jsonp(原理与具体实现细节)](https://github.com/qianlongo/zepto-analysis/issues/4)(2017-06-11)
