@@ -5,6 +5,7 @@
 ;(function($){
   var touch = {},
     touchTimeout, tapTimeout, swipeTimeout, longTapTimeout,
+    // 长按事件定时器时间
     longTapDelay = 750,
     gesture
 
@@ -60,6 +61,8 @@
       && event.isPrimary
   }
 
+  // 是否是PointerEvent https://developer.mozilla.org/zh-CN/docs/Web/API/PointerEvent
+
   function isPointerEventType(e, type){
     return (e.type == 'pointer'+type ||
       e.type.toLowerCase() == 'mspointer'+type)
@@ -75,7 +78,7 @@
      * _isPointerType 是否是pointerType
      */
     var now, delta, deltaX = 0, deltaY = 0, firstTouch, _isPointerType
-    // 处理ie中的手势场景
+    // 处理ie中的手势场景 https://developer.mozilla.org/en-US/docs/Web/API/MSGestureEvent
     if ('MSGesture' in window) {
       // 创建手势对象
       gesture = new MSGesture()
@@ -105,15 +108,24 @@
           touch.x2 = undefined
           touch.y2 = undefined
         }
+        // 保存当前时间
         now = Date.now()
+        // 报错两次点击时候的时间间隔，主要用作双击事件
         delta = now - (touch.last || now)
+        // touch.el 报错目标节点
+        // 不是标签节点则使用该节点的父节点
         touch.el = $('tagName' in firstTouch.target ?
           firstTouch.target : firstTouch.target.parentNode)
+        // touchTimeout 存在则清楚之
         touchTimeout && clearTimeout(touchTimeout)
+        // （x1, y1）（x轴，y轴）
         touch.x1 = firstTouch.pageX
         touch.y1 = firstTouch.pageY
+        // 两次点击的时间 > 0 且 < 250 毫秒，则当做doubleTap事件处理
         if (delta > 0 && delta <= 250) touch.isDoubleTap = true
+        // 将now设置为touch.last，方便上面可以计算两次点击的时间差
         touch.last = now
+        // 开始进行长按事件
         longTapTimeout = setTimeout(longTap, longTapDelay)
         // adds the current touch contact for IE gesture recognition
         if (gesture && _isPointerType) gesture.addPointer(e.pointerId)
