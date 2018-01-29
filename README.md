@@ -27,7 +27,10 @@
 
 8. [ie模块 √](https://github.com/qianlongo/zepto-analysis/blob/master/src/ie.js)
 
+9. [assets.js √](https://github.com/qianlongo/zepto-analysis/blob/master/src/assets.js)
+
 ## 文章目录
+
 
 * ie.js
 
