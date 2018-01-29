@@ -161,11 +161,12 @@
             }
             touch = {}
           }, 0)
-
+        // touch对象的last属性，在touchstart事件中添加，所以触发了start事件便会存在  
         // normal tap
         else if ('last' in touch)
           // don't fire tap when delta position changed by more than 30 pixels,
           // for instance when moving to a point and back to origin
+          // 只有当X轴和Y轴的位移都小于30的时候，才认为有可能触发tap事件
           if (deltaX < 30 && deltaY < 30) {
             // delay by one tick so we can cancel the 'tap' event if 'scroll' fires
             // ('tap' fires before 'scroll')
@@ -173,18 +174,23 @@
 
               // trigger universal 'tap' with the option to cancelTouch()
               // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
+              // 创建自定义事件
               var event = $.Event('tap')
+              // 往自定义事件中添加cancelTouch回调函数，这样使用者可以通过该方法取消所有的事件
               event.cancelTouch = cancelAll
               // [by paper] fix -> "TypeError: 'undefined' is not an object (evaluating 'touch.el.trigger'), when double tap
+              // 当目标元素存在，触发tap自定义事件
               if (touch.el) touch.el.trigger(event)
 
               // trigger double tap immediately
+              // 如果是doubleTap事件，则触发之，并清除touch
               if (touch.isDoubleTap) {
                 if (touch.el) touch.el.trigger('doubleTap')
                 touch = {}
               }
 
               // trigger single tap after 250ms of inactivity
+              // 否则在250毫秒之后。触发单击事件
               else {
                 touchTimeout = setTimeout(function(){
                   touchTimeout = null
@@ -194,8 +200,10 @@
               }
             }, 0)
           } else {
+            // 不是tap事件
             touch = {}
           }
+          // 最后将位移信息清空
           deltaX = deltaY = 0
 
       })
