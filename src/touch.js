@@ -134,18 +134,22 @@
         if((_isPointerType = isPointerEventType(e, 'move')) &&
           !isPrimaryTouch(e)) return
         firstTouch = _isPointerType ? e : e.touches[0]
+        // 取消长按事件，都移动了，当然不是长按了
         cancelLongTap()
+        // (x2, y2) 终点坐标
         touch.x2 = firstTouch.pageX
         touch.y2 = firstTouch.pageY
-
+        // 分别记录X轴和Y轴的位移
         deltaX += Math.abs(touch.x1 - touch.x2)
         deltaY += Math.abs(touch.y1 - touch.y2)
       })
       .on('touchend MSPointerUp pointerup', function(e){
         if((_isPointerType = isPointerEventType(e, 'up')) &&
           !isPrimaryTouch(e)) return
+        // 取消长按事件  
         cancelLongTap()
-
+        // 滑动事件，只要X轴或者Y轴的起始点和终点的举例超过30则认为是滑动，并触发滑动(swip)事件,
+        // 紧接着马上触发对应方向的swip事件（swipLeft, swipRight, swipUp, swipDown）
         // swipe
         if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) ||
             (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30))
