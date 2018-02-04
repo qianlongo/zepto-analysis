@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script> -->
+  <!-- <script src="../../src/zepto.js"></script> -->
+  <!-- <script src="../../src/touch.js"></script> -->
+  <style>
+    .box{
+      width: 200px;
+      height: 200px;
+      border: solid 1px red;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+  <script>
+    let longTapTimeout = null
+
+    const createEvent = (eventName) => {
+      const event = document.createEvent('Events')
+
+      event.initEvent(eventName, true, true)
+
+      return event
+    }
+
+    const dispatchEvent = (ele, eventName) => {
+      return ele.dispatchEvent(createEvent(eventName))
+    }
+    
+    const longTap = (ele) => {
+      longTapTimeout = null
+      longTapTimeout = setTimeout(() => {
+        dispatchEvent(ele, 'longTap')
+      }, 750);
+    }
+
+    const cancelLongTap = () => {
+      clearTimeout(longTapTimeout)
+      longTapTimeout = null
+    }
+
+    const $box = document.querySelector('.box')
+
+    $box.addEventListener('longTap', () => {
+      alert('longTap')
+    }, false)
+
+    $box.addEventListener('touchstart', () => {
+      longTap($box)
+    }, false)
+
+    $box.addEventListener('touchmove', () => {
+      cancelLongTap()
+    }, false)
+
+    $box.addEventListener('touchend', () => {
+      cancelLongTap()
+    }, false)
+  </script>
+</body>
+</html>
