@@ -23,7 +23,7 @@
 
 6. [data.js √](https://github.com/qianlongo/zepto-analysis/blob/master/src/data.js)
 
-7. [touch.js ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/touch.js)
+7. [touch.js √](https://github.com/qianlongo/zepto-analysis/blob/master/src/touch.js)
 
 8. [ie模块 √](https://github.com/qianlongo/zepto-analysis/blob/master/src/ie.js)
 
