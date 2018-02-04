@@ -116,7 +116,7 @@
         // 保存两次点击时候的时间间隔，主要用作双击事件
         delta = now - (touch.last || now)
         // touch.el 报错目标节点
-        // 不是标签节点则使用该节点的父节点，注意有伪元素的存在
+        // 不是标签节点则使用该节点的父节点，注意有伪元素
         touch.el = $('tagName' in firstTouch.target ?
           firstTouch.target : firstTouch.target.parentNode)
         // touchTimeout 存在则清除之
