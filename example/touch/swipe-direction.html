@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box{
+      width: 200px;
+      height: 200px;
+      border: solid 1px red;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+  <script>
+    function swipeDirection(x1, x2, y1, y2) {
+      /**
+       * 1. 第一个三元运算符得到如果x轴滑动的距离比y轴大，那么是左右滑动，否则是上下滑动
+       * 2. 如果是左右滑动，起点比终点大那么往左滑动
+       * 3. 如果是上下滑动，起点比终点大那么往上滑动
+       * 需要注意的是这里的坐标和数学中的有些不一定 纵坐标有点反过来的意思
+       */
+      return Math.abs(x1 - x2) >=
+        Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
+    }
+
+    const $box = document.querySelector('.box')
+    let touch = {}
+
+    $box.addEventListener('touchstart', (e) => {
+      const firstTouch = e.touches[0]
+
+      touch.x1 = firstTouch.pageX
+      touch.y1 = firstTouch.pageY
+    }, false)
+
+    $box.addEventListener('touchmove', (e) => {
+      const firstTouch = e.touches[0]
+
+      touch.x2 = firstTouch.pageX
+      touch.y2 = firstTouch.pageY
+    }, false)
+
+    $box.addEventListener('touchend', () => {
+      alert(swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2))
+    }, false)
+
+  </script>
+</body>
+</html>
