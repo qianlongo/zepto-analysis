@@ -99,9 +99,12 @@
         }
       })
       .on('touchstart MSPointerDown pointerdown', function(e){
+        // 非触屏事件直接return
         if((_isPointerType = isPointerEventType(e, 'down')) &&
           !isPrimaryTouch(e)) return
+        // 事件e兼容处理
         firstTouch = _isPointerType ? e : e.touches[0]
+        // TODO
         if (e.touches && e.touches.length === 1 && touch.x2) {
           // Clear out touch movement data if we have it sticking around
           // This can occur if touchcancel doesn't fire due to preventDefault, etc.
@@ -110,13 +113,13 @@
         }
         // 保存当前时间
         now = Date.now()
-        // 报错两次点击时候的时间间隔，主要用作双击事件
+        // 保存两次点击时候的时间间隔，主要用作双击事件
         delta = now - (touch.last || now)
         // touch.el 报错目标节点
-        // 不是标签节点则使用该节点的父节点
+        // 不是标签节点则使用该节点的父节点，注意有伪元素的存在
         touch.el = $('tagName' in firstTouch.target ?
           firstTouch.target : firstTouch.target.parentNode)
-        // touchTimeout 存在则清楚之
+        // touchTimeout 存在则清除之
         touchTimeout && clearTimeout(touchTimeout)
         // （x1, y1）（x轴，y轴）
         touch.x1 = firstTouch.pageX
