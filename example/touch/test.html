@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+	<meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+  <!-- <script src="../../src/zepto.js"></script> -->
+  <script src="../../src/touch.js"></script>
   <style>
     .box{
       width: 200px;
@@ -17,7 +20,7 @@
 <body>
   <div class="box"></div>
   <script>
-    $('.box').on('swipe', () => {
+    $('.box').on('swipe longTap', () => {
       alert('swipe')
     })
   </script>
