@@ -11,23 +11,23 @@
 
 ## 阅读记录
 
-1. [zepto.js ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/zepto.js)
+1. - [ ] [zepto.js](https://github.com/qianlongo/zepto-analysis/blob/master/src/zepto.js)
 
-2. - [ ] [event.js](https://github.com/qianlongo/zepto-analysis/blob/master/src/event.js)
+2. - [x] [event.js](https://github.com/qianlongo/zepto-analysis/blob/master/src/event.js)
 
-3. [ajax.js √](https://github.com/qianlongo/zepto-analysis/blob/master/src/ajax.js)
+3. - [x] [ajax.js](https://github.com/qianlongo/zepto-analysis/blob/master/src/ajax.js)
 
-4. [deferred.js ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/deferred.js)
+4. - [ ] [deferred.js](https://github.com/qianlongo/zepto-analysis/blob/master/src/deferred.js)
 
-5. [form.js √](https://github.com/qianlongo/zepto-analysis/blob/master/src/form.js)
+5. - [x] [form.js](https://github.com/qianlongo/zepto-analysis/blob/master/src/form.js)
 
-6. [data.js √](https://github.com/qianlongo/zepto-analysis/blob/master/src/data.js)
+6. - [x] [data.js](https://github.com/qianlongo/zepto-analysis/blob/master/src/data.js)
 
-7. [touch.js √](https://github.com/qianlongo/zepto-analysis/blob/master/src/touch.js)
+7. - [x] [touch.js](https://github.com/qianlongo/zepto-analysis/blob/master/src/touch.js)
 
-8. [ie模块 √](https://github.com/qianlongo/zepto-analysis/blob/master/src/ie.js)
+8. - [x] [ie模块](https://github.com/qianlongo/zepto-analysis/blob/master/src/ie.js)
 
-9. [assets.js √](https://github.com/qianlongo/zepto-analysis/blob/master/src/assets.js)
+9. - [x] [assets.js](https://github.com/qianlongo/zepto-analysis/blob/master/src/assets.js)
 
 ## 文章目录
 
