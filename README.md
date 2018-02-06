@@ -13,7 +13,7 @@
 
 1. [zepto.js ...](https://github.com/qianlongo/zepto-analysis/blob/master/src/zepto.js)
 
-2. [event.js √](https://github.com/qianlongo/zepto-analysis/blob/master/src/event.js)
+2. - [ ] [event.js](https://github.com/qianlongo/zepto-analysis/blob/master/src/event.js)
 
 3. [ajax.js √](https://github.com/qianlongo/zepto-analysis/blob/master/src/ajax.js)
 
@@ -34,7 +34,7 @@
 
 * ie.js
 
-  * - [] [Zepto源码分析之ie模块](https://github.com/qianlongo/zepto-analysis/issues/10)(2017-11-03)
+  * [Zepto源码分析之ie模块](https://github.com/qianlongo/zepto-analysis/issues/10)(2017-11-03)
 
 * data.js
 
