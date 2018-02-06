@@ -8,7 +8,7 @@
   $.fn.end = function(){
     return this.prevObject || $()
   }
-
+  // 将原来的实例集合添加到当前的实例集合中
   $.fn.andSelf = function(){
     return this.add(this.prevObject || $())
   }

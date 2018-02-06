@@ -25,9 +25,11 @@
 
 7. - [x] [touch.js](https://github.com/qianlongo/zepto-analysis/blob/master/src/touch.js)
 
-8. - [x] [ie模块](https://github.com/qianlongo/zepto-analysis/blob/master/src/ie.js)
+8. - [x] [ie.js](https://github.com/qianlongo/zepto-analysis/blob/master/src/ie.js)
 
 9. - [x] [assets.js](https://github.com/qianlongo/zepto-analysis/blob/master/src/assets.js)
+
+10. - [x] [stack.js](https://github.com/qianlongo/zepto-analysis/blob/master/src/stack.js)
 
 ## 文章目录
 
