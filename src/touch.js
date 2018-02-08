@@ -4,6 +4,7 @@
 
 ;(function($){
   var touch = {},
+    // 各种事件的定时器
     touchTimeout, tapTimeout, swipeTimeout, longTapTimeout,
     // 长按事件定时器时间
     longTapDelay = 750,
@@ -32,6 +33,7 @@
   function longTap() {
     longTapTimeout = null
     if (touch.last) {
+      // 触发el元素的longTap事件
       touch.el.trigger('longTap')
       touch = {}
     }
@@ -54,6 +56,8 @@
     touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null
     touch = {}
   }
+
+  // 
 
   function isPrimaryTouch(event){
     return (event.pointerType == 'touch' ||
