@@ -77,8 +77,8 @@
     /**
      * now 当前触摸时间
      * delta 两次触摸的时间差
-     * deltaX 两次触摸x轴位移
-     * deltaY 两次触摸Y轴位移
+     * deltaX x轴变化量
+     * deltaY Y轴变化量
      * firstTouch 触摸点相关信息
      * _isPointerType 是否是pointerType
      */
@@ -128,7 +128,7 @@
           firstTouch.target : firstTouch.target.parentNode)
         // touchTimeout 存在则清除之，可以避免重复触发
         touchTimeout && clearTimeout(touchTimeout)
-        // （x1, y1）（x轴，y轴）
+        // 记录起始点坐标（x1, y1）（x轴，y轴）
         touch.x1 = firstTouch.pageX
         touch.y1 = firstTouch.pageY
         // 两次点击的时间间隔 > 0 且 < 250 毫秒，则当做doubleTap事件处理
@@ -146,10 +146,10 @@
         firstTouch = _isPointerType ? e : e.touches[0]
         // 取消长按事件，都移动了，当然不是长按了
         cancelLongTap()
-        // (x2, y2) 终点坐标
+        // 终点坐标 (x2, y2)
         touch.x2 = firstTouch.pageX
         touch.y2 = firstTouch.pageY
-        // 分别记录X轴和Y轴的位移
+        // 分别记录X轴和Y轴的变化量
         deltaX += Math.abs(touch.x1 - touch.x2)
         deltaY += Math.abs(touch.y1 - touch.y2)
       })
@@ -176,7 +176,7 @@
         else if ('last' in touch)
           // don't fire tap when delta position changed by more than 30 pixels,
           // for instance when moving to a point and back to origin
-          // 只有当X轴和Y轴的位移都小于30的时候，才认为有可能触发tap事件
+          // 只有当X轴和Y轴的变化量都小于30的时候，才认为有可能触发tap事件
           if (deltaX < 30 && deltaY < 30) {
             // delay by one tick so we can cancel the 'tap' event if 'scroll' fires
             // ('tap' fires before 'scroll')
@@ -213,7 +213,7 @@
             // 不是tap事件
             touch = {}
           }
-          // 最后将位移信息清空
+          // 最后将变化量信息清空
           deltaX = deltaY = 0
 
       })
