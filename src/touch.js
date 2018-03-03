@@ -109,7 +109,8 @@
           !isPrimaryTouch(e)) return
         // 事件e兼容处理
         firstTouch = _isPointerType ? e : e.touches[0]
-        // TODO
+        // 清空终点坐标
+        // 一般情况下，在touchend或者cancel的时候，会将其清除，如果用户调阻止了默认事件，则有可能清空不了
         if (e.touches && e.touches.length === 1 && touch.x2) {
           // Clear out touch movement data if we have it sticking around
           // This can occur if touchcancel doesn't fire due to preventDefault, etc.
