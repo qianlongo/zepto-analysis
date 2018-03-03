@@ -108,29 +108,30 @@
         if((_isPointerType = isPointerEventType(e, 'down')) &&
           !isPrimaryTouch(e)) return
         // 事件e兼容处理
+        // 如果是pointerdown事件则firstTouch保存为e，否则是e.touches第一个
         firstTouch = _isPointerType ? e : e.touches[0]
         // 清空终点坐标
-        // 一般情况下，在touchend或者cancel的时候，会将其清除，如果用户调阻止了默认事件，则有可能清空不了
+        // 一般情况下，在touchend或者cancel的时候，会将其清除，如果用户调阻止了默认事件，则有可能清空不了，但是为什么要将终点坐标清除呢？
         if (e.touches && e.touches.length === 1 && touch.x2) {
           // Clear out touch movement data if we have it sticking around
           // This can occur if touchcancel doesn't fire due to preventDefault, etc.
           touch.x2 = undefined
           touch.y2 = undefined
         }
-        // 保存当前时间
+        // 保存当前触摸时间
         now = Date.now()
-        // 保存两次点击时候的时间间隔，主要用作双击事件
+        // 保存两次点击时候的时间间隔，主要用作判断双击事件
         delta = now - (touch.last || now)
-        // touch.el 报错目标节点
+        // touch.el 保存目标节点
         // 不是标签节点则使用该节点的父节点，注意有伪元素
         touch.el = $('tagName' in firstTouch.target ?
           firstTouch.target : firstTouch.target.parentNode)
-        // touchTimeout 存在则清除之
+        // touchTimeout 存在则清除之，可以避免重复触发
         touchTimeout && clearTimeout(touchTimeout)
         // （x1, y1）（x轴，y轴）
         touch.x1 = firstTouch.pageX
         touch.y1 = firstTouch.pageY
-        // 两次点击的时间 > 0 且 < 250 毫秒，则当做doubleTap事件处理
+        // 两次点击的时间间隔 > 0 且 < 250 毫秒，则当做doubleTap事件处理
         if (delta > 0 && delta <= 250) touch.isDoubleTap = true
         // 将now设置为touch.last，方便上面可以计算两次点击的时间差
         touch.last = now
@@ -157,7 +158,7 @@
           !isPrimaryTouch(e)) return
         // 取消长按事件  
         cancelLongTap()
-        // 滑动事件，只要X轴或者Y轴的起始点和终点的举例超过30则认为是滑动，并触发滑动(swip)事件,
+        // 滑动事件，只要X轴或者Y轴的起始点和终点的距离超过30则认为是滑动，并触发滑动(swip)事件,
         // 紧接着马上触发对应方向的swip事件（swipLeft, swipRight, swipUp, swipDown）
         // swipe
         if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) ||
