@@ -33,6 +33,8 @@
 
 ## 文章目录
 
+* touch.js
+  * [如何实现swipe、tap、longTap等自定义事件](https://github.com/qianlongo/zepto-analysis/issues/13) (2017-12-22)
 
 * ie.js
 
