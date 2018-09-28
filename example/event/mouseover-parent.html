@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .wrap-parent{
+      border: solid 1px yellow;
+      padding: 10px;
+    }
+
+    .wrap{
+      width: 50%;
+      box-sizing: border-box;
+    }
+
+    .wrap, .list{
+      border: solid 1px green;
+      margin: 0;
+      padding: 0;
+    }
+
+    .list{
+      border: solid 1px red;
+    }
+
+    .list li{
+      border: solid 1px blue;
+    }
+
+    .count{
+      color: red;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrap-parent">
+    <div class="wrap">
+      <ul class="mouseover list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    document.querySelector('.mouseover').addEventListener('mouseover', (e) => {
+      console.log(e.relatedTarget)
+    }, false)
+  </script>
+</body>
+</html>   
